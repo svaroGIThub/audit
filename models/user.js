@@ -31,7 +31,7 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
-    lastName: {
+    phoneNumer: {
       type: DataTypes.STRING,
       allowNull: true
     }
