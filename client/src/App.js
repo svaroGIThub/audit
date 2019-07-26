@@ -4,7 +4,6 @@ import NoMatch from "./pages/NoMatch";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 
-
 class App extends Component {
 	render() {
 		return (

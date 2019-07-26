@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import API from "../../utils/API";
 import "./login.css";
 
 const styles = {
@@ -35,8 +36,11 @@ class Login extends Component {
 
     handleLoginSubmit = event => {
         event.preventDefault();
-        alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
+        // alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
         this.setState({ username: "", password: "" });
+        API.loginUser(this.state.username, this.state.password)
+            .then(res => this.loadBooks())
+            .catch(err => console.log(err));
     };
 
     render() {
