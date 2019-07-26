@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Container from "react-bootstrap/Container";
-import MyNavbar from "../components/MyNavbar";
+import MyNavbar from "../../components/MyNavbar";
 
 class Dashboard extends Component {
 

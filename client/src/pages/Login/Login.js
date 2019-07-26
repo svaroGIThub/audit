@@ -25,7 +25,7 @@ const styles = {
 class Login extends Component {
 
     state = {
-        username: "",
+        email: "",
         password: ""
     };
 
@@ -36,10 +36,10 @@ class Login extends Component {
 
     handleLoginSubmit = event => {
         event.preventDefault();
-        // alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
-        this.setState({ username: "", password: "" });
-        API.loginUser(this.state.username, this.state.password)
-            .then(res => this.loadBooks())
+        // alert(`email: ${this.state.email}\nPassword: ${this.state.password}`);
+        this.setState({ email: "", password: "" });
+        API.loginUser(this.state.email, this.state.password)
+            .then(res => console.log("Valid user"))
             .catch(err => console.log(err));
     };
 
@@ -52,9 +52,9 @@ class Login extends Component {
                 <Form.Group controlId="formBasicUser" className="mb-0">
                     <Form.Control
                         type="text"
-                        placeholder="Username"
-                        name="username"
-                        value={this.state.username}
+                        placeholder="Email"
+                        name="email"
+                        value={this.state.email}
                         onChange={this.handleInputChange}
                         required autoFocus />
                 </Form.Group>
