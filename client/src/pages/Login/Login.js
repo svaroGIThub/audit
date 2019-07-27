@@ -39,7 +39,7 @@ class Login extends Component {
         // alert(`email: ${this.state.email}\nPassword: ${this.state.password}`);
         this.setState({ email: "", password: "" });
         API.loginUser(this.state.email, this.state.password)
-            .then(res => console.log("Valid user"))
+            .then(res => window.location.replace(res.data))
             .catch(err => console.log(err));
     };
 
