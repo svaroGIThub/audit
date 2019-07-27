@@ -9,10 +9,6 @@ const styles = {
     fontWeight: 700,
     fontSize: 24,
     color: "snowwhite"
-  },
-  navbarStyle: {
-    background: "green",
-    justifyContent: "flex-end"
   }
 };
 
@@ -25,15 +21,15 @@ function MyNavbar() {
         <Nav className="mr-auto">
           <Nav.Link href="/dashboard">Home</Nav.Link>
           <NavDropdown title="Phases" id="collasible-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Planning</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">Fieldwork</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Execution</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.4">Evaluation</NavDropdown.Item>
+            <NavDropdown.Item href="#">Planning</NavDropdown.Item>
+            <NavDropdown.Item href="#">Fieldwork</NavDropdown.Item>
+            <NavDropdown.Item href="#">Execution</NavDropdown.Item>
+            <NavDropdown.Item href="#">Evaluation</NavDropdown.Item>
           </NavDropdown>
         </Nav>
         <Nav>
           <Navbar.Text>
-            Singed as:<a href="#login" className="ml-2">Aldo Solano</a>
+            Singed as:<a href="#" className="ml-2">Aldo Solano</a>
           </Navbar.Text>
         </Nav>
       </Navbar.Collapse>

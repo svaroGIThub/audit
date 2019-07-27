@@ -36,7 +36,7 @@ class Login extends Component {
 
     handleLoginSubmit = event => {
         event.preventDefault();
-        // alert(`email: ${this.state.email}\nPassword: ${this.state.password}`);
+        alert(`email: ${this.state.email}\nPassword: ${this.state.password}`);
         this.setState({ email: "", password: "" });
         API.loginUser(this.state.email, this.state.password)
             .then(res => window.location.replace(res.data))

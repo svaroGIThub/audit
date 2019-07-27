@@ -1,17 +1,18 @@
 import React, { Component } from "react";
-import Container from "react-bootstrap/Container";
-import MyNavbar from "../../components/MyNavbar";
+import Layout from "../../components/Layout/Layout";
+import "./dashboard.css";
 
 class Dashboard extends Component {
 
     render() {
         return (
-            <>
-                <MyNavbar />
-                <Container>
-                    <h2>Dashboard</h2>
-                </Container >
-            </>
+
+            <Layout>
+
+                <h1>Aldo</h1>
+
+            </Layout>
+
         );
     }
 }
