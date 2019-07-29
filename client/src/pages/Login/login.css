@@ -1,23 +1,7 @@
-/* html, body {
-    height: 100%;
-    align-content: center;
-}
-
-body {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: center;
-    align-items: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    background-color: #f5f5f5;
-} */
-
 .form-signin {
     width: 100%;
     max-width: 330px;
-    padding-top: 100px;
-    /* padding: 15px; */
+    padding: 15px;
     margin: auto;
 }
 
@@ -37,7 +21,7 @@ body {
     z-index: 2;
 }
 
-.form-signin input[type="email"] {
+.form-signin input[type="text"] {
     margin-bottom: -1px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;

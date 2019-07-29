@@ -1,6 +1,6 @@
 import React, { Component } from "react";
+import MyBreadcrum from "../../components/MyBreadcrum/MyBreadcrum";
 import Layout from "../../components/Layout/Layout";
-import "./dashboard.css";
 
 class Dashboard extends Component {
 
@@ -8,9 +8,10 @@ class Dashboard extends Component {
         return (
 
             <Layout>
-
-                <h1>Aldo</h1>
-
+                <MyBreadcrum page="Overview" />
+                <h1>Dashboard</h1>
+                <hr />
+                <p>This is where the info goes</p>
             </Layout>
 
         );

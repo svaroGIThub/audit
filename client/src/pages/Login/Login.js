@@ -10,14 +10,14 @@ const styles = {
         fontWeight: 500,
         marginBottom: 0,
         color: "rgb(2, 29, 71)",
-        fontSize: "125px",
+        fontSize: "85px",
         textAlign: "center"
     },
     slogan: {
         fontFamily: "Georgia",
         fontWeight: 300,
         color: "rgb(2, 29, 71)",
-        fontSize: "20px",
+        fontSize: "18px",
         textAlign: "center"
     }
 }
@@ -36,7 +36,7 @@ class Login extends Component {
 
     handleLoginSubmit = event => {
         event.preventDefault();
-        alert(`email: ${this.state.email}\nPassword: ${this.state.password}`);
+        // alert(`email: ${this.state.email}\nPassword: ${this.state.password}`);
         this.setState({ email: "", password: "" });
         API.loginUser(this.state.email, this.state.password)
             .then(res => window.location.replace(res.data))
@@ -46,9 +46,9 @@ class Login extends Component {
     render() {
         return (
             <Form className="form-signin">
-                <h1 style={styles.mainLogo}>GAA</h1>
+                <h1 style={styles.mainLogo}>G.A.A.</h1>
                 <p style={styles.slogan}>Governmental Audit Assistant</p>
-                <h3 className="mb-3 font-weight-normal text-dark text-center">Login</h3>
+                <h4 className="mb-3 font-weight-normal text-dark text-center">Login</h4>
                 <Form.Group controlId="formBasicUser" className="mb-0">
                     <Form.Control
                         type="text"
@@ -70,10 +70,11 @@ class Login extends Component {
                     <Form.Check type="checkbox" label="Remember me" className="text-muted" />
                 </Form.Group>
                 <Button
+                    className="btn-lg"
                     variant="primary"
                     type="submit"
                     block onClick={this.handleLoginSubmit}>Enter</Button>
-            </Form>
+            </Form >
         );
     }
 }
