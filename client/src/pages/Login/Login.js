@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import API from "../../utils/API";
+import fire from "../../firebase/Fire";
 import "./login.css";
 
 const styles = {
@@ -23,6 +23,7 @@ const styles = {
 };
 
 class Login extends Component {
+
   state = {
     email: "",
     password: ""
@@ -35,18 +36,18 @@ class Login extends Component {
 
   handleLoginSubmit = event => {
     event.preventDefault();
-    // alert(`email: ${this.state.email}\nPassword: ${this.state.password}`);
-    this.setState({ email: "", password: "" });
-    API.loginUser(this.state.email, this.state.password)
-      .then(res => window.location.replace(res.data))
-      .catch(err => console.log(err));
+    // firebase auth
+    fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then((u) => { })
+      .catch((error) => { console.log(error); });
   };
 
   render() {
     return (
       <Form className="form-signin">
         <h1 style={styles.mainLogo}>G.A.A.</h1>
-        <p style={styles.slogan}>Governmental Audit Assistant</p>
+        {/* <p style={styles.slogan}>Governmental Audit Assistant</p> */}
+        <hr />
         <h4 className="mb-3 font-weight-normal text-dark text-center">Login</h4>
         <Form.Group controlId="formBasicUser" className="mb-0">
           <Form.Control
@@ -80,8 +81,7 @@ class Login extends Component {
           variant="primary"
           type="submit"
           block
-          onClick={this.handleLoginSubmit}
-        >
+          onClick={this.handleLoginSubmit}>
           Enter
         </Button>
       </Form>
