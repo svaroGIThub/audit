@@ -23,10 +23,10 @@ class ReactRouter extends Component {
 			// console.log(user);
 			if (user) {
 				this.setState({ user });
-				//	localStorage.setItem("user", user.uid);
+				localStorage.setItem("user", user.uid);
 			} else {
 				this.setState({ user: null });
-				//	localStorage.removeItem("user");
+				localStorage.removeItem("user");
 			}
 		})
 	}
@@ -39,8 +39,6 @@ class ReactRouter extends Component {
 						?
 						(
 							<Switch>
-								{/* <Route exact path="/" component={Login} />
-								<Route exact path="/login" component={Login} /> */}
 								<Route exact path="/" component={Dashboard} />
 								<Route exact path="/dashboard" component={Dashboard} />
 								<Route component={NoMatch} />
@@ -48,12 +46,10 @@ class ReactRouter extends Component {
 						)
 						:
 						(<Route component={Login} />)}
-
 				</div>
 			</Router >
 		)
 	}
-
 }
 
 export default ReactRouter;

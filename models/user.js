@@ -1,10 +1,13 @@
 module.exports = function (sequelize, DataTypes) {
 
   const User = sequelize.define("User", {
-    id: {
-      type: DataTypes.INTEGER,
+    uid: {
+      type: DataTypes.STRING,
       primaryKey: true,
-      autoIncrement: true,
+      allowNull: false
+    },
+    role: {
+      type: DataTypes.STRING,
       allowNull: false
     },
     firstName: {
@@ -23,15 +26,10 @@ module.exports = function (sequelize, DataTypes) {
         isEmail: true
       }
     },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
     phoneNumer: {
       type: DataTypes.STRING,
       allowNull: true
     }
-
   });
 
   return User;

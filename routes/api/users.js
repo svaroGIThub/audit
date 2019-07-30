@@ -1,16 +1,22 @@
-const router = require("express").Router();
-const userController = require("../../controllers/userController");
+// const router = require("express").Router();
+// const userController = require("../../controllers/userController");
 
-router.route("/api/login")
-  .post(userController.loginuser);
+// router.route("/api/user" + )
+//   .get(userController.userdata);
 
-router.route("/api/signup")
-  .post(userController.signup);
+// module.exports = router;
 
-router.route("/logout")
-  .get(userController.logout);
+const model = require("../../models");
 
-router.route("/api/user_data")
-  .get(userController.userdata);
+module.exports = function (app) {
 
-module.exports = router;
+  // get data from the logged user
+  app.get("/api/user/:uid", function (req, res) {
+    model.User.findOne({
+      where: { uid: req.params.uid }
+    }).then(function (data) {
+      res.json(data);
+    })
+  });
+
+}
