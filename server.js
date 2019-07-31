@@ -1,9 +1,5 @@
 const express = require("express");
-const path = require("path");
-const PORT = process.env.PORT || 3001;
 const app = express();
-const routes = require("./routes");
-const db = require("./models");
 
 // Define middleware
 app.use(express.urlencoded({ extended: true }));
@@ -15,16 +11,22 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Add API routes
-app.use(routes);
+// const routes = require("./routes");
+const userRoutes = require("./routes/userRoutes");
+app.use(userRoutes);
 
 // Send every other request to the React app
 // Define any API routes before this runs
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "./client/build/index.html"));
-// });
+const path = require("path");
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
 
-db.sequelize.sync({ force: false }).then(function () {
-  app.listen(PORT, function () {
+// Run the server
+const PORT = process.env.PORT || 3001;
+const db = require("./models");
+db.sequelize.sync({ force: false }).then(function() {
+  app.listen(PORT, function() {
     console.log("🌎 ==> API server now on port " + PORT);
   });
 });

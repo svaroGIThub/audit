@@ -6,50 +6,46 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import fire from "./firebase/Fire";
 
 class ReactRouter extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {}
+    };
+  }
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			user: {}
-		}
-	}
+  componentDidMount() {
+    this.authListener();
+  }
 
-	componentDidMount() {
-		this.authListener();
-	}
+  authListener() {
+    fire.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.setState({ user });
+        localStorage.setItem("user", user.uid);
+      } else {
+        this.setState({ user: null });
+        localStorage.removeItem("user");
+      }
+    });
+  }
 
-	authListener() {
-		fire.auth().onAuthStateChanged((user) => {
-			// console.log(user);
-			if (user) {
-				this.setState({ user });
-				localStorage.setItem("user", user.uid);
-			} else {
-				this.setState({ user: null });
-				localStorage.removeItem("user");
-			}
-		})
-	}
-
-	render() {
-		return (
-			<Router>
-				<div>
-					{this.state.user
-						?
-						(
-							<Switch>
-								<Route exact path="/" component={Dashboard} />
-								<Route exact path="/dashboard" component={Dashboard} />
-								<Route component={NoMatch} />
-							</Switch>
-						)
-						:
-						(<Route component={Login} />)}
-				</div>
-			</Router >
-		)
-	}
+  render() {
+    return (
+      <Router>
+        <div>
+          {this.state.user ? (
+            <Switch>
+              <Route exact path="/" component={Dashboard} />
+              <Route exact path="/dashboard" component={Dashboard} />
+              <Route component={NoMatch} />
+            </Switch>
+          ) : (
+            <Route component={Login} />
+          )}
+        </div>
+      </Router>
+    );
+  }
 }
 
 export default ReactRouter;
