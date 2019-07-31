@@ -32,17 +32,20 @@ class ReactRouter extends Component {
   render() {
     return (
       <Router>
-        <div>
-          {this.state.user ? (
+        {this.state.user ? (
+          <Switch>
+            {/* <Route exact path="/" component={Dashboard} loggedUser={this.state.user} /> */}
+            <Route exact path="/dashboard" component={Dashboard} loggedUserUid={this.state.user}/>
+            <Route component={Dashboard} />
+          </Switch>
+        ) : (
             <Switch>
-              <Route exact path="/" component={Dashboard} />
-              <Route exact path="/dashboard" component={Dashboard} />
-              <Route component={NoMatch} />
+              <Route exact path="/" component={Login} />
+              <Route exact path="/login" component={Login} />
+              <Route component={Login} />
             </Switch>
-          ) : (
-            <Route component={Login} />
+            // <Route component={Login} />
           )}
-        </div>
       </Router>
     );
   }

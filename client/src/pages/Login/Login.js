@@ -38,8 +38,12 @@ class Login extends Component {
     event.preventDefault();
     // firebase auth
     fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then((u) => { })
-      .catch((error) => { console.log(error); });
+      .then((u) => {
+        // window.open("/dashboard", "_self")
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   };
 
   render() {
