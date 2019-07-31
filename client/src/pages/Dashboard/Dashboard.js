@@ -12,35 +12,36 @@ class Dashboard extends Component {
 
   logout() {
     fire.auth().signOut();
-    window.open("/login", "_self")
+    window.open("/login", "_self");
   }
 
   componentDidMount() {
     // const uid = this.props.loggedUser;
-    console.log("uid in localstorage: ")
     const uid = localStorage.getItem("user");
-    console.log(uid);
+    if (uid) {
+      console.log("uid in localstorage: ");
+      console.log(uid);
+      // -------------- test 1
+      // API.getUserInfo(uid)
+      //   .then(res => {
+      //     this.setState({ user: res.data });
+      //     console.log(this.state.user);
+      //   })
+      //   .catch(err => console.log(err));
 
-    // -------------- test 1
-    // API.getUserInfo(uid)
-    //   .then(res => {
-    //     this.setState({ user: res.data });
-    //     console.log(this.state.user);
-    //   })
-    //   .catch(err => console.log(err));
-
-    // -------------- test 2
-    // axios.get("/api/user/" + uid).then(res => {
-    //   console.log("-----getting data----");
-    //   console.log(res.data);
-    // });
-
-    // -------------- test 3
-    ; (async () => {
-      const response = await axios.get("/api/user/" + uid)
-      console.log(response)
-    })()
-
+      // -------------- test 2
+      axios.get("/api/user/" + uid).then(res => {
+        console.log("-----getting data----");
+        console.log(res.data);
+      });
+      // -------------- test 3
+      // ; (async () => {
+      //   const response = await axios.get("/api/user/" + uid)
+      //   console.log(response)
+      // })()
+    } else {
+      console.log("uid in localstorage is undefined");
+    }
   }
 
   render() {

@@ -34,6 +34,7 @@ class ReactRouter extends Component {
       <Router>
         {this.state.user ? (
           <Switch>
+            {console.log(this.state.user)}
             {/* <Route exact path="/" component={Dashboard} loggedUser={this.state.user} /> */}
             <Route exact path="/dashboard" component={Dashboard} loggedUserUid={this.state.user}/>
             <Route component={Dashboard} />
