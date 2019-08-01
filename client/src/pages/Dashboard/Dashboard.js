@@ -6,7 +6,6 @@ import ListGroup from "react-bootstrap/ListGroup";
 import axios from "axios";
 
 class Dashboard extends Component {
-
   state = {
     canRender: false,
     loggedUser: {}
@@ -30,17 +29,22 @@ class Dashboard extends Component {
   }
 
   render() {
-
     if (!this.state.canRender) {
       return (
         <Spinner animation="border" size="lg" role="status">
           <span className="sr-only">Loading...</span>
         </Spinner>
       );
-    }
-    else {
+    } else {
       return (
-        <Layout user={this.state.loggedUser.firstName + " " + this.state.loggedUser.lastName} role={this.state.loggedUser.role}>
+        <Layout
+          user={
+            this.state.loggedUser.firstName +
+            " " +
+            this.state.loggedUser.lastName
+          }
+          role={this.state.loggedUser.role}
+        >
           <MyBreadcrum page="Overview" />
           <h1>Dashboard</h1>
           <hr />
@@ -63,12 +67,9 @@ class Dashboard extends Component {
               </ListGroup.Item>
             </ListGroup>
           </div>
-
-
-        </Layout >
+        </Layout>
       );
     }
-
   }
 }
 
