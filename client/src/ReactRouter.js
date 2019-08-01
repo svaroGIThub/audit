@@ -50,11 +50,11 @@ class ReactRouter extends Component {
             <Route component={NoMatch} />
           </Switch>
         ) : (
-          <Switch>
-            <Route exact path="/login" component={Login} />
-            <Redirect to="/login" />
-          </Switch>
-        )}
+            <Switch>
+              <Route exact path="/login" component={Login} />
+              <Redirect to="/login" />
+            </Switch>
+          )}
       </Router>
     );
   }
