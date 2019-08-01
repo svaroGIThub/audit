@@ -6,42 +6,23 @@ import fire from "../../firebase/Fire";
 import axios from "axios";
 
 class Dashboard extends Component {
-  // state = {
-  //   user: {}
-  // };
+  state = {
+    loggedUser: {}
+  };
 
   logout() {
     fire.auth().signOut();
-    window.open("/login", "_self");
   }
 
   componentDidMount() {
-    // const uid = this.props.loggedUser;
-    const uid = localStorage.getItem("user");
-    if (uid) {
-      console.log("uid in localstorage: ");
-      console.log(uid);
-      // -------------- test 1
-      // API.getUserInfo(uid)
-      //   .then(res => {
-      //     this.setState({ user: res.data });
-      //     console.log(this.state.user);
-      //   })
-      //   .catch(err => console.log(err));
-
-      // -------------- test 2
-      axios.get("/api/user/" + uid).then(res => {
-        console.log("-----getting data----");
-        console.log(res.data);
-      });
-      // -------------- test 3
-      // ; (async () => {
-      //   const response = await axios.get("/api/user/" + uid)
-      //   console.log(response)
-      // })()
-    } else {
-      console.log("uid in localstorage is undefined");
-    }
+    // const uid = localStorage.getItem("user");
+    const uid = this.props.loggedUser;
+    // -------------- axios call to get the user info
+    axios.get("/api/user/" + uid).then(res => {
+      this.state.loggedUser = res.data;
+      console.log("logged user in the state: ");
+      console.log(this.state);
+    });
   }
 
   render() {

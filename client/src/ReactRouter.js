@@ -21,10 +21,10 @@ class ReactRouter extends Component {
     fire.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({ user });
-        localStorage.setItem("user", user.uid);
+        // localStorage.setItem("user", user.uid);
       } else {
         this.setState({ user: null });
-        localStorage.removeItem("user");
+        // localStorage.removeItem("user");
       }
     });
   }
@@ -34,18 +34,15 @@ class ReactRouter extends Component {
       <Router>
         {this.state.user ? (
           <Switch>
-            {console.log(this.state.user)}
-            {/* <Route exact path="/" component={Dashboard} loggedUser={this.state.user} /> */}
-            <Route exact path="/dashboard" component={Dashboard} loggedUserUid={this.state.user}/>
-            <Route component={Dashboard} />
+            <Route exact path="/" component={Dashboard} loggedUser={this.state.user} />
+            <Route exact path="/dashboard" component={Dashboard} loggedUser={this.state.user} />
+            <Route component={Dashboard} loggedUser={this.state.user} />
           </Switch>
         ) : (
             <Switch>
-              <Route exact path="/" component={Login} />
               <Route exact path="/login" component={Login} />
               <Route component={Login} />
             </Switch>
-            // <Route component={Login} />
           )}
       </Router>
     );

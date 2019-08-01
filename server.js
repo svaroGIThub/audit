@@ -10,8 +10,8 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Add all API routes
-const allBackendRoutes = require("./routes");
-app.use(allBackendRoutes);
+const userRoutes = require("./routes/userRoutes");
+app.use("/api/user", userRoutes);
 
 // Send every other request to the React app
 // Define any API routes before this runs

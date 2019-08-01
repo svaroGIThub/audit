@@ -36,10 +36,8 @@ class Login extends Component {
 
   handleLoginSubmit = event => {
     event.preventDefault();
-    // firebase auth
     fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
       .then((u) => {
-        // window.open("/dashboard", "_self")
       })
       .catch((error) => {
         alert(error.message);
