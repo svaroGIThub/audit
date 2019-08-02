@@ -1,23 +1,49 @@
 import React from "react";
 
-function MySidebar() {
+function MySidebar(props) {
   return (
+
     <ul className="sidebar navbar-nav">
-      {/* dashboard */}
-      <li className="nav-item active">
-        <a className="nav-link" href="/dashboard">
-          <i className="fas fa-fw fa-tachometer-alt mr-2" />
-          <span>Dashboard</span>
-        </a>
-      </li>
-      {/* charts */}
-      <li className="nav-item">
-        <a className="nav-link" href="/clients">
-          <i className="fas fa-fw fa-users mr-2" />
-          {/* <i className="fas fa-fw fa-chart-area mr-2" /> */}
-          <span>Clients</span>
-        </a>
-      </li>
+
+      {props.items.map(item => {
+
+        switch (item.state) {
+          case "active":
+            return (
+              <li className="nav-item" key={item.text}>
+                <a className="nav-link text-warning" href={item.link}>
+                  <i className="fas fa-angle-right mr-2"></i>
+                  {/* <i className="fas fa-fw fa-tachometer-alt mr-2" /> */}
+                  {item.text}
+                </a>
+              </li>
+            );
+          case "inactive":
+            return (
+              <li className="nav-item" key={item.text}>
+                <a className="nav-link" href={item.link}>
+                  <i className="fas fa-angle-right mr-2"></i>
+                  {/* <i className="fas fa-fw fa-tachometer-alt mr-2" /> */}
+                  {item.text}
+                </a>
+              </li>
+            );
+          case "exit":
+            return (
+              <li className="nav-item" key={item.text}>
+                <a className="nav-link text-danger" href={item.link}>
+                  <i className="fas fa-angle-left mr-2"></i>
+                  {/* <i className="fas fa-fw fa-tachometer-alt mr-2" /> */}
+                  {item.text}
+                </a>
+              </li>
+            );
+          default:
+            return null
+        }
+
+      })}
+
     </ul>
   );
 }

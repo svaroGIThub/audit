@@ -7,9 +7,9 @@ import "./layout.css";
 
 const Layout = props => (
   <div>
-    <MyNavbar user={props.user} role={props.role} />
+    <MyNavbar user={props.navbarProps[0]} role={props.navbarProps[1]} />
     <div id="wrapper">
-      <MySidebar />
+      <MySidebar items={props.sidebarProps} />
       <div id="content-wrapper">
         <Container fluid="true">{props.children}</Container>
         <MyFooter />

@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const model = require("../models");
 
-// get user info
+// get user info from a given uid
+// matches with /api/user/:uid
 router.get("/:uid", function (req, res) {
   model.User.findOne({
     where: { uid: req.params.uid }
@@ -9,8 +10,8 @@ router.get("/:uid", function (req, res) {
     .then(function (data) {
       res.json(data);
     })
-    .catch(function (res) {
-      res.send(res);
+    .catch(function (err) {
+      res.send(err);
     });
 });
 

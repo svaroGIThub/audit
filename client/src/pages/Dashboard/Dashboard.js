@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import MyBreadcrum from "../../components/MyBreadcrum/MyBreadcrum";
 import Layout from "../../components/Layout/Layout";
+import MySpinner from "../../components/MySpinner/MySpinner";
 import ListGroup from "react-bootstrap/ListGroup";
-import Spinner from "react-bootstrap/Spinner";
 import Button from "react-bootstrap/Button";
-import axios from "axios";
+import API from "../../utils/API";
 
 class Dashboard extends Component {
   state = {
@@ -12,17 +12,17 @@ class Dashboard extends Component {
     audits: []
   };
 
-  // Loads all books  and sets them to this.state.books
+  // Loads all audits and sets them to this.state.audits
   loadAudits = () => {
-    axios
-      .get("/api/audit/all")
+    API.getAllAudits()
       .then(res => {
         this.setState({ audits: res.data });
       })
       .catch(err => console.log(err));
   };
 
-  componentDidMount() {
+  // authenticates user and load his/her audits
+  authUserAndLoadAudits = () => {
     // if there is NOT a user in the local storage
     // AND there are props from the previous component
     // this means the user is coming from the Login component
@@ -30,12 +30,12 @@ class Dashboard extends Component {
     if (!localStorage.getItem("user") && this.props.loggedUser.uid) {
       const uid = this.props.loggedUser.uid;
       localStorage.setItem("user", uid);
-      axios
-        .get("/api/user/" + uid)
+      API.getUserInfo(uid)
         .then(res => {
-          this.setState({ loggedUser: res.data }, () => {
-            this.loadAudits();
-          });
+          this.setState({ loggedUser: res.data },
+            () => {
+              this.loadAudits();
+            });
         })
         .catch(err => console.log(err));
     }
@@ -43,38 +43,46 @@ class Dashboard extends Component {
     // log that one
     else if (localStorage.getItem("user")) {
       const uid = localStorage.getItem("user");
-      axios
-        .get("/api/user/" + uid)
+      API.getUserInfo(uid)
         .then(res => {
-          this.setState({ loggedUser: res.data }, () => {
-            this.loadAudits();
-          });
+          this.setState({ loggedUser: res.data },
+            () => {
+              this.loadAudits();
+            });
         })
         .catch(err => console.log(err));
     }
   }
 
+  componentDidMount() {
+    this.authUserAndLoadAudits();
+  }
+
   render() {
     // there is no user data
     if (!this.state.loggedUser) {
-      return <Spinner animation="border" />;
+      return <MySpinner />
     }
 
     // there is user data
     return (
       <Layout
-        user={
-          this.state.loggedUser.firstName + " " + this.state.loggedUser.lastName
-        }
-        role={this.state.loggedUser.role}
+        navbarProps={[
+          this.state.loggedUser.firstName + " " + this.state.loggedUser.lastName,
+          this.state.loggedUser.role
+        ]}
+        sidebarProps={[
+          { text: "My Audits", link: "/dashboard", state: "active" },
+          { text: "Clients", link: "/clients", state: "inactive" }
+        ]}
       >
         <MyBreadcrum
           pages={[
-            { page: "Dashboard", link: "/dashboard" },
-            { page: "Overview", link: "nolink" }
+            { key: "1", page: "My Audits", link: "/dashboard" },
+            { key: "2", page: "Overview", link: "nolink" }
           ]}
         />
-        <h1>Dashboard</h1>
+        <h1>My Audits</h1>
         <hr />
         <p className="lead">Welcome to the Audit Assistant!</p>
         <p className="lead">
@@ -94,7 +102,7 @@ class Dashboard extends Component {
                     <strong className="h4">
                       {audit.clientAcronym} {audit.year}
                     </strong>
-                    <p className="mb-0 text-muted">{audit.clientName}</p>
+                    <p className="mb-0">{audit.clientName}</p>
                   </ListGroup.Item>
                 );
               })}
@@ -106,13 +114,13 @@ class Dashboard extends Component {
             </div>
           </>
         ) : (
-          <>
-            <p className="lead">No Audits to display</p>
-            <p className="lead">
-              Create a new Audit <a href="/dashboard">here</a>
-            </p>
-          </>
-        )}
+            <>
+              <p className="lead">No Audits to display</p>
+              <p className="lead">
+                Create a new Audit <a href="/dashboard">here</a>
+              </p>
+            </>
+          )}
       </Layout>
     );
   }

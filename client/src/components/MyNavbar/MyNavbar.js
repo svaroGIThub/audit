@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
-import NavDropdown from "react-bootstrap/NavDropdown";
+// import NavDropdown from "react-bootstrap/NavDropdown";
 import Nav from "react-bootstrap/Nav";
 import fire from "../../firebase/Fire";
 
@@ -31,12 +31,10 @@ const MyNavbar = props => {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
-          <NavDropdown title="Menu" id="collasible-nav-dropdown">
-            <NavDropdown.Item href="#">Dashboard</NavDropdown.Item>
-            <NavDropdown.Item href="#">Fieldwork</NavDropdown.Item>
-            <NavDropdown.Item href="#">Execution</NavDropdown.Item>
-            <NavDropdown.Item href="#">Evaluation</NavDropdown.Item>
-          </NavDropdown>
+          {/* <NavDropdown title="Menu" id="collasible-nav-dropdown">
+            <NavDropdown.Item href="/dashboard">My Audits</NavDropdown.Item>
+            <NavDropdown.Item href="/clients">Clients</NavDropdown.Item>
+          </NavDropdown> */}
         </Nav>
         <Nav className="d-flex align-items-md-center">
           <Navbar.Text className="">
