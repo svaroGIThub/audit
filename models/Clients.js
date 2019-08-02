@@ -1,24 +1,28 @@
 module.exports = function(sequelize, DataTypes) {
-  const Audit = sequelize.define("Audit", {
-    aid: {
+  const Client = sequelize.define("Client", {
+    cid: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false
     },
-    clientName: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    clientAcronym: {
+    acronym: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    year: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+    rfc: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   });
 
-  return Audit;
+  return Client;
 };

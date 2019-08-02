@@ -1,23 +1,23 @@
 import React, { Component } from "react";
 import MyBreadcrum from "../../components/MyBreadcrum/MyBreadcrum";
 import Layout from "../../components/Layout/Layout";
-import ListGroup from "react-bootstrap/ListGroup";
-import Spinner from "react-bootstrap/Spinner";
+import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+import Spinner from "react-bootstrap/Spinner";
 import axios from "axios";
 
-class Dashboard extends Component {
+class Clients extends Component {
   state = {
     loggedUser: null,
-    audits: []
+    clients: []
   };
 
   // Loads all books  and sets them to this.state.books
-  loadAudits = () => {
+  loadClients = () => {
     axios
-      .get("/api/audit/all")
+      .get("/api/client/all")
       .then(res => {
-        this.setState({ audits: res.data });
+        this.setState({ clients: res.data });
       })
       .catch(err => console.log(err));
   };
@@ -34,7 +34,7 @@ class Dashboard extends Component {
         .get("/api/user/" + uid)
         .then(res => {
           this.setState({ loggedUser: res.data }, () => {
-            this.loadAudits();
+            this.loadClients();
           });
         })
         .catch(err => console.log(err));
@@ -47,7 +47,7 @@ class Dashboard extends Component {
         .get("/api/user/" + uid)
         .then(res => {
           this.setState({ loggedUser: res.data }, () => {
-            this.loadAudits();
+            this.loadClients();
           });
         })
         .catch(err => console.log(err));
@@ -70,46 +70,58 @@ class Dashboard extends Component {
       >
         <MyBreadcrum
           pages={[
-            { page: "Dashboard", link: "/dashboard" },
+            { page: "Clients", link: "/clients" },
             { page: "Overview", link: "nolink" }
           ]}
         />
-        <h1>Dashboard</h1>
+        <h1>Clients</h1>
         <hr />
-        <p className="lead">Welcome to the Audit Assistant!</p>
         <p className="lead">
-          Here are all the audits that are visible to you:{" "}
+          These are the clients in the database. Remember that in order to
+          create a new Audit you have to assign a Client first.
         </p>
 
-        {this.state.audits.length ? (
+        {this.state.clients.length ? (
           <>
-            <ListGroup>
-              {this.state.audits.map(audit => {
-                return (
-                  <ListGroup.Item
-                    action
-                    key={audit.aid}
-                    href={"/audit/" + audit.aid}
-                  >
-                    <strong className="h4">
-                      {audit.clientAcronym} {audit.year}
-                    </strong>
-                    <p className="mb-0 text-muted">{audit.clientName}</p>
-                  </ListGroup.Item>
-                );
-              })}
-            </ListGroup>
+            <Table striped bordered responsive>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Acronym</th>
+                  <th>RFC</th>
+                  <th>Address</th>
+                  <th>Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.clients.map(client => {
+                  return (
+                    <tr>
+                      <td>{client.name}</td>
+                      <td>{client.acronym}</td>
+                      <td>{client.rfc}</td>
+                      <td>{client.address}</td>
+                      <td className="text-center">
+                        <Button variant="info" href="/clients" size="sm">
+                          <i className="fas fa-pen mx-2" />
+                        </Button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </Table>
             <div className="text-right mt-2">
-              <Button variant="primary" href="/dashboard">
-                New Audit
+              <Button variant="primary" href="/clients">
+                New Client
               </Button>
             </div>
           </>
         ) : (
           <>
-            <p className="lead">No Audits to display</p>
+            <p className="lead">No clients to display</p>
             <p className="lead">
-              Create a new Audit <a href="/dashboard">here</a>
+              Create a new Client <a href="/clients">here</a>
             </p>
           </>
         )}
@@ -118,4 +130,4 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+export default Clients;

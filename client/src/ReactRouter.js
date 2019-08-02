@@ -8,6 +8,7 @@ import {
 import NoMatch from "./pages/NoMatch/NoMatch";
 import Login from "./pages/Login/Login";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import Clients from "./pages/Clients/Clients";
 import fire from "./firebase/Fire";
 
 class ReactRouter extends Component {
@@ -46,15 +47,21 @@ class ReactRouter extends Component {
               path="/dashboard"
               render={() => <Dashboard loggedUser={this.state.user} />}
             />
+            <Route
+              exact
+              path="/clients"
+              render={() => <Clients loggedUser={this.state.user} />}
+            />
             <Redirect from="/login" to="/dashboard" />
             <Route component={NoMatch} />
           </Switch>
         ) : (
-            <Switch>
-              <Route exact path="/login" component={Login} />
-              <Redirect to="/login" />
-            </Switch>
-          )}
+          <Switch>
+            <Route exact path="/login" component={Login} />
+            {/* <Redirect from="/dashboard" to="/login" /> */}
+            <Redirect to="/login" />
+          </Switch>
+        )}
       </Router>
     );
   }

@@ -48,19 +48,6 @@ CREATE TABLE audits (
   PRIMARY KEY (aid)
 );
 
-INSERT INTO audit_db.audits (aid, clientAcronym, clientName, year) VALUES (1, 'Secretaría de Educación de Veracruz', 'SEV', 2018);
-INSERT INTO audit_db.audits (aid, clientAcronym, clientName, year) VALUES (2, 'Asamblea Legislativa del Distrito Federal', 'ALDF', 2017);
-INSERT INTO audit_db.audits (aid, clientAcronym, clientName, year) VALUES (3, 'Colegio de Bachilleres del Estado de Veracruz', 'COBAEV', 2017);
-
-
-DROP TABLE IF EXISTS audit_db.auditsVision;
-CREATE TABLE auditsVision (
-  aid INT NOT NULL,
-  uid VARCHAR(100) NOT NULL,
-  createdAt DATE NULL,
-  updatedAt DATE NULL
-);
-
-INSERT INTO audit_db.auditsVision (aid, uid) VALUES (1, '2GDYfyn9L7MQ8L6kJIi3l2xuQ0S2');
-INSERT INTO audit_db.auditsVision (aid, uid) VALUES (2, '2GDYfyn9L7MQ8L6kJIi3l2xuQ0S2');
-INSERT INTO audit_db.auditsVision (aid, uid) VALUES (3, '2GDYfyn9L7MQ8L6kJIi3l2xuQ0S2');
+INSERT INTO audit_db.audits (aid, clientName, clientAcronym, year) VALUES (1, 'Secretaría de Educación de Veracruz', 'SEV', 2018);
+INSERT INTO audit_db.audits (aid, clientName, clientAcronym, year) VALUES (2, 'Asamblea Legislativa del Distrito Federal', 'ALDF', 2017);
+INSERT INTO audit_db.audits (aid, clientName, clientAcronym, year) VALUES (3, 'Colegio de Bachilleres del Estado de Veracruz', 'COBAEV', 2017);

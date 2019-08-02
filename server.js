@@ -12,6 +12,10 @@ if (process.env.NODE_ENV === "production") {
 // Add all API routes
 const userRoutes = require("./routes/userRoutes");
 app.use("/api/user", userRoutes);
+const auditRoutes = require("./routes/auditRoutes");
+app.use("/api/audit", auditRoutes);
+const clientRoutes = require("./routes/clientRoutes");
+app.use("/api/client", clientRoutes);
 
 // Send every other request to the React app
 // Define any API routes before this runs
@@ -23,8 +27,8 @@ app.get("*", (req, res) => {
 // Run the server
 const PORT = process.env.PORT || 3001;
 const db = require("./models");
-db.sequelize.sync({ force: false }).then(function () {
-  app.listen(PORT, function () {
+db.sequelize.sync({ force: false }).then(function() {
+  app.listen(PORT, function() {
     console.log("🌎 ==> API server now on port " + PORT);
   });
 });
