@@ -72,8 +72,8 @@ class Clients extends Component {
           this.state.loggedUser.role
         ]}
         sidebarProps={[
-          { text: "My Audits", link: "/dashboard", state: "inactive" },
-          { text: "Clients", link: "/clients", state: "active" }
+          { text: "My Audits", icon: <i className="fas fa-file-alt mr-2"></i>, link: "/dashboard", state: "inactive" },
+          { text: "Clients", icon: <i className="fas fa-user-friends mr-2"></i>, link: "/clients", state: "active" }
         ]}
       >
         <MyBreadcrum

@@ -12,8 +12,7 @@ function MySidebar(props) {
             return (
               <li className="nav-item" key={item.text}>
                 <a className="nav-link text-warning" href={item.link}>
-                  <i className="fas fa-angle-right mr-2"></i>
-                  {/* <i className="fas fa-fw fa-tachometer-alt mr-2" /> */}
+                  {item.icon}
                   {item.text}
                 </a>
               </li>
@@ -22,8 +21,7 @@ function MySidebar(props) {
             return (
               <li className="nav-item" key={item.text}>
                 <a className="nav-link" href={item.link}>
-                  <i className="fas fa-angle-right mr-2"></i>
-                  {/* <i className="fas fa-fw fa-tachometer-alt mr-2" /> */}
+                  {item.icon}
                   {item.text}
                 </a>
               </li>
@@ -32,8 +30,7 @@ function MySidebar(props) {
             return (
               <li className="nav-item" key={item.text}>
                 <a className="nav-link text-danger" href={item.link}>
-                  <i className="fas fa-angle-left mr-2"></i>
-                  {/* <i className="fas fa-fw fa-tachometer-alt mr-2" /> */}
+                  {item.icon}
                   {item.text}
                 </a>
               </li>
