@@ -1,9 +1,9 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   const Audit = sequelize.define("Audit", {
     aid: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
+      // autoIncrement: true,
       allowNull: false
     },
     clientName: {
@@ -16,6 +16,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     year: {
       type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    description: {
+      type: DataTypes.STRING,
       allowNull: false
     }
   });

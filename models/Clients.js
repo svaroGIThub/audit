@@ -1,4 +1,4 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   const Client = sequelize.define("Client", {
     cid: {
       type: DataTypes.INTEGER,

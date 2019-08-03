@@ -8,8 +8,9 @@ import {
 import NoMatch from "./pages/NoMatch/NoMatch";
 import Login from "./pages/Login/Login";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import Audits from "./pages/Audit/Audits";
 import Clients from "./pages/Clients/Clients";
-import Audit from "./pages/Audit/Audit";
+import Planning from "./pages/Audit/Planning/Planning";
 import fire from "./firebase/Fire";
 
 class ReactRouter extends Component {
@@ -50,13 +51,18 @@ class ReactRouter extends Component {
             />
             <Route
               exact
+              path="/audits"
+              render={() => <Audits loggedUser={this.state.user} />}
+            />
+            <Route
+              exact
               path="/clients"
               render={() => <Clients loggedUser={this.state.user} />}
             />
             <Route
               exact
-              path="/audit/:aid"
-              render={(props) => <Audit routeProps={props} loggedUser={this.state.user} />}
+              path="/audits/plannig/:aid"
+              render={(props) => <Planning routeProps={props} loggedUser={this.state.user} />}
             />
             <Redirect from="/login" to="/dashboard" />
             <Route component={NoMatch} />

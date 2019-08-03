@@ -5,7 +5,8 @@ import Spinner from "react-bootstrap/Spinner";
 const styles = {
     container: {
         marginTop: 150,
-        textAlign: "center"
+        textAlign: "center",
+        color: "darkslategray"
     },
     spinner: {
         marginTop: 20,

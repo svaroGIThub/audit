@@ -5,19 +5,15 @@ import fire from "../../firebase/Fire";
 import "./login.css";
 
 const styles = {
+  form: {
+    marginTop: 55
+  },
   mainLogo: {
-    fontFamily: "Georgia",
+    fontFamily: "Saira Stencil One",
     fontWeight: 500,
     marginBottom: 0,
     color: "rgb(2, 29, 71)",
-    fontSize: "85px",
-    textAlign: "center"
-  },
-  slogan: {
-    fontFamily: "Georgia",
-    fontWeight: 300,
-    color: "rgb(2, 29, 71)",
-    fontSize: "18px",
+    fontSize: "100px",
     textAlign: "center"
   }
 };
@@ -46,12 +42,10 @@ class Login extends Component {
 
   render() {
     return (
-      <Form className="form-signin">
-        <h1 style={styles.mainLogo}>G.A.A.</h1>
-        {/* <p style={styles.slogan}>Governmental Audit Assistant</p> */}
-        <hr />
-        <h4 className="mb-3 font-weight-normal text-dark text-center">Login</h4>
-        <Form.Group controlId="formBasicUser" className="mb-0">
+      <Form style={styles.form} className="form-signin ">
+        <h1 style={styles.mainLogo}>AAG</h1>
+        <h4 className="text-muted text-center mt-4">Ingresar</h4>
+        <Form.Group controlId="formBasicUser" className="mb-0 mt-3">
           <Form.Control
             type="text"
             placeholder="Email"
@@ -65,26 +59,26 @@ class Login extends Component {
         <Form.Group controlId="formBasicPassword">
           <Form.Control
             type="password"
-            placeholder="Password"
+            placeholder="Contraseña"
             name="password"
             value={this.state.password}
             onChange={this.handleInputChange}
           />
         </Form.Group>
-        <Form.Group controlId="formBasicChecbox">
+        {/* <Form.Group controlId="formBasicChecbox">
           <Form.Check
             type="checkbox"
-            label="Remember me"
+            label="Recuérdame"
             className="text-muted"
           />
-        </Form.Group>
+        </Form.Group> */}
         <Button
-          className="btn-lg"
-          variant="primary"
+          className="btn-lg mt-3"
+          variant="dark"
           type="submit"
           block
           onClick={this.handleLoginSubmit}>
-          Enter
+          Entrar
         </Button>
       </Form>
     );

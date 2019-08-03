@@ -1,15 +1,14 @@
 import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
-// import NavDropdown from "react-bootstrap/NavDropdown";
+import NavDropdown from "react-bootstrap/NavDropdown";
 import Nav from "react-bootstrap/Nav";
 import fire from "../../firebase/Fire";
 
 const styles = {
   navBarLogo: {
-    fontFamily: "Georgia",
-    fontWeight: 500,
-    fontSize: 26,
+    fontFamily: "Saira Stencil One",
+    fontSize: 36,
     padding: 0
   }
 };
@@ -24,30 +23,33 @@ const MyNavbar = props => {
       <Navbar.Brand
         style={styles.navBarLogo}
         className="text-light"
-        href="/dashboard"
       >
-        Asistente de Auditoría
+        AAG
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
-          {/* <NavDropdown title="Menu" id="collasible-nav-dropdown">
-            <NavDropdown.Item href="/dashboard">My Audits</NavDropdown.Item>
-            <NavDropdown.Item href="/clients">Clients</NavDropdown.Item>
-          </NavDropdown> */}
+          <NavDropdown title="Menú" id="collasible-nav-dropdown">
+            {props.menuProps.map(item => {
+              return <NavDropdown.Item key={item.text} href={item.link}>{item.text}</NavDropdown.Item>;
+            })}
+            {/* <NavDropdown.Item href="/dashboard">Tablero</NavDropdown.Item>
+            <NavDropdown.Item href="/dashboard">Auditorías</NavDropdown.Item>
+            <NavDropdown.Item href="/clients">Clientes</NavDropdown.Item> */}
+          </NavDropdown>
         </Nav>
         <Nav className="d-flex align-items-md-center">
           <Navbar.Text className="">
-            Usuario:<span className="text-light ml-2">{props.user}</span>
+            Usuario:<span className="text-light ml-2">{props.userProps.user}</span>
           </Navbar.Text>
 
           <Navbar.Text className="ml-md-4">
-            Rol:<span className="text-light ml-2">{props.role}</span>
+            Rol:<span className="text-light ml-2">{props.userProps.role}</span>
           </Navbar.Text>
 
           <Navbar.Text className="ml-md-4">
             <Button variant="danger" size="sm" onClick={logout}>
-              Salir
+              Cerrar Sesión
             </Button>
           </Navbar.Text>
         </Nav>

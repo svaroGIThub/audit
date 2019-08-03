@@ -16,7 +16,7 @@ CREATE TABLE users (
   PRIMARY KEY (uid)
 );
 
-INSERT INTO audit_db.users (uid, role, firstName, lastName, email, phoneNumber) VALUES ('2GDYfyn9L7MQ8L6kJIi3l2xuQ0S2', 'admin', 'Aldo', 'Solano', 'aldoglez34@gmail.com', '2281112031');
+INSERT INTO audit_db.users (uid, role, firstName, lastName, email, phoneNumber) VALUES ('2GDYfyn9L7MQ8L6kJIi3l2xuQ0S2', 'Admin', 'Aldo', 'Solano', 'aldoglez34@gmail.com', '2281112031');
 
 DROP TABLE IF EXISTS audit_db.clients;
 CREATE TABLE clients (
@@ -43,11 +43,12 @@ CREATE TABLE audits (
   clientName VARCHAR(150) NOT NULL,
   clientAcronym VARCHAR(50) NOT NULL,
   year INT NOT NULL,
+  description VARCHAR(250) NOT NULL,
   createdAt DATE NULL,
   updatedAt DATE NULL,
   PRIMARY KEY (aid)
 );
 
-INSERT INTO audit_db.audits (aid, clientName, clientAcronym, year) VALUES (1, 'Secretaría de Educación de Veracruz', 'SEV', 2018);
-INSERT INTO audit_db.audits (aid, clientName, clientAcronym, year) VALUES (2, 'Asamblea Legislativa del Distrito Federal', 'ALDF', 2017);
-INSERT INTO audit_db.audits (aid, clientName, clientAcronym, year) VALUES (3, 'Colegio de Bachilleres del Estado de Veracruz', 'COBAEV', 2017);
+INSERT INTO audit_db.audits (aid, clientName, clientAcronym, year, description) VALUES (1, 'Secretaría de Educación de Veracruz', 'SEV', 2018, 'This is a description');
+INSERT INTO audit_db.audits (aid, clientName, clientAcronym, year, description) VALUES (2, 'Asamblea Legislativa del Distrito Federal', 'ALDF', 2017, 'This is a description');
+INSERT INTO audit_db.audits (aid, clientName, clientAcronym, year, description) VALUES (3, 'Colegio de Bachilleres del Estado de Veracruz', 'COBAEV', 2017, 'This is a description');

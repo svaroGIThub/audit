@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import MyBreadcrum from "../../components/MyBreadcrum/MyBreadcrum";
-import Layout from "../../components/Layout/Layout";
-import MySpinner from "../../components/MySpinner/MySpinner";
+import MyBreadcrum from "../../../components/MyBreadcrum/MyBreadcrum";
+// import Layout from "../../../components/Layout/Layout";
+import Layout from "../../../components/Layout/Layout";
+import MySpinner from "../../../components/MySpinner/MySpinner";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
-import API from "../../utils/API";
+import Image from "react-bootstrap/Image";
+import API from "../../../utils/API";
 
 const styles = {
     accordionCard: {
@@ -12,7 +14,7 @@ const styles = {
     }
 }
 
-class Audit extends Component {
+class Planning extends Component {
 
     state = {
         loggedUser: null,
@@ -78,23 +80,30 @@ class Audit extends Component {
         // there is user data
         return (
             <Layout
-                navbarProps={[
-                    this.state.loggedUser.firstName + " " + this.state.loggedUser.lastName,
-                    this.state.loggedUser.role
-                ]}
-                sidebarProps={[
-                    { text: "Planning", icon: <i className="fas fa-angle-right mr-2"></i>, link: "#", state: "active" },
-                    { text: "Fieldwork", icon: <i className="fas fa-angle-right mr-2"></i>, link: "#", state: "inactive" },
-                    { text: "Execution", icon: <i className="fas fa-angle-right mr-2"></i>, link: "#", state: "inactive" },
-                    { text: "Exit", icon: <i className="fas fa-angle-left mr-2"></i>, link: "/dashboard", state: "exit" }
+                userProps={
+                    { user: this.state.loggedUser.firstName + " " + this.state.loggedUser.lastName, role: this.state.loggedUser.role }
+                }
+                menuProps={[
+                    { text: "Tablero", link: "/dashboard" },
+                    { text: "Auditorías", link: "/audits" },
+                    { text: "Clientes", link: "/clients" }
                 ]}
             >
                 <MyBreadcrum
                     pages={[
-                        { key: "1", page: this.state.selectedAudit.clientAcronym + " " + this.state.selectedAudit.year, link: "/audit/" + this.state.selectedAudit.aid },
-                        { key: "2", page: "Planning", link: "nolink" }
+                        { key: "1", page: "Auditorías", link: "/audits" },
+                        { key: "2", page: "Mis Auditorías", link: "nolink" }
                     ]}
                 />
+
+                {/* title */}
+                <div className="d-flex align-items-center p-2 mb-4">
+                    <Image src="https://image.flaticon.com/icons/svg/1055/1055672.svg" width="65" height="65" fluid />
+                    <h2 className="ml-3 my-auto">Mis Auditorías</h2>
+                </div>
+
+
+
                 <h1>Fase de Planeación</h1>
                 <hr />
                 <p className="lead">Planeación de la Auditoría</p>
@@ -156,4 +165,4 @@ class Audit extends Component {
     }
 }
 
-export default Audit;
+export default Planning;
