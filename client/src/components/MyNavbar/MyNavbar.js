@@ -26,7 +26,7 @@ const MyNavbar = props => {
         className="text-light"
         href="/dashboard"
       >
-        Audit Assitant
+        Asistente de Auditoría
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
@@ -38,16 +38,16 @@ const MyNavbar = props => {
         </Nav>
         <Nav className="d-flex align-items-md-center">
           <Navbar.Text className="">
-            Signed as:<span className="text-light ml-2">{props.user}</span>
+            Usuario:<span className="text-light ml-2">{props.user}</span>
           </Navbar.Text>
 
           <Navbar.Text className="ml-md-4">
-            Role:<span className="text-light ml-2">{props.role}</span>
+            Rol:<span className="text-light ml-2">{props.role}</span>
           </Navbar.Text>
 
           <Navbar.Text className="ml-md-4">
             <Button variant="danger" size="sm" onClick={logout}>
-              Logout
+              Salir
             </Button>
           </Navbar.Text>
         </Nav>

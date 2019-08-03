@@ -32,10 +32,9 @@ class Clients extends Component {
       localStorage.setItem("user", uid);
       API.getUserInfo(uid)
         .then(res => {
-          this.setState({ loggedUser: res.data },
-            () => {
-              this.loadClients();
-            });
+          this.setState({ loggedUser: res.data }, () => {
+            this.loadClients();
+          });
         })
         .catch(err => console.log(err));
     }
@@ -45,14 +44,13 @@ class Clients extends Component {
       const uid = localStorage.getItem("user");
       API.getUserInfo(uid)
         .then(res => {
-          this.setState({ loggedUser: res.data },
-            () => {
-              this.loadClients();
-            });
+          this.setState({ loggedUser: res.data }, () => {
+            this.loadClients();
+          });
         })
         .catch(err => console.log(err));
     }
-  }
+  };
 
   componentDidMount() {
     this.authUserAndLoadClients();
@@ -61,44 +59,52 @@ class Clients extends Component {
   render() {
     // there is no user data
     if (!this.state.loggedUser) {
-      return <MySpinner />
+      return <MySpinner />;
     }
 
     // there is user data
     return (
       <Layout
         navbarProps={[
-          this.state.loggedUser.firstName + " " + this.state.loggedUser.lastName,
+          this.state.loggedUser.firstName +
+            " " +
+            this.state.loggedUser.lastName,
           this.state.loggedUser.role
         ]}
         sidebarProps={[
-          { text: "My Audits", icon: <i className="fas fa-file-alt mr-2"></i>, link: "/dashboard", state: "inactive" },
-          { text: "Clients", icon: <i className="fas fa-user-friends mr-2"></i>, link: "/clients", state: "active" }
+          {
+            text: "Auditorías",
+            icon: <i className="fas fa-file-alt mr-2" />,
+            link: "/dashboard",
+            state: "inactive"
+          },
+          {
+            text: "Clientes",
+            icon: <i className="fas fa-user-friends mr-2" />,
+            link: "/clients",
+            state: "active"
+          }
         ]}
       >
         <MyBreadcrum
           pages={[
-            { key: "1", page: "Clients", link: "/clients" },
-            { key: "2", page: "Overview", link: "nolink" }
+            { key: "1", page: "Clientes", link: "/clients" },
+            { key: "2", page: "Mis Clientes", link: "nolink" }
           ]}
         />
-        <h1>Clients</h1>
+        <h1>Mis Clientes</h1>
         <hr />
-        <p className="lead">
-          These are the Clients in the database. Remember that in order to
-          create a new Audit you have to assign a Client first.
-        </p>
 
         {this.state.clients.length ? (
           <>
             <Table striped bordered responsive>
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Acronym</th>
+                  <th>Nombre</th>
+                  <th>Acrónimo</th>
                   <th>RFC</th>
-                  <th>Address</th>
-                  <th>Edit</th>
+                  <th>Dirección</th>
+                  <th>Editar</th>
                 </tr>
               </thead>
               <tbody>
@@ -121,18 +127,18 @@ class Clients extends Component {
             </Table>
             <div className="text-right mt-2">
               <Button variant="primary" href="/clients">
-                New Client
+                Nuevo Cliente
               </Button>
             </div>
           </>
         ) : (
-            <>
-              <p className="lead">No clients to display</p>
-              <p className="lead">
-                Create a new Client <a href="/clients">here</a>
-              </p>
-            </>
-          )}
+          <>
+            <p className="lead">No hay Clientes apra mostrar.</p>
+            <p className="lead">
+              Crea un nuevo Cliente haciendo clic <a href="/clients">aquí.</a>
+            </p>
+          </>
+        )}
       </Layout>
     );
   }

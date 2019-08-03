@@ -16,7 +16,7 @@ const styles = {
 const MySpinner = () => (
 
     <Container style={styles.container}>
-        <h1>Loading...</h1>
+        <h1>Cargando...</h1>
         <Spinner animation="border" style={styles.spinner} />
     </Container>
 

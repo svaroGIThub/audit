@@ -95,7 +95,7 @@ class Audit extends Component {
                         { key: "2", page: "Planning", link: "nolink" }
                     ]}
                 />
-                <h1>The Planning Phase</h1>
+                <h1>Fase de Planeación</h1>
                 <hr />
                 <p className="lead">Planeación de la Auditoría</p>
                 <p>Etapa de la auditoría que contiene el programa de trabajo y lo papeles de trabajo en que se documenta la fase de planeación de la auditoría. Esta fase consta de actividades de indagación sobre el cliente, y de análisis del alcance general, que culminan en la preparación la auditoria plasmada en el memorándum.</p>
