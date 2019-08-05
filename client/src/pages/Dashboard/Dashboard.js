@@ -23,8 +23,7 @@ class Dashboard extends Component {
       localStorage.setItem("user", uid);
       API.getUserInfo(uid)
         .then(res => {
-          this.setState({ loggedUser: res.data }, () => {
-          });
+          this.setState({ loggedUser: res.data }, () => {});
         })
         .catch(err => console.log(err));
     }
@@ -34,8 +33,7 @@ class Dashboard extends Component {
       const uid = localStorage.getItem("user");
       API.getUserInfo(uid)
         .then(res => {
-          this.setState({ loggedUser: res.data }, () => {
-          });
+          this.setState({ loggedUser: res.data }, () => {});
         })
         .catch(err => console.log(err));
     }
@@ -54,9 +52,13 @@ class Dashboard extends Component {
     // there is user data
     return (
       <Layout
-        userProps={
-          { user: this.state.loggedUser.firstName + " " + this.state.loggedUser.lastName, role: this.state.loggedUser.role }
-        }
+        userProps={{
+          user:
+            this.state.loggedUser.firstName +
+            " " +
+            this.state.loggedUser.lastName,
+          role: this.state.loggedUser.role
+        }}
         menuProps={[
           { text: "Tablero", link: "/dashboard" },
           { text: "Auditorías", link: "/audits" },
@@ -72,42 +74,55 @@ class Dashboard extends Component {
 
         {/* title */}
         <div className="d-flex align-items-center p-2 mb-4">
-          <Image src="https://image.flaticon.com/icons/svg/1055/1055644.svg" width="65" height="65" fluid />
+          <Image
+            src="https://image.flaticon.com/icons/svg/1055/1055644.svg"
+            width="65"
+            height="65"
+            fluid
+          />
           <h2 className="ml-3 my-auto">Mi Tablero</h2>
         </div>
 
         {/* TEST */}
         <CardColumns>
           <Card>
-            <Card.Img variant="top" src="https://i5.walmartimages.com/dfw/4ff9c6c9-513e/k2-_8db4ce49-0b05-40d3-a44e-cde6551f8a87.v1.jpg" />
+            <Card.Img
+              variant="top"
+              src="https://i5.walmartimages.com/dfw/4ff9c6c9-513e/k2-_8db4ce49-0b05-40d3-a44e-cde6551f8a87.v1.jpg"
+            />
             <Card.Body>
               <Card.Title>Card title that wraps to a new line</Card.Title>
               <Card.Text>
-                This is a longer card with supporting text below as a natural lead-in to
-                additional content. This content is a little bit longer.
-      </Card.Text>
+                This is a longer card with supporting text below as a natural
+                lead-in to additional content. This content is a little bit
+                longer.
+              </Card.Text>
             </Card.Body>
           </Card>
           <Card className="p-3">
             <blockquote className="blockquote mb-0 card-body">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
-                erat a ante.
-      </p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+                posuere erat a ante.
+              </p>
               <footer className="blockquote-footer">
                 <small className="text-muted text-light">
-                  Someone famous in <cite title="Source Title">Source Title</cite>
+                  Someone famous in{" "}
+                  <cite title="Source Title">Source Title</cite>
                 </small>
               </footer>
             </blockquote>
           </Card>
           <Card>
-            <Card.Img variant="top" src="https://emeraldfinancialpartners.com/wp-content/uploads/2019/03/office.jpg" />
+            <Card.Img
+              variant="top"
+              src="https://emeraldfinancialpartners.com/wp-content/uploads/2019/03/office.jpg"
+            />
             <Card.Body>
               <Card.Title>Card title</Card.Title>
               <Card.Text>
-                This card has supporting text below as a natural lead-in to additional
-        content.{' '}
+                This card has supporting text below as a natural lead-in to
+                additional content.{" "}
               </Card.Text>
             </Card.Body>
             <Card.Footer>
@@ -117,12 +132,13 @@ class Dashboard extends Component {
           <Card bg="info" text="white" className="text-center p-3">
             <blockquote className="blockquote mb-0 card-body">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
-                erat a ante.
-      </p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+                posuere erat a ante.
+              </p>
               <footer className="blockquote-footer">
                 <small className="text-light">
-                  Someone famous in <cite title="Source Title">Source Title</cite>
+                  Someone famous in{" "}
+                  <cite title="Source Title">Source Title</cite>
                 </small>
               </footer>
             </blockquote>
@@ -131,8 +147,8 @@ class Dashboard extends Component {
             <Card.Body>
               <Card.Title>Card title</Card.Title>
               <Card.Text>
-                This card has supporting text below as a natural lead-in to additional
-        content.{' '}
+                This card has supporting text below as a natural lead-in to
+                additional content.{" "}
               </Card.Text>
               <Card.Text>
                 <small className="text-muted">Last updated 3 mins ago</small>
@@ -145,12 +161,13 @@ class Dashboard extends Component {
           <Card className="text-right">
             <blockquote className="blockquote mb-0 card-body">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
-                erat a ante.
-      </p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+                posuere erat a ante.
+              </p>
               <footer className="blockquote-footer">
                 <small className="text-muted">
-                  Someone famous in <cite title="Source Title">Source Title</cite>
+                  Someone famous in{" "}
+                  <cite title="Source Title">Source Title</cite>
                 </small>
               </footer>
             </blockquote>
@@ -159,19 +176,16 @@ class Dashboard extends Component {
             <Card.Body>
               <Card.Title>Card title</Card.Title>
               <Card.Text>
-                This is a wider card with supporting text below as a natural lead-in to
-                additional content. This card has even longer content than the first to
-                show that equal height action.
-      </Card.Text>
+                This is a wider card with supporting text below as a natural
+                lead-in to additional content. This card has even longer content
+                than the first to show that equal height action.
+              </Card.Text>
               <Card.Text>
                 <small className="text-muted">Last updated 3 mins ago</small>
               </Card.Text>
             </Card.Body>
           </Card>
         </CardColumns>
-
-
-
       </Layout>
     );
   }
