@@ -4,10 +4,13 @@ import MyNavbar from "../MyNavbar/MyNavbar";
 import Container from "react-bootstrap/Container";
 
 const Layout = props => (
+
   <div>
-    <MyNavbar userProps={props.userProps} menuProps={props.menuProps} />
+
+    <MyNavbar userProps={props.userProps} menuProps={props.menuProps} phasesProps={props.phasesProps} />
     <Container>{props.children}</Container>
     {/* <MyFooter /> */}
+
   </div>
 );
 

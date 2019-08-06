@@ -1,11 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
   const Audit = sequelize.define("Audit", {
-    aid: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      // autoIncrement: true,
-      allowNull: false
-    },
     clientName: {
       type: DataTypes.STRING,
       allowNull: false

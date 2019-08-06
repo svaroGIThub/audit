@@ -61,11 +61,12 @@ class ReactRouter extends Component {
             />
             <Route
               exact
-              path="/audits/plannig/:aid"
+              path="/audits/planning/:id"
               render={(props) => <Planning routeProps={props} loggedUser={this.state.user} />}
             />
             <Redirect from="/login" to="/dashboard" />
-            <Route component={NoMatch} />
+            <Route component={NoMatch} loggedUser={this.state.user} />
+
           </Switch>
         ) : (
             <Switch>

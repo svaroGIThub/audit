@@ -1,23 +1,43 @@
 import axios from "axios";
 
 export default {
-  getUserInfo: function(uid) {
+
+  // users
+
+  getUserInfo: function (uid) {
     return axios.get("/api/user/" + uid);
   },
 
-  getAllAudits: function() {
+  // audits
+
+  getAllAudits: function () {
     return axios.get("/api/audit/all");
   },
 
-  getAllClients: function() {
+  getSelectedAudit: function (id) {
+    return axios.get("/api/audit/" + id);
+  },
+
+  saveNewAudit: function (auditData) {
+    return axios.post("/api/audit/new", auditData);
+  },
+
+  // clients
+
+  getAllClients: function () {
     return axios.get("/api/client/all");
   },
 
-  getSelectedAudit: function(aid) {
-    return axios.get("/api/audit/" + aid);
+  saveNewClient: function (clientData) {
+    return axios.post("/api/client/new", clientData);
   },
 
-  saveNewAudit: function(auditData) {
-    return axios.post("/api/audit/new", auditData);
+  getClientInfo: function (id) {
+    return axios.get("/api/client/" + id);
+  },
+
+  saveEditedClient: function (clientInfo) {
+    return axios.put("/api/client/edit/", clientInfo); // it's post but it should be put
   }
+
 };

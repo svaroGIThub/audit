@@ -10,6 +10,9 @@ const styles = {
     fontFamily: "Saira Stencil One",
     fontSize: 36,
     padding: 0
+  },
+  fases: {
+    color: "red !important"
   }
 };
 
@@ -18,35 +21,49 @@ function logout() {
 }
 
 const MyNavbar = props => {
+
   return (
     <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
       <Navbar.Brand
         style={styles.navBarLogo}
-        className="text-light"
-      >
+        className="text-light">
         AAG
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
-          <NavDropdown title="Menú" id="collasible-nav-dropdown">
+
+          {/* menu */}
+          <NavDropdown title="Menú">
             {props.menuProps.map(item => {
               return <NavDropdown.Item key={item.text} href={item.link}>{item.text}</NavDropdown.Item>;
             })}
-            {/* <NavDropdown.Item href="/dashboard">Tablero</NavDropdown.Item>
-            <NavDropdown.Item href="/dashboard">Auditorías</NavDropdown.Item>
-            <NavDropdown.Item href="/clients">Clientes</NavDropdown.Item> */}
           </NavDropdown>
+
+          {/* fases */}
+          {(props.phasesProps) ? (
+            <NavDropdown title="Fases" style={styles.fases}>
+              {props.phasesProps.map(item => {
+                return <NavDropdown.Item key={item.text} href={item.link}>{item.text}</NavDropdown.Item>;
+              })}
+            </NavDropdown>
+          ) : (
+              ""
+            )}
         </Nav>
+
+        {/* user */}
         <Nav className="d-flex align-items-md-center">
           <Navbar.Text className="">
             Usuario:<span className="text-light ml-2">{props.userProps.user}</span>
           </Navbar.Text>
 
+          {/* role */}
           <Navbar.Text className="ml-md-4">
             Rol:<span className="text-light ml-2">{props.userProps.role}</span>
           </Navbar.Text>
 
+          {/* signout */}
           <Navbar.Text className="ml-md-4">
             <Button variant="danger" size="sm" onClick={logout}>
               Cerrar Sesión

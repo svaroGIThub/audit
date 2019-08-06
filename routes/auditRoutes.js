@@ -15,11 +15,11 @@ router.get("/all", function(req, res) {
     });
 });
 
-// get audit info from a given aid
-// matches with /api/audit/:aid
-router.get("/:aid", function(req, res) {
+// get audit info from a given id
+// matches with /api/audit/:id
+router.get("/:id", function(req, res) {
   model.Audit.findOne({
-    where: { aid: req.params.aid }
+    where: { id: req.params.id }
   })
     .then(function(data) {
       res.json(data);
@@ -34,7 +34,7 @@ router.post("/new", function(req, res) {
   console.log("==========CREATING new audit===========");
   console.log(req.body);
   model.Audit.create({
-    // aid: req.body.aid,
+    // id: req.body.id,
     clientName: req.body.clientName,
     clientAcronym: req.body.clientAcronym,
     year: req.body.year,
