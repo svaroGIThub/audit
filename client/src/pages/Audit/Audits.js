@@ -250,7 +250,7 @@ class Audits extends Component {
                     key={audit.id}
                     href={"/audits/planning/" + audit.id}
                   >
-                    <strong className="h5">
+                    <strong className="h3">
                       {audit.clientAcronym} {audit.year}
                     </strong>
                     <p className="mb-0">{audit.description}</p>

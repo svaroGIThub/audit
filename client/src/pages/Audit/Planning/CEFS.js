@@ -2,18 +2,17 @@ import React, { Component } from "react";
 import MyBreadcrum from "../../../components/MyBreadcrum/MyBreadcrum";
 import Layout from "../../../components/Layout/Layout";
 import MySpinner from "../../../components/MySpinner/MySpinner";
-import Accordion from "react-bootstrap/Accordion";
-import Card from "react-bootstrap/Card";
 import Image from "react-bootstrap/Image";
+import Form from "react-bootstrap/Form";
 import API from "../../../utils/API";
 
 const styles = {
-    accordionCard: {
-        cursor: "pointer"
+    formssubtitles: {
+        fontSize: "18px"
     }
 }
 
-class Planning extends Component {
+class CEFS extends Component {
     state = {
         loggedUser: null,
         selectedAudit: null
@@ -99,73 +98,56 @@ class Planning extends Component {
                     pages={[
                         { key: "1", page: "Auditorías", link: "/audits" },
                         { key: "2", page: this.state.selectedAudit.clientAcronym + " " + this.state.selectedAudit.year, link: "/audits/planning/" + this.state.selectedAudit.id },
-                        { key: "3", page: "Planeación", link: "nolink" }
+                        { key: "3", page: "Planeación", link: "/audits/planning/" + this.state.selectedAudit.id },
+                        { key: "4", page: "Cédula de Estados Financieros del Sistema", link: "nolink" }
                     ]}
                 />
 
                 {/* title */}
                 <div className="d-flex align-items-center p-2 mb-4">
                     <Image src="https://image.flaticon.com/icons/svg/201/201585.svg" width="65" height="65" fluid />
-                    <h2 className="ml-3 my-auto">Planeación</h2>
+                    <h2 className="ml-3 my-auto">Cédula de Estados Financieros del Sistema</h2>
                 </div>
 
-                {/* page content */}
-                <p className="lead">Planeación de la Auditoría.</p>
-                <p>Etapa de la auditoría que contiene el programa de trabajo y lo papeles de trabajo en que se documenta la fase de planeación de la auditoría. Esta fase consta de actividades de indagación sobre el cliente, y de análisis del alcance general, que culminan en la preparación la auditoria plasmada en el memorándum.</p>
-                <ul className="list-unstyled">
-                    <li>Actividades:
-                    <ul>
-                            <li>Definición con el cliente de los objetivos y requerimientos de nuestros servicios (entrevista inicial).</li>
-                            <li>Preparación de entrevistas (uestionarios).</li>
-                            <li>Revisión Analítica General de la información financiera y presupuestal (Cédulas de RAG) 1,2,3.</li>
-                            <li>Evaluación Preliminar del Ambiente de Control (Cuestionario de Control Interno).</li>
-                            <li>Evaluación Preliminar del Sistema de Contabilidad (Cédula de los Estados Financieros y Presupuestales del Sistema).</li>
-                        </ul>
-                    </li>
-                </ul>
 
-                {/* menu */}
-                <p className="lead">Ligas</p>
-                <Accordion>
-                    <Card style={styles.accordionCard}>
-                        <Accordion.Toggle as={Card.Header} eventKey="0">
-                            Revisión Analítica General (RAG)
-                            <i className="fas fa-chevron-down text-secondary ml-2"></i>
-                        </Accordion.Toggle>
-                        <Accordion.Collapse eventKey="0">
-                            <Card.Body>
-                                <p className="mb-2"><a href="/audits">Cédula Presupuestos.</a></p>
-                                <p className="mb-0"><a href="/audits">Balanza con RAG 1, 2 y 3.</a></p>
-                            </Card.Body>
-                        </Accordion.Collapse>
-                    </Card>
-                    <Card style={styles.accordionCard}>
-                        <Accordion.Toggle as={Card.Header} eventKey="1">
-                            Cuestionarios
-                            <i className="fas fa-chevron-down text-secondary ml-2"></i>
-                        </Accordion.Toggle>
-                        <Accordion.Collapse eventKey="1">
-                            <Card.Body>
-                                <p className="mb-0"><a href={"/audits/planning/cci/" + this.state.selectedAudit.id}>Cuestionario de Control Interno.</a></p>
-                            </Card.Body>
-                        </Accordion.Collapse>
-                    </Card>
-                    <Card style={styles.accordionCard}>
-                        <Accordion.Toggle as={Card.Header} eventKey="2">
-                            Cédulas
-                            <i className="fas fa-chevron-down text-secondary ml-2"></i>
-                        </Accordion.Toggle>
-                        <Accordion.Collapse eventKey="2">
-                            <Card.Body>
-                                <p className="mb-0"><a href={"/audits/planning/cefs/" + this.state.selectedAudit.id}>Cédula de Estados Financieros del Sistema.</a></p>
-                            </Card.Body>
-                        </Accordion.Collapse>
-                    </Card>
-                </Accordion>
+                {/* page content */}
+                <Form>
+
+                    <Form.Text className="lead mb-2">I. Información contable, con la desagregación siguiente:</Form.Text>
+
+                    <Form.Group className="ml-lg-4" controlId="cb1">
+                        <Form.Check type="checkbox" label="Estado de situación financiera." />
+                    </Form.Group>
+
+                    <Form.Group className="ml-lg-4" controlId="cb2">
+                        <Form.Check type="checkbox" label="Estado de variación en la hacienda pública." />
+                    </Form.Group>
+
+                    <Form.Group className="ml-lg-4" controlId="cb3">
+                        <Form.Check type="checkbox" label="Estado de cambios en la situación financiera." />
+                    </Form.Group>
+
+                    <Form.Text className="mb-3 mt-0" style={styles.formssubtitles}>
+                        Estado analítico de la deuda, del cual se derivarán las siguientes clasificaciones:
+                    </Form.Text>
+
+                    <Form.Group className="ml-lg-4" controlId="">
+                        <Form.Check type="checkbox" label="Corto y largo plazo" />
+                    </Form.Group>
+
+                    <Form.Group className="ml-lg-4" controlId="">
+                        <Form.Check type="checkbox" label="Fuentes de financiamiento" />
+                    </Form.Group>
+
+                    <Form.Text className="lead mb-2">II. Información contable, con la desagregación siguiente:</Form.Text>
+
+                    <Form.Text className="lead mb-2">III. Información contable, con la desagregación siguiente:</Form.Text>
+
+                </Form>
 
             </Layout >
         );
     }
 }
 
-export default Planning;
+export default CEFS;
