@@ -10,9 +10,6 @@ const styles = {
     fontFamily: "Saira Stencil One",
     fontSize: 36,
     padding: 0
-  },
-  fases: {
-    color: "red !important"
   }
 };
 
@@ -32,18 +29,26 @@ const MyNavbar = props => {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
-
-          {/* menu */}
+          {/* menu dropdown */}
           <NavDropdown title="Menú">
             {props.menuProps.map(item => {
               return <NavDropdown.Item key={item.text} href={item.link}>{item.text}</NavDropdown.Item>;
             })}
           </NavDropdown>
-
-          {/* fases */}
+          {/* auditoría dropdown */}
           {(props.phasesProps) ? (
-            <NavDropdown title="Auditoría" style={styles.fases}>
+            <NavDropdown title="Auditoría">
               {props.phasesProps.map(item => {
+                return <NavDropdown.Item key={item.text} href={item.link}>{item.text}</NavDropdown.Item>;
+              })}
+            </NavDropdown>
+          ) : (
+              ""
+            )}
+          {/* consult dropdown */}
+          {(props.consultProps) ? (
+            <NavDropdown title="Consulta">
+              {props.consultProps.map(item => {
                 return <NavDropdown.Item key={item.text} href={item.link}>{item.text}</NavDropdown.Item>;
               })}
             </NavDropdown>

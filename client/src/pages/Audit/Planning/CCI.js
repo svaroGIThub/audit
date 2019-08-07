@@ -81,21 +81,25 @@ class CCI extends Component {
         ]}
         phasesProps={[
           {
-            text: "Plan",
+            text: "Plan de Trabajo",
             link: "/audits/workplan/" + this.state.selectedAudit.id
           },
           {
-            text: "Planeación",
+            text: "Fase de Planeación",
             link: "/audits/planning/" + this.state.selectedAudit.id
           },
           {
-            text: "Programación",
+            text: "Fase de Programación",
             link: "/audits/fieldwork/" + this.state.selectedAudit.id
           },
           {
-            text: "Ejecución",
+            text: "Fase de Ejecución",
             link: "/audits/exection/" + this.state.selectedAudit.id
           }
+        ]}
+        consultProps={[
+          { text: "Balanza", link: "/audits/balanza/" + this.state.selectedAudit.id },
+          { text: "Nómina", link: "/audits/nomina/" + this.state.selectedAudit.id }
         ]}
       >
         <MyBreadcrum
@@ -125,7 +129,7 @@ class CCI extends Component {
         {/* title */}
         <div className="d-flex align-items-center p-2 mb-4">
           <Image
-            src="https://image.flaticon.com/icons/svg/201/201585.svg"
+            src="https://image.flaticon.com/icons/svg/201/201557.svg"
             width="65"
             height="65"
             fluid
@@ -1292,6 +1296,7 @@ class CCI extends Component {
             <Form.Control as="textarea" rows="2" />
           </Form.Group>
         </Form>
+
       </Layout>
     );
   }

@@ -11,6 +11,8 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Audits from "./pages/Audit/Audits";
 import Workplan from "./pages/Audit/Workplan";
 import Clients from "./pages/Clients/Clients";
+import Balanza from "./pages/Audit/Consult/Balanza";
+import Nomina from "./pages/Audit/Consult/Nomina";
 import Planning from "./pages/Audit/Planning/Planning";
 import CCI from "./pages/Audit/Planning/CCI";
 import CEFS from "./pages/Audit/Planning/CEFS";
@@ -71,6 +73,20 @@ class ReactRouter extends Component {
             />
             <Route
               exact
+              path="/audits/balanza/:id"
+              render={props => (
+                <Balanza routeProps={props} loggedUser={this.state.user} />
+              )}
+            />
+            <Route
+              exact
+              path="/audits/nomina/:id"
+              render={props => (
+                <Nomina routeProps={props} loggedUser={this.state.user} />
+              )}
+            />
+            <Route
+              exact
               path="/audits/planning/:id"
               render={props => (
                 <Planning routeProps={props} loggedUser={this.state.user} />
@@ -94,12 +110,12 @@ class ReactRouter extends Component {
             <Route component={NoMatch} loggedUser={this.state.user} />
           </Switch>
         ) : (
-          <Switch>
-            <Route exact path="/login" component={Login} />
-            {/* <Redirect from="/dashboard" to="/login" /> */}
-            <Redirect to="/login" />
-          </Switch>
-        )}
+            <Switch>
+              <Route exact path="/login" component={Login} />
+              {/* <Redirect from="/dashboard" to="/login" /> */}
+              <Redirect to="/login" />
+            </Switch>
+          )}
       </Router>
     );
   }

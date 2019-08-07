@@ -15,6 +15,16 @@ module.exports = function (sequelize, DataTypes) {
     description: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    hasBalanza: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false
+    },
+    hasNomina: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false
     }
   });
 

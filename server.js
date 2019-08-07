@@ -16,6 +16,8 @@ const auditRoutes = require("./routes/auditRoutes");
 app.use("/api/audit", auditRoutes);
 const clientRoutes = require("./routes/clientRoutes");
 app.use("/api/client", clientRoutes);
+const uploadRoutes = require("./routes/uploadRoutes");
+app.use("/api/upload", uploadRoutes);
 
 // Send every other request to the React app
 // Define any API routes before this runs

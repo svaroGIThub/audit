@@ -37,7 +37,13 @@ export default {
   },
 
   saveEditedClient: function (clientInfo) {
-    return axios.put("/api/client/edit/", clientInfo); // it's post but it should be put
+    return axios.put("/api/client/edit/", clientInfo);
+  },
+
+  // balanzas
+
+  uploadBalanza: function (file) {
+    return axios.post("/api/upload/balanza/", file);
   }
 
 };
