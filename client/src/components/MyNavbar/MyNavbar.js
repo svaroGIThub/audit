@@ -42,7 +42,7 @@ const MyNavbar = props => {
 
           {/* fases */}
           {(props.phasesProps) ? (
-            <NavDropdown title="Fases" style={styles.fases}>
+            <NavDropdown title="Auditoría" style={styles.fases}>
               {props.phasesProps.map(item => {
                 return <NavDropdown.Item key={item.text} href={item.link}>{item.text}</NavDropdown.Item>;
               })}

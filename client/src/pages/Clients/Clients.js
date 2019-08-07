@@ -32,7 +32,8 @@ class Clients extends Component {
 
   // create client modal arrow functions
   handleShowCreateModal = () => this.setState({ showCreateModal: true });
-  handleCloseCreateModal = () => this.setState({ showCreateModal: false }, () => this.loadClients());
+  handleCloseCreateModal = () =>
+    this.setState({ showCreateModal: false }, () => this.loadClients());
   handleCreateFormSubmit = event => {
     event.preventDefault();
     let name = document.getElementById("name").value;
@@ -48,33 +49,39 @@ class Clients extends Component {
     API.saveNewClient(newClient)
       .then(res => {
         this.handleCloseCreateModal();
-        this.handleShowAlert("success", "Éxito.", "Un nuevo Cliente ha sido agregado satisfactoriamente.");
+        this.handleShowAlert(
+          "success",
+          "Éxito.",
+          "Un nuevo Cliente ha sido agregado satisfactoriamente."
+        );
       })
       .catch(err => console.log(err));
   };
 
   // edit client modal arrow functions
-  handleShowEditModal = (id) => {
+  handleShowEditModal = id => {
     API.getClientInfo(id)
       .then(res => {
-        this.setState({
-          idToUpdate: res.data.id,
-          editName: res.data.name,
-          editAcronym: res.data.acronym,
-          editRfc: res.data.rfc,
-          editAddress: res.data.address
-        },
-          () => this.setState({ showEditModal: true }));
+        this.setState(
+          {
+            idToUpdate: res.data.id,
+            editName: res.data.name,
+            editAcronym: res.data.acronym,
+            editRfc: res.data.rfc,
+            editAddress: res.data.address
+          },
+          () => this.setState({ showEditModal: true })
+        );
       })
       .catch(err => console.log(err));
-  }
+  };
   handleCloseEditModal = () => this.setState({ showEditModal: false });
   handleEditInputChange = event => {
     const { name, value } = event.target;
     this.setState({
       [name]: value
     });
-  }
+  };
   handleEditFormSubmit = event => {
     event.preventDefault();
     API.saveEditedClient({
@@ -85,19 +92,25 @@ class Clients extends Component {
       address: this.state.editAddress
     })
       .then(res => {
-        this.handleShowAlert("success", "Éxito.", "El Cliente ha sido editado satisfactoriamente.");
+        this.handleShowAlert(
+          "success",
+          "Éxito.",
+          "El Cliente ha sido editado satisfactoriamente."
+        );
         this.handleCloseEditModal();
         this.loadClients();
       })
-      .catch(err => console.log(err))
-  }
+      .catch(err => console.log(err));
+  };
 
   // alert arrow functions
   handleShowAlert = (variant, heading, body) => {
-    this.setState({ alertVariant: variant, alertHeading: heading, alertBody: body },
-      () => this.setState({ showAlert: true }))
+    this.setState(
+      { alertVariant: variant, alertHeading: heading, alertBody: body },
+      () => this.setState({ showAlert: true })
+    );
     // this.setState.myalert({ variant: variant, heading: heading, body: body, show: true });
-  }
+  };
   handleCloseAlert = () => this.setState({ showAlert: false });
 
   // Loads all clients and sets them to this.state.clients
@@ -148,11 +161,10 @@ class Clients extends Component {
   isUserAdmin = () => {
     if (this.state.loggedUser.role === "Admin") {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
-  }
+  };
 
   render() {
     // there is no user data
@@ -162,19 +174,21 @@ class Clients extends Component {
 
     // there is user data
     return (
-
       // layout
-      <Layout 
-        userProps={
-          { user: this.state.loggedUser.firstName + " " + this.state.loggedUser.lastName, role: this.state.loggedUser.role }
-        }
+      <Layout
+        userProps={{
+          user:
+            this.state.loggedUser.firstName +
+            " " +
+            this.state.loggedUser.lastName,
+          role: this.state.loggedUser.role
+        }}
         menuProps={[
           { text: "Tablero", link: "/dashboard" },
           { text: "Auditorías", link: "/audits" },
           { text: "Clientes", link: "/clients" }
         ]}
       >
-
         {/* breadcrum */}
         <MyBreadcrum
           pages={[
@@ -185,14 +199,20 @@ class Clients extends Component {
 
         {/* title */}
         <div className="d-flex align-items-center p-2 mb-4">
-          <Image src="https://image.flaticon.com/icons/svg/1055/1055673.svg" width="65" height="65" fluid />
+          <Image
+            src="https://image.flaticon.com/icons/svg/201/201581.svg"
+            width="65"
+            height="65"
+            fluid
+          />
           <h2 className="ml-3 my-auto">Mis Clientes</h2>
         </div>
 
         {/* create client modal */}
         <Modal
           show={this.state.showCreateModal}
-          onHide={this.handleCloseCreateModal}>
+          onHide={this.handleCloseCreateModal}
+        >
           <Modal.Header closeButton>
             <Modal.Title>Nuevo Cliente</Modal.Title>
           </Modal.Header>
@@ -212,26 +232,25 @@ class Clients extends Component {
               </Form.Group>
               <Form.Group>
                 <Form.Label>4. Dirección</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows="3"
-                  id="address"
-                />
+                <Form.Control as="textarea" rows="3" id="address" />
               </Form.Group>
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button
-              variant="secondary"
-              onClick={this.handleCloseCreateModal}>Cancelar</Button>
-            <Button variant="primary" onClick={this.handleCreateFormSubmit}>Crear</Button>
+            <Button variant="secondary" onClick={this.handleCloseCreateModal}>
+              Cancelar
+            </Button>
+            <Button variant="primary" onClick={this.handleCreateFormSubmit}>
+              Crear
+            </Button>
           </Modal.Footer>
         </Modal>
 
         {/* edit client modal */}
         <Modal
           show={this.state.showEditModal}
-          onHide={this.handleCloseEditModal}>
+          onHide={this.handleCloseEditModal}
+        >
           <Modal.Header closeButton>
             <Modal.Title>Editar Cliente</Modal.Title>
           </Modal.Header>
@@ -239,15 +258,30 @@ class Clients extends Component {
             <Form>
               <Form.Group>
                 <Form.Label>1. Nombre completo</Form.Label>
-                <Form.Control type="text" name="editName" value={this.state.editName} onChange={this.handleEditInputChange} />
+                <Form.Control
+                  type="text"
+                  name="editName"
+                  value={this.state.editName}
+                  onChange={this.handleEditInputChange}
+                />
               </Form.Group>
               <Form.Group>
                 <Form.Label>2. Acrónimo/Abreviación</Form.Label>
-                <Form.Control type="text" name="editAcronym" value={this.state.editAcronym} onChange={this.handleEditInputChange} />
+                <Form.Control
+                  type="text"
+                  name="editAcronym"
+                  value={this.state.editAcronym}
+                  onChange={this.handleEditInputChange}
+                />
               </Form.Group>
               <Form.Group>
                 <Form.Label>3. RFC</Form.Label>
-                <Form.Control type="text" name="editRfc" value={this.state.editRfc} onChange={this.handleEditInputChange} />
+                <Form.Control
+                  type="text"
+                  name="editRfc"
+                  value={this.state.editRfc}
+                  onChange={this.handleEditInputChange}
+                />
               </Form.Group>
               <Form.Group>
                 <Form.Label>4. Dirección</Form.Label>
@@ -256,24 +290,30 @@ class Clients extends Component {
                   rows="3"
                   name="editAddress"
                   value={this.state.editAddress}
-                  onChange={this.handleEditInputChange} />
+                  onChange={this.handleEditInputChange}
+                />
               </Form.Group>
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button
-              variant="secondary"
-              onClick={this.handleCloseEditModal}>Cancelar</Button>
-            <Button variant="info" onClick={this.handleEditFormSubmit}>Guardar</Button>
+            <Button variant="secondary" onClick={this.handleCloseEditModal}>
+              Cancelar
+            </Button>
+            <Button variant="info" onClick={this.handleEditFormSubmit}>
+              Guardar
+            </Button>
           </Modal.Footer>
         </Modal>
 
         {/* alert */}
-        <Alert show={this.state.showAlert} variant={this.state.alertVariant} onClose={this.handleCloseAlert} dismissible>
+        <Alert
+          show={this.state.showAlert}
+          variant={this.state.alertVariant}
+          onClose={this.handleCloseAlert}
+          dismissible
+        >
           <Alert.Heading>{this.state.alertHeading}</Alert.Heading>
-          <p>
-            {this.state.alertBody}
-          </p>
+          <p>{this.state.alertBody}</p>
         </Alert>
 
         {/* if there are clients */}
@@ -298,7 +338,11 @@ class Clients extends Component {
                       <td>{client.rfc}</td>
                       <td>{client.address}</td>
                       <td className="text-center">
-                        <Button variant="info" onClick={() => this.handleShowEditModal(client.id)} size="sm">
+                        <Button
+                          variant="info"
+                          onClick={() => this.handleShowEditModal(client.id)}
+                          size="sm"
+                        >
                           <i className="fas fa-pen mx-2" />
                         </Button>
                       </td>
@@ -308,27 +352,30 @@ class Clients extends Component {
               </tbody>
             </Table>
             <div className="text-right mt-2">
-              <Button variant="primary" onClick={this.handleShowCreateModal}>Nuevo Cliente</Button>
+              <Button variant="primary" onClick={this.handleShowCreateModal}>
+                Nuevo Cliente
+              </Button>
             </div>
           </>
-        ) :
+        ) : (
           // if there are no clients
-          (
-            <>
-              <div className="text-center mt-4">
-                <p className="lead">No hay Clientes para mostrar.</p>
-                {/* if the user is not an admin, show the new client button disabled */}
-                {this.isUserAdmin() ? (
-                  <Button variant="primary" onClick={this.handleShowCreateModal}>Nuevo Cliente</Button>
-                ) : (
-                    <Button variant="primary" disabled>Nuevo Cliente</Button>
-                  )}
-              </div>
-            </>
-
-          )
-        }
-      </Layout >
+          <>
+            <div className="text-center mt-4">
+              <p className="lead">No hay Clientes para mostrar.</p>
+              {/* if the user is not an admin, show the new client button disabled */}
+              {this.isUserAdmin() ? (
+                <Button variant="primary" onClick={this.handleShowCreateModal}>
+                  Nuevo Cliente
+                </Button>
+              ) : (
+                <Button variant="primary" disabled>
+                  Nuevo Cliente
+                </Button>
+              )}
+            </div>
+          </>
+        )}
+      </Layout>
     );
   }
 }

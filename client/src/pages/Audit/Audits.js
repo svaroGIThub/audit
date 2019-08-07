@@ -43,7 +43,11 @@ class Audits extends Component {
     };
     API.saveNewAudit(newAudit)
       .then(res => {
-        this.handleShowAlert("success", "Éxito.", "La Auditoría ha sido creada satisfactoriamente.");
+        this.handleShowAlert(
+          "success",
+          "Éxito.",
+          "La Auditoría ha sido creada satisfactoriamente."
+        );
         this.loadAudits();
         this.handleCloseModal();
       })
@@ -52,10 +56,12 @@ class Audits extends Component {
 
   // alert arrow functions
   handleShowAlert = (variant, heading, body) => {
-    this.setState({ alertVariant: variant, alertHeading: heading, alertBody: body },
-      () => this.setState({ showAlert: true }))
+    this.setState(
+      { alertVariant: variant, alertHeading: heading, alertBody: body },
+      () => this.setState({ showAlert: true })
+    );
     // this.setState.myalert({ variant: variant, heading: heading, body: body, show: true });
-  }
+  };
   handleCloseAlert = () => this.setState({ showAlert: false });
 
   // Loads all audits and sets them to this.state.audits
@@ -74,9 +80,13 @@ class Audits extends Component {
       .then(res => {
         // if there are no clients, show alert
         if (!res.data.length) {
-          this.handleShowAlert("danger", "No hay Clientes registrados.", "Para crear una Auditoría es necesario crear un Cliente primero.");
+          this.handleShowAlert(
+            "danger",
+            "No hay Clientes registrados.",
+            "Para crear una Auditoría es necesario crear un Cliente primero."
+          );
         }
-        // if there are clients, show modal 
+        // if there are clients, show modal
         else {
           this.setState({ clients: res.data, showModal: true });
         }
@@ -129,7 +139,6 @@ class Audits extends Component {
   }
 
   render() {
-
     // there is no user data
     if (!this.state.loggedUser) {
       return <MySpinner />;
@@ -137,7 +146,6 @@ class Audits extends Component {
 
     // there is user data
     return (
-
       // layout
       <Layout
         userProps={{
@@ -153,7 +161,6 @@ class Audits extends Component {
           { text: "Clientes", link: "/clients" }
         ]}
       >
-
         {/* breadcrum */}
         <MyBreadcrum
           pages={[
@@ -165,7 +172,7 @@ class Audits extends Component {
         {/* title */}
         <div className="d-flex align-items-center p-2 mb-4">
           <Image
-            src="https://image.flaticon.com/icons/svg/1055/1055672.svg"
+            src="https://image.flaticon.com/icons/svg/201/201558.svg"
             width="65"
             height="65"
             fluid
@@ -174,10 +181,7 @@ class Audits extends Component {
         </div>
 
         {/* modal */}
-        <Modal
-          show={this.state.showModal}
-          onHide={this.handleCloseModal}
-        >
+        <Modal show={this.state.showModal} onHide={this.handleCloseModal}>
           <Modal.Header closeButton>
             <Modal.Title>Nueva Auditoría</Modal.Title>
           </Modal.Header>
@@ -199,8 +203,8 @@ class Audits extends Component {
                       );
                     })
                   ) : (
-                      <></>
-                    )}
+                    <></>
+                  )}
                 </Form.Control>
               </Form.Group>
               <Form.Group>
@@ -209,33 +213,29 @@ class Audits extends Component {
               </Form.Group>
               <Form.Group>
                 <Form.Label>3. Descripción*</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows="3"
-                  id="description"
-                />
+                <Form.Control as="textarea" rows="3" id="description" />
               </Form.Group>
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button
-              variant="secondary"
-              onClick={this.handleCloseModal}
-            >
+            <Button variant="secondary" onClick={this.handleCloseModal}>
               Cancelar
-                      </Button>
+            </Button>
             <Button variant="primary" onClick={this.handleFormSubmit}>
               Crear
-                      </Button>
+            </Button>
           </Modal.Footer>
         </Modal>
 
         {/* alert */}
-        <Alert show={this.state.showAlert} variant={this.state.alertVariant} onClose={this.handleCloseAlert} dismissible>
+        <Alert
+          show={this.state.showAlert}
+          variant={this.state.alertVariant}
+          onClose={this.handleCloseAlert}
+          dismissible
+        >
           <Alert.Heading>{this.state.alertHeading}</Alert.Heading>
-          <p>
-            {this.state.alertBody}
-          </p>
+          <p>{this.state.alertBody}</p>
         </Alert>
 
         {/* if there are audits */}
@@ -248,7 +248,7 @@ class Audits extends Component {
                   <ListGroup.Item
                     action
                     key={audit.id}
-                    href={"/audits/planning/" + audit.id}
+                    href={"/audits/workplan/" + audit.id}
                   >
                     <strong className="h3">
                       {audit.clientAcronym} {audit.year}
@@ -266,34 +266,36 @@ class Audits extends Component {
                   <Button variant="primary" onClick={this.handleShowModal}>
                     Nueva Auditoría
                   </Button>
-
                 </div>
               </>
             ) : (
-                <>
-                  <div className="text-right mt-3">
-                    <Button variant="primary" disabled>
-                      Nueva Auditoría
+              <>
+                <div className="text-right mt-3">
+                  <Button variant="primary" disabled>
+                    Nueva Auditoría
                   </Button>
-                  </div>
-                </>
-              )}
+                </div>
+              </>
+            )}
           </>
-        ) :
+        ) : (
           // if there are no audits
-          (
-            <>
-              <div className="text-center mt-4">
-                <p className="lead">No hay Auditorías para mostrar.</p>
-                {/* if the user is not an admin, show the new audit button disabled */}
-                {this.isUserAdmin() ? (
-                  <Button variant="primary" onClick={this.handleShowModal}>Nueva Auditoría</Button>
-                ) : (
-                    <Button variant="primary" disabled>Nueva Auditoría</Button>
-                  )}
-              </div>
-            </>
-          )}
+          <>
+            <div className="text-center mt-4">
+              <p className="lead">No hay Auditorías para mostrar.</p>
+              {/* if the user is not an admin, show the new audit button disabled */}
+              {this.isUserAdmin() ? (
+                <Button variant="primary" onClick={this.handleShowModal}>
+                  Nueva Auditoría
+                </Button>
+              ) : (
+                <Button variant="primary" disabled>
+                  Nueva Auditoría
+                </Button>
+              )}
+            </div>
+          </>
+        )}
       </Layout>
     );
   }

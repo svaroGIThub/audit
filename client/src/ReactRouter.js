@@ -9,6 +9,7 @@ import NoMatch from "./pages/NoMatch/NoMatch";
 import Login from "./pages/Login/Login";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Audits from "./pages/Audit/Audits";
+import Workplan from "./pages/Audit/Workplan";
 import Clients from "./pages/Clients/Clients";
 import Planning from "./pages/Audit/Planning/Planning";
 import CCI from "./pages/Audit/Planning/CCI";
@@ -47,40 +48,58 @@ class ReactRouter extends Component {
               render={() => <Dashboard loggedUser={this.state.user} />}
             />
             <Route
-              exact path="/dashboard"
+              exact
+              path="/dashboard"
               render={() => <Dashboard loggedUser={this.state.user} />}
             />
             <Route
-              exact path="/audits"
-              render={() => <Audits loggedUser={this.state.user} />}
-            />
-            <Route
-              exact path="/clients"
+              exact
+              path="/clients"
               render={() => <Clients loggedUser={this.state.user} />}
             />
             <Route
-              exact path="/audits/planning/:id"
-              render={(props) => <Planning routeProps={props} loggedUser={this.state.user} />}
+              exact
+              path="/audits"
+              render={() => <Audits loggedUser={this.state.user} />}
             />
             <Route
-              exact path="/audits/planning/cci/:id"
-              render={(props) => <CCI routeProps={props} loggedUser={this.state.user} />}
+              exact
+              path="/audits/workplan/:id"
+              render={props => (
+                <Workplan routeProps={props} loggedUser={this.state.user} />
+              )}
             />
             <Route
-              exact path="/audits/planning/cefs/:id"
-              render={(props) => <CEFS routeProps={props} loggedUser={this.state.user} />}
+              exact
+              path="/audits/planning/:id"
+              render={props => (
+                <Planning routeProps={props} loggedUser={this.state.user} />
+              )}
+            />
+            <Route
+              exact
+              path="/audits/planning/cci/:id"
+              render={props => (
+                <CCI routeProps={props} loggedUser={this.state.user} />
+              )}
+            />
+            <Route
+              exact
+              path="/audits/planning/cefs/:id"
+              render={props => (
+                <CEFS routeProps={props} loggedUser={this.state.user} />
+              )}
             />
             <Redirect from="/login" to="/dashboard" />
             <Route component={NoMatch} loggedUser={this.state.user} />
-
           </Switch>
         ) : (
-            <Switch>
-              <Route exact path="/login" component={Login} />
-              {/* <Redirect from="/dashboard" to="/login" /> */}
-              <Redirect to="/login" />
-            </Switch>
-          )}
+          <Switch>
+            <Route exact path="/login" component={Login} />
+            {/* <Redirect from="/dashboard" to="/login" /> */}
+            <Redirect to="/login" />
+          </Switch>
+        )}
       </Router>
     );
   }
