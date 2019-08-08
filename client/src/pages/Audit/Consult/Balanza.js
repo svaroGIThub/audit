@@ -12,7 +12,8 @@ import API from "../../../utils/API";
 class Balanza extends Component {
     state = {
         loggedUser: null,
-        selectedAudit: null
+        selectedAudit: null,
+        selectedFile: null
     };
 
     // Loads all clients and sets them to this.state.clients
@@ -76,6 +77,30 @@ class Balanza extends Component {
                 })
         }
         reader.readAsText(files[0]);
+    }
+
+    onChangeHandler = event => {
+        console.log(event.target.files[0])
+        this.setState({
+            selectedFile: event.target.files[0],
+            loaded: 0,
+        })
+    }
+
+    onClickHandler = (e) => {
+        e.preventDefault();
+        let formData = new FormData();
+        formData.append("csvFile", this.state.selectedFile);
+        // for (var key of formData.entries()) {
+        //     console.log(key[0] + ', ' + key[1])
+        // }
+        API.uploadBalanza(formData)
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     componentDidMount() {
@@ -160,7 +185,14 @@ class Balanza extends Component {
                                 <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}>
                                     <Button variant="primary">Subir CSV</Button>
                                 </ReactFileReader>
-                                <ProgressBar className="mt-4" now={60} />
+                                <hr />
+
+                                <form onSubmit={this.onClickHandler} encType="multipart/form-data">
+                                    <input type="file" name="file" onChange={this.onChangeHandler} />
+                                    <button type="submit" className="btn btn-success">Upload</button>
+                                </form>
+
+                                {/* <ProgressBar className="mt-4" now={60} /> */}
                             </>) :
                             (<Button variant="primary" disabled>Subir</Button>)
                         }

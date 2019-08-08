@@ -16,7 +16,7 @@ import Nomina from "./pages/Audit/Consult/Nomina";
 import Planning from "./pages/Audit/Planning/Planning";
 import CCI from "./pages/Audit/Planning/CCI";
 import CEFS from "./pages/Audit/Planning/CEFS";
-import fire from "./firebase/Fire";
+import firebase from "./firebase/Fire";
 
 class ReactRouter extends Component {
   state = {
@@ -24,11 +24,15 @@ class ReactRouter extends Component {
   };
 
   componentDidMount() {
+    // firebase.auth().setPersistence(firebase.auth.Auth.setPersistence.SESSION)
+    // .then(function(){
+    //   return this.authListener();
+    // })
     this.authListener();
   }
 
   authListener() {
-    fire.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({ user });
         localStorage.setItem("user", user.uid);

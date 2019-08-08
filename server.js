@@ -1,6 +1,8 @@
 // Define middleware
 const express = require("express");
 const app = express();
+const cors = require("cors");
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -29,8 +31,8 @@ app.get("*", (req, res) => {
 // Run the server
 const PORT = process.env.PORT || 3001;
 const db = require("./models");
-db.sequelize.sync({ force: false }).then(function() {
-  app.listen(PORT, function() {
+db.sequelize.sync({ force: false }).then(function () {
+  app.listen(PORT, function () {
     console.log("🌎 ==> API server now on port " + PORT);
   });
 });

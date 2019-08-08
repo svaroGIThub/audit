@@ -42,8 +42,8 @@ export default {
 
   // balanzas
 
-  uploadBalanza: function (file) {
-    return axios.post("/api/upload/balanza/", file);
+  uploadBalanza: function (csvFile) {
+    return axios.post("/api/upload/balanza/", csvFile);
   }
 
 };
