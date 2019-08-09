@@ -24,10 +24,6 @@ class ReactRouter extends Component {
   };
 
   componentDidMount() {
-    // firebase.auth().setPersistence(firebase.auth.Auth.setPersistence.SESSION)
-    // .then(function(){
-    //   return this.authListener();
-    // })
     this.authListener();
   }
 

@@ -5,8 +5,12 @@ import MySpinner from "../../../components/MySpinner/MySpinner";
 import ReactFileReader from 'react-file-reader';
 import Image from "react-bootstrap/Image";
 import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Button from "react-bootstrap/Button";
+import InputGroup from "react-bootstrap/InputGroup";
+import Form from "react-bootstrap/Form";
 import API from "../../../utils/API";
 
 class Balanza extends Component {
@@ -91,6 +95,7 @@ class Balanza extends Component {
         e.preventDefault();
         let formData = new FormData();
         formData.append("csvFile", this.state.selectedFile);
+        formData.append("auditId", this.state.selectedAudit.id);
         // for (var key of formData.entries()) {
         //     console.log(key[0] + ', ' + key[1])
         // }
@@ -101,6 +106,28 @@ class Balanza extends Component {
             .catch(err => {
                 console.log(err);
             })
+    }
+
+    newFile = event => {
+        // console.log(event.target.files[0])
+        this.setState({
+            selectedFile: event.target.files[0],
+            loaded: 0,
+        }, () => {
+            // e.preventDefault();
+            let formData = new FormData();
+            formData.append("csvFile", this.state.selectedFile);
+            // for (var key of formData.entries()) {
+            //     console.log(key[0] + ', ' + key[1])
+            // }
+            API.uploadBalanza(formData)
+                .then(res => {
+                    console.log(res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        })
     }
 
     componentDidMount() {
@@ -178,19 +205,27 @@ class Balanza extends Component {
 
                 {/* page content */}
                 {(!this.state.selectedAudit.hasBalanza) ?
-                    (<Container className="mt-4 text-center">
+                    (<Container className="mt-4 text-center" fluid>
                         <p className="lead">Esta Auditoría no cuenta con una Balanza.</p>
                         {(this.state.loggedUser.role === "Admin") ?
                             (<>
-                                <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}>
+                                {/* <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}>
                                     <Button variant="primary">Subir CSV</Button>
                                 </ReactFileReader>
-                                <hr />
+                                <hr /> */}
+                                <Row>
+                                    <Col md={{ span: 6, offset: 3 }}>
+                                        <Form onSubmit={this.onClickHandler} encType="multipart/form-data" className="bg-white" width="300">
+                                            <Form.Row>
+                                                <input type="file" name="file" className="" onChange={this.onChangeHandler} />
+                                            </Form.Row>
 
-                                <form onSubmit={this.onClickHandler} encType="multipart/form-data">
-                                    <input type="file" name="file" onChange={this.onChangeHandler} />
-                                    <button type="submit" className="btn btn-success">Upload</button>
-                                </form>
+                                            <Form.Row className="mt-4">
+                                                <Button type="submit" variant="primary">Upload</Button>
+                                            </Form.Row>
+                                        </Form>
+                                    </Col>
+                                </Row>
 
                                 {/* <ProgressBar className="mt-4" now={60} /> */}
                             </>) :
