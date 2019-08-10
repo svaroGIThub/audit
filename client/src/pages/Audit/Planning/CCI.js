@@ -507,8 +507,6 @@ class CCI extends Component {
   // pdf 
   generatePDF = () => {
 
-    // let audit = this.state.selectedAudit.clientAcronym + " " + this.state.selectedAudit.year;
-
     let documentDefinition = {
       content:
         [
@@ -1556,7 +1554,6 @@ class CCI extends Component {
 
 
         {/* page content */}
-
         <Form>
           <Form.Text style={styles.first}>1. Entorno de Control</Form.Text>
 

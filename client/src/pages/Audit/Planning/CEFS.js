@@ -8,6 +8,10 @@ import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import API from "../../../utils/API";
 
+const pdfMake = require("pdfmake/build/pdfmake.js");
+const pdfFonts = require("pdfmake/build/vfs_fonts.js");
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
 const styles = {
   formssubtitles: {
     fontSize: "18px"
@@ -182,6 +186,182 @@ class CEFS extends Component {
     this.authUserAndSelectedAudit();
   }
 
+  // pdf 
+  generatePDF = () => {
+
+    let documentDefinition = {
+      content:
+        [
+          {
+            text: this.state.selectedAudit.clientAcronym + " " + this.state.selectedAudit.year, style: "headerOne"
+          },
+          {
+            text: "Cédula de Estados Financieros del Sistema", style: "headerTwo"
+          },
+          {
+            text: "I. Información contable, con la desagregación siguiente:", style: "title"
+          },
+          {
+            text: "Estado de situación financiera."
+          },
+          {
+            text: this.state.c1
+          },
+          {
+            text: "Estado de variación en la hacienda pública."
+          },
+          {
+            text: this.state.c2
+          },
+          {
+            text: "Estado de cambios en la situación financiera."
+          },
+          {
+            text: this.state.c3
+          },
+          {
+            text: "Informes sobre pasivos contingentes."
+          },
+          {
+            text: this.state.c4
+          },
+          {
+            text: "Notas a los estados financieros."
+          },
+          {
+            text: this.state.c5
+          },
+          {
+            text: "Estado analítico del activo."
+          },
+          {
+            text: this.state.c6
+          },
+          {
+            text: "Estado analítico de la deuda, del cual se derivarán las siguientes clasificaciones:", style: "title"
+          },
+          {
+            text: "Corto y largo plazo."
+          },
+          {
+            text: this.state.c7
+          },
+          {
+            text: "Fuentes de financiamiento."
+          },
+          {
+            text: this.state.c8
+          },
+          {
+            text: "Endeudamiento neto, financiamiento menos amortización."
+          },
+          {
+            text: this.state.c9
+          },
+          {
+            text: "Intereses de la deuda."
+          },
+          {
+            text: this.state.c10
+          },
+          {
+            text: "II. Información contable, con la desagregación siguiente:", style: "title"
+          },
+          {
+            text: "Estado analítico de ingresos, del que se derivará la presentación en clasificación económica por fuente de financiamiento y concepto."
+          },
+          {
+            text: this.state.c11
+          },
+          {
+            text: "Estado analítico de ingresos, del que se derivará la presentación en clasificación económica por fuente de financiamiento y concepto.", style: "title"
+          },
+          {
+            text: "Administrativa."
+          },
+          {
+            text: this.state.c12
+          },
+          {
+            text: "Económica y por objeto del gasto."
+          },
+          {
+            text: this.state.c13
+          },
+          {
+            text: "Funcional-Programática."
+          },
+          {
+            text: this.state.c14
+          },
+          {
+            text: "Endeudamiento neto, financiamiento menos amortización, del que derivará la clasificación por su origen en interno y externo."
+          },
+          {
+            text: this.state.c15
+          },
+          {
+            text: "Intereses de la deuda."
+          },
+          {
+            text: this.state.c16
+          },
+          {
+            text: "Un flujo de fondos que resuma todas las operaciones y los indicadores de la postura fiscal."
+          },
+          {
+            text: this.state.c17
+          },
+          {
+            text: "III. Información contable, con la desagregación siguiente:", style: "title"
+          },
+          {
+            text: "Gasto por categoría programática."
+          },
+          {
+            text: this.state.c18
+          },
+          {
+            text: "Programas y proyectos de inversión."
+          },
+          {
+            text: this.state.c19
+          },
+          {
+            text: "Indicadores de resultados."
+          },
+          {
+            text: this.state.c20
+          }
+        ],
+      styles:
+      {
+        headerOne:
+        {
+          fontSize: 22,
+          bold: true,
+          margin: [0, 10, 0, 0],
+          alignment: "center"
+        },
+        headerTwo:
+        {
+          fontSize: 16,
+          margin: [0, 10, 0, 10],
+          alignment: "center"
+        },
+        title:
+        {
+          bold: true,
+          fontSize: 14,
+          margin: [0, 15, 0, 10]
+        },
+      }
+    };
+
+    pdfMake.createPdf(documentDefinition).download(this.state.selectedAudit.clientAcronym + " " + this.state.selectedAudit.year + " - CEFS.pdf");
+
+  }
+
   render() {
     // there is no user data
     if (!this.state.loggedUser || !this.state.selectedAudit || !this.state.answersLoaded) {
@@ -313,11 +493,11 @@ class CEFS extends Component {
             Estado analítico de la deuda, del cual se derivarán las siguientes clasificaciones:</Form.Text>
 
           <Form.Group className="ml-lg-4 pl-lg-4">
-            <Form.Check type="checkbox" label="Corto y largo plazo" name="c7" defaultChecked={this.state.c7} onChange={this.handleChangeChk} />
+            <Form.Check type="checkbox" label="Corto y largo plazo." name="c7" defaultChecked={this.state.c7} onChange={this.handleChangeChk} />
           </Form.Group>
 
           <Form.Group className="ml-lg-4 pl-lg-4">
-            <Form.Check type="checkbox" label="Fuentes de financiamiento" name="c8" defaultChecked={this.state.c8} onChange={this.handleChangeChk} />
+            <Form.Check type="checkbox" label="Fuentes de financiamiento." name="c8" defaultChecked={this.state.c8} onChange={this.handleChangeChk} />
           </Form.Group>
 
           <Form.Group className="ml-lg-4">
@@ -330,8 +510,8 @@ class CEFS extends Component {
 
           <Form.Text className="lead mb-4 mt-4">II. Información contable, con la desagregación siguiente:</Form.Text>
 
-          <Form.Group className="ml-lg-4" controlId="cb11">
-            <Form.Check type="checkbox" label="Estado analítico de ingresos, del que se derivará la presentación en clasificación económica por fuente de financiamiento y concepto." />
+          <Form.Group className="ml-lg-4">
+            <Form.Check type="checkbox" label="Estado analítico de ingresos, del que se derivará la presentación en clasificación económica or fuente de financiamiento y concepto." name="c11" defaultChecked={this.state.c11} onChange={this.handleChangeChk} />
           </Form.Group>
 
           <Form.Text className="mb-2 mt-0 ml-lg-4" style={styles.formssubtitles}>
@@ -376,7 +556,6 @@ class CEFS extends Component {
           </Form.Group>
 
         </Form>
-
 
       </Layout>
     );
