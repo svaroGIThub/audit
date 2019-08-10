@@ -351,11 +351,33 @@ class Clients extends Component {
                 })}
               </tbody>
             </Table>
-            <div className="text-right mt-2">
+
+            {/* conditional rendering, checks if the user is an Admin */}
+            {this.isUserAdmin() ? (
+              <>
+                <div className="text-right mt-3">
+                  <Button variant="primary" onClick={this.handleShowCreateModal}>
+                    Nuevo Cliente
+                  </Button>
+                </div>
+              </>
+            ) : (
+                <>
+                  <div className="text-right mt-3">
+                    <Button variant="primary" disabled>
+                      Nuevo Cliente
+                  </Button>
+                  </div>
+                </>
+              )}
+
+            {/* <div className="text-right mt-2">
               <Button variant="primary" onClick={this.handleShowCreateModal}>
                 Nuevo Cliente
               </Button>
-            </div>
+            </div> */}
+
+
           </>
         ) : (
             // if there are no clients
