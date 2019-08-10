@@ -40,6 +40,24 @@ export default {
     return axios.put("/api/client/edit/", clientInfo);
   },
 
+  // surveys
+
+  getAnswersFromCCI: function (auditId) {
+    return axios.get("/api/survey/cci/" + auditId);
+  },
+
+  saveAnswersToCCI: function (answers) {
+    return axios.put("/api/survey/cci", answers);
+  },
+
+  getAnswersFromCEFS: function (auditId) {
+    return axios.get("/api/survey/cefs/" + auditId);
+  },
+
+  saveAnswersToCEFS: function (answers) {
+    return axios.put("/api/survey/cefs", answers);
+  },
+
   // balanzas
 
   uploadBalanza: function (csvFile) {

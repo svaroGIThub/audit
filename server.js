@@ -20,6 +20,8 @@ const clientRoutes = require("./routes/clientRoutes");
 app.use("/api/client", clientRoutes);
 const uploadRoutes = require("./routes/uploadRoutes");
 app.use("/api/upload", uploadRoutes);
+const surveyRoutes = require("./routes/surveyRoutes");
+app.use("/api/survey", surveyRoutes);
 
 // Send every other request to the React app
 // Define any API routes before this runs

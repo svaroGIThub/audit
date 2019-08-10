@@ -30,17 +30,45 @@ router.get("/:id", function (req, res) {
 });
 
 // add a new audit to the db
+// also create blank surveys from that audit
 // matches with /api/audits/new
 router.post("/new", function (req, res) {
   model.Audit.create({
-    // id: req.body.id,
     clientName: req.body.clientName,
     clientAcronym: req.body.clientAcronym,
     year: req.body.year,
     description: req.body.description
   })
-    .then(function (res) {
+    .then(function (row) {
+
+      // this is the id from the recently created audit
+      const newAudit = row.dataValues.id;
+
+      // creating blank cci
+      model.Cci.create({
+        auditId: newAudit
+      })
+        .then(function (res) {
+          // res.json(res);
+        })
+        .catch(function (err) {
+          res.send(err);
+        });
+
+      // creating blank cefs
+      model.Cefs.create({
+        auditId: newAudit
+      })
+        .then(function (res) {
+          // res.json(res);
+        })
+        .catch(function (err) {
+          res.send(err);
+        });
+
+      // response to the frontend
       res.json(res);
+
     })
     .catch(function (err) {
       res.send(err);

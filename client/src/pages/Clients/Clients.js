@@ -358,23 +358,23 @@ class Clients extends Component {
             </div>
           </>
         ) : (
-          // if there are no clients
-          <>
-            <div className="text-center mt-4">
-              <p className="lead">No hay Clientes para mostrar.</p>
-              {/* if the user is not an admin, show the new client button disabled */}
-              {this.isUserAdmin() ? (
-                <Button variant="primary" onClick={this.handleShowCreateModal}>
-                  Nuevo Cliente
+            // if there are no clients
+            <>
+              <div className="text-center mt-4">
+                <p className="lead">No hay Clientes para mostrar.</p>
+                {/* if the user is not an admin, show the new client button disabled */}
+                {this.isUserAdmin() ? (
+                  <Button variant="primary" onClick={this.handleShowCreateModal}>
+                    Nuevo Cliente
                 </Button>
-              ) : (
-                <Button variant="primary" disabled>
-                  Nuevo Cliente
+                ) : (
+                    <Button variant="primary" disabled>
+                      Nuevo Cliente
                 </Button>
-              )}
-            </div>
-          </>
-        )}
+                  )}
+              </div>
+            </>
+          )}
       </Layout>
     );
   }

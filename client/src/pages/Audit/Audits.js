@@ -203,8 +203,8 @@ class Audits extends Component {
                       );
                     })
                   ) : (
-                    <></>
-                  )}
+                      <></>
+                    )}
                 </Form.Control>
               </Form.Group>
               <Form.Group>
@@ -269,33 +269,33 @@ class Audits extends Component {
                 </div>
               </>
             ) : (
-              <>
-                <div className="text-right mt-3">
-                  <Button variant="primary" disabled>
-                    Nueva Auditoría
+                <>
+                  <div className="text-right mt-3">
+                    <Button variant="primary" disabled>
+                      Nueva Auditoría
                   </Button>
-                </div>
-              </>
-            )}
+                  </div>
+                </>
+              )}
           </>
         ) : (
-          // if there are no audits
-          <>
-            <div className="text-center mt-4">
-              <p className="lead">No hay Auditorías para mostrar.</p>
-              {/* if the user is not an admin, show the new audit button disabled */}
-              {this.isUserAdmin() ? (
-                <Button variant="primary" onClick={this.handleShowModal}>
-                  Nueva Auditoría
+            // if there are no audits
+            <>
+              <div className="text-center mt-4">
+                <p className="lead">No hay Auditorías para mostrar.</p>
+                {/* if the user is not an admin, show the new audit button disabled */}
+                {this.isUserAdmin() ? (
+                  <Button variant="primary" onClick={this.handleShowModal}>
+                    Nueva Auditoría
                 </Button>
-              ) : (
-                <Button variant="primary" disabled>
-                  Nueva Auditoría
+                ) : (
+                    <Button variant="primary" disabled>
+                      Nueva Auditoría
                 </Button>
-              )}
-            </div>
-          </>
-        )}
+                  )}
+              </div>
+            </>
+          )}
       </Layout>
     );
   }

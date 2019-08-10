@@ -23,7 +23,7 @@ class Dashboard extends Component {
       localStorage.setItem("user", uid);
       API.getUserInfo(uid)
         .then(res => {
-          this.setState({ loggedUser: res.data }, () => {});
+          this.setState({ loggedUser: res.data }, () => { });
         })
         .catch(err => console.log(err));
     }
@@ -33,7 +33,7 @@ class Dashboard extends Component {
       const uid = localStorage.getItem("user");
       API.getUserInfo(uid)
         .then(res => {
-          this.setState({ loggedUser: res.data }, () => {});
+          this.setState({ loggedUser: res.data }, () => { });
         })
         .catch(err => console.log(err));
     }
@@ -91,24 +91,20 @@ class Dashboard extends Component {
               src="https://i5.walmartimages.com/dfw/4ff9c6c9-513e/k2-_8db4ce49-0b05-40d3-a44e-cde6551f8a87.v1.jpg"
             />
             <Card.Body>
-              <Card.Title>Card title that wraps to a new line</Card.Title>
+              <Card.Title>Work Harder.</Card.Title>
               <Card.Text>
-                This is a longer card with supporting text below as a natural
-                lead-in to additional content. This content is a little bit
-                longer.
+                Push yourself, because no one else is going to do it for you.
               </Card.Text>
             </Card.Body>
           </Card>
           <Card className="p-3">
             <blockquote className="blockquote mb-0 card-body">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                posuere erat a ante.
+                All money is a matter of belief.
               </p>
               <footer className="blockquote-footer">
                 <small className="text-muted text-light">
-                  Someone famous in{" "}
-                  <cite title="Source Title">Source Title</cite>
+                  Adam Smith
                 </small>
               </footer>
             </blockquote>
@@ -119,39 +115,30 @@ class Dashboard extends Component {
               src="https://emeraldfinancialpartners.com/wp-content/uploads/2019/03/office.jpg"
             />
             <Card.Body>
-              <Card.Title>Card title</Card.Title>
               <Card.Text>
-                This card has supporting text below as a natural lead-in to
-                additional content.{" "}
+                If it doesn't challenge you, it won't change you.
               </Card.Text>
             </Card.Body>
             <Card.Footer>
-              <small className="text-muted">Last updated 3 mins ago</small>
+              <small className="text-muted">Don't quit.</small>
             </Card.Footer>
           </Card>
           <Card bg="info" text="white" className="text-center p-3">
             <blockquote className="blockquote mb-0 card-body">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                posuere erat a ante.
+                Pressure makes diamonds.
               </p>
               <footer className="blockquote-footer">
                 <small className="text-light">
-                  Someone famous in{" "}
-                  <cite title="Source Title">Source Title</cite>
+                  George S. Patton Jr.
                 </small>
               </footer>
             </blockquote>
           </Card>
           <Card className="text-center">
             <Card.Body>
-              <Card.Title>Card title</Card.Title>
               <Card.Text>
-                This card has supporting text below as a natural lead-in to
-                additional content.{" "}
-              </Card.Text>
-              <Card.Text>
-                <small className="text-muted">Last updated 3 mins ago</small>
+                Think outside the box.
               </Card.Text>
             </Card.Body>
           </Card>
@@ -161,27 +148,20 @@ class Dashboard extends Component {
           <Card className="text-right">
             <blockquote className="blockquote mb-0 card-body">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                posuere erat a ante.
+                Small changes eventually lead to huge results.
               </p>
               <footer className="blockquote-footer">
                 <small className="text-muted">
-                  Someone famous in{" "}
-                  <cite title="Source Title">Source Title</cite>
+                  Someone famous
                 </small>
               </footer>
             </blockquote>
           </Card>
           <Card>
             <Card.Body>
-              <Card.Title>Card title</Card.Title>
+              <Card.Title>What is an audit?</Card.Title>
               <Card.Text>
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content. This card has even longer content
-                than the first to show that equal height action.
-              </Card.Text>
-              <Card.Text>
-                <small className="text-muted">Last updated 3 mins ago</small>
+                An audit is a systematic and independent examination of books, accounts, statutory records, documents and vouchers of an organization to ascertain how far the financial statements as well as non-financial disclosures present a true and fair view of the concern.
               </Card.Text>
             </Card.Body>
           </Card>

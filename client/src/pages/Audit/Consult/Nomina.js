@@ -82,7 +82,7 @@ class Nomina extends Component {
                 ]}
                 phasesProps={[
                     {
-                        text: "Plan",
+                        text: "Guía",
                         link: "/audits/workplan/" + this.state.selectedAudit.id
                     },
                     {

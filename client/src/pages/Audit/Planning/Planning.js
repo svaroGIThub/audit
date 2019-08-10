@@ -88,19 +88,19 @@ class Planning extends Component {
         ]}
         phasesProps={[
           {
-            text: "Plan de Trabajo",
+            text: "Guía",
             link: "/audits/workplan/" + this.state.selectedAudit.id
           },
           {
-            text: "Fase de Planeación",
+            text: "Planeación",
             link: "/audits/planning/" + this.state.selectedAudit.id
           },
           {
-            text: "Fase de Programación",
+            text: "Programación",
             link: "/audits/fieldwork/" + this.state.selectedAudit.id
           },
           {
-            text: "Fase de Ejecución",
+            text: "Ejecución",
             link: "/audits/exection/" + this.state.selectedAudit.id
           }
         ]}
@@ -132,11 +132,11 @@ class Planning extends Component {
             height="65"
             fluid
           />
-          <h2 className="ml-3 my-auto">Fase de Planeación</h2>
+          <h2 className="ml-3 my-auto">Planeación de la Auditoría</h2>
         </div>
 
         {/* page content */}
-        <h4>Planeación de la Auditoría</h4>
+        {/* <h4>Planeación de la Auditoría</h4> */}
         <p>
           Etapa de la auditoría que contiene el programa de trabajo y lo papeles
           de trabajo en que se documenta la fase de planeación de la auditoría.
@@ -144,9 +144,9 @@ class Planning extends Component {
           análisis del alcance general, que culminan en la preparación la
           auditoria plasmada en el memorándum.
         </p>
+        <p className="lead">Actividades</p>
         <ul className="list-unstyled">
           <li>
-            Actividades:
             <ul>
               <li>
                 Definición con el cliente de los objetivos y requerimientos de
@@ -172,7 +172,7 @@ class Planning extends Component {
         {/* menu */}
         <p className="lead">Ligas</p>
         <Accordion>
-          <Card style={styles.accordionCard}>
+          {/* <Card style={styles.accordionCard}>
             <Accordion.Toggle as={Card.Header} eventKey="0">
               Revisión Analítica General (RAG)
               <i className="fas fa-chevron-down text-secondary ml-2" />
@@ -180,14 +180,14 @@ class Planning extends Component {
             <Accordion.Collapse eventKey="0">
               <Card.Body>
                 <p className="mb-2">
-                  <a href="/audits">Cédula Presupuestos.</a>
+                  <a href="/audits">Cédula Presupuestos</a>
                 </p>
                 <p className="mb-0">
-                  <a href="/audits">Balanza con RAG 1, 2 y 3.</a>
+                  <a href="/audits">Balanza con RAG 1, 2 y 3</a>
                 </p>
               </Card.Body>
             </Accordion.Collapse>
-          </Card>
+          </Card> */}
           <Card style={styles.accordionCard}>
             <Accordion.Toggle as={Card.Header} eventKey="1">
               Cuestionarios
@@ -197,9 +197,8 @@ class Planning extends Component {
               <Card.Body>
                 <p className="mb-0">
                   <a
-                    href={"/audits/planning/cci/" + this.state.selectedAudit.id}
-                  >
-                    Cuestionario de Control Interno.
+                    href={"/audits/planning/cci/" + this.state.selectedAudit.id}>
+                    Cuestionario de Control Interno
                   </a>
                 </p>
               </Card.Body>
@@ -213,12 +212,8 @@ class Planning extends Component {
             <Accordion.Collapse eventKey="2">
               <Card.Body>
                 <p className="mb-0">
-                  <a
-                    href={
-                      "/audits/planning/cefs/" + this.state.selectedAudit.id
-                    }
-                  >
-                    Cédula de Estados Financieros del Sistema.
+                  <a href={"/audits/planning/cefs/" + this.state.selectedAudit.id}>
+                    Cédula de Estados Financieros del Sistema
                   </a>
                 </p>
               </Card.Body>

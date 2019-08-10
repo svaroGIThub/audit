@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import MyBreadcrum from "../../../components/MyBreadcrum/MyBreadcrum";
 import Layout from "../../../components/Layout/Layout";
 import MySpinner from "../../../components/MySpinner/MySpinner";
-import ReactFileReader from 'react-file-reader';
+// import ReactFileReader from 'react-file-reader';
 import Image from "react-bootstrap/Image";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import ProgressBar from "react-bootstrap/ProgressBar";
+// import ProgressBar from "react-bootstrap/ProgressBar";
 import Button from "react-bootstrap/Button";
-import InputGroup from "react-bootstrap/InputGroup";
+// import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
 import API from "../../../utils/API";
 
@@ -157,7 +157,7 @@ class Balanza extends Component {
                 ]}
                 phasesProps={[
                     {
-                        text: "Plan de Trabajo",
+                        text: "Guía",
                         link: "/audits/workplan/" + this.state.selectedAudit.id
                     },
                     {

@@ -4,7 +4,7 @@ import Layout from "../../components/Layout/Layout";
 import MySpinner from "../../components/MySpinner/MySpinner";
 import Image from "react-bootstrap/Image";
 import Table from "react-bootstrap/Table";
-import DatePicker from "react-datepicker";
+// import DatePicker from "react-datepicker";
 import API from "../../utils/API";
 
 class Workplan extends Component {
@@ -82,19 +82,19 @@ class Workplan extends Component {
         ]}
         phasesProps={[
           {
-            text: "Plan de Trabajo",
+            text: "Guía",
             link: "/audits/workplan/" + this.state.selectedAudit.id
           },
           {
-            text: "Fase de Planeación",
+            text: "Planeación",
             link: "/audits/planning/" + this.state.selectedAudit.id
           },
           {
-            text: "Fase de Programación",
+            text: "Programación",
             link: "/audits/fieldwork/" + this.state.selectedAudit.id
           },
           {
-            text: "Fase de Ejecución",
+            text: "Ejecución",
             link: "/audits/exection/" + this.state.selectedAudit.id
           }
         ]}
@@ -114,7 +114,7 @@ class Workplan extends Component {
                 this.state.selectedAudit.year,
               link: "/audits/workplan/" + this.state.selectedAudit.id
             },
-            { key: "3", page: "Plan de Trabajo", link: "nolink" }
+            { key: "3", page: "Guía de Trabajo", link: "nolink" }
           ]}
         />
 
@@ -126,17 +126,16 @@ class Workplan extends Component {
             height="65"
             fluid
           />
-          <h2 className="ml-3 my-auto">
-            {this.state.selectedAudit.clientAcronym +
-              " " +
-              this.state.selectedAudit.year}
+          <h2 className="ml-3 my-auto">Guía de Trabajo
           </h2>
         </div>
 
         {/* page content */}
-        <h4>Plan de Trabajo</h4>
-        <a href={"/audits/planning/" + this.state.selectedAudit.id}
-          className="lead">Fase de Planeación</a>
+        {/* <h4>{this.state.selectedAudit.clientAcronym +
+              " " +
+              this.state.selectedAudit.year}</h4> */}
+        {/* <a href={"/audits/planning/" + this.state.selectedAudit.id}
+          className="lead">Fase de Planeación</a> */}
 
 
 <Table striped bordered className="mt-3 shadow-sm">

@@ -4,6 +4,8 @@ import Layout from "../../../components/Layout/Layout";
 import MySpinner from "../../../components/MySpinner/MySpinner";
 import Image from "react-bootstrap/Image";
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 import API from "../../../utils/API";
 
 const styles = {
@@ -15,17 +17,133 @@ const styles = {
 class CEFS extends Component {
   state = {
     loggedUser: null,
-    selectedAudit: null
+    selectedAudit: null,
+    // alerts
+    showAlert: false,
+    alertVariant: null,
+    alertHeading: null,
+    alertBody: null,
+    // checkboxes
+    c1: false,
+    c2: false,
+    c3: false,
+    c4: false,
+    c5: false,
+    c6: false,
+    c7: false,
+    c8: false,
+    c9: false,
+    c10: false,
+    c11: false,
+    c12: false,
+    c13: false,
+    c14: false,
+    c15: false,
+    c16: false,
+    c17: false,
+    c18: false,
+    c19: false,
+    c20: false,
+    answersLoaded: false
   };
 
   // Loads all clients and sets them to this.state.clients
   loadSelectedAudit = id => {
     API.getSelectedAudit(id)
       .then(res => {
-        this.setState({ selectedAudit: res.data });
+        this.setState({ selectedAudit: res.data },
+          () => this.showAnswers(id));
       })
       .catch(err => console.log(err));
   };
+
+  // answers
+  showAnswers = id => {
+    API.getAnswersFromCEFS(id)
+      .then(res => {
+        this.setState(
+          {
+            c1: res.data.c1,
+            c2: res.data.c2,
+            c3: res.data.c3,
+            c4: res.data.c4,
+            c5: res.data.c5,
+            c6: res.data.c6,
+            c7: res.data.c7,
+            c8: res.data.c8,
+            c9: res.data.c9,
+            c10: res.data.c10,
+            c11: res.data.c11,
+            c12: res.data.c12,
+            c13: res.data.c13,
+            c14: res.data.c14,
+            c15: res.data.c15,
+            c16: res.data.c16,
+            c17: res.data.c17,
+            c18: res.data.c18,
+            c20: res.data.c20,
+            answersLoaded: true
+          });
+      })
+      .catch(err => console.log(err))
+  }
+  handleChangeChk = event => {
+    const name = event.target.name;
+    if (event.target.checked) {
+      this.setState({
+        [name]: true
+      });
+    }
+    else {
+      this.setState({
+        [name]: false
+      });
+    }
+  };
+  handleSaveAnswers = event => {
+    event.preventDefault();
+    API.saveAnswersToCEFS({
+      auditId: this.state.selectedAudit.id,
+      c1: this.state.c1,
+      c2: this.state.c2,
+      c3: this.state.c3,
+      c4: this.state.c4,
+      c5: this.state.c5,
+      c6: this.state.c6,
+      c7: this.state.c7,
+      c8: this.state.c8,
+      c9: this.state.c9,
+      c10: this.state.c10,
+      c11: this.state.c11,
+      c12: this.state.c12,
+      c13: this.state.c13,
+      c14: this.state.c14,
+      c15: this.state.c15,
+      c16: this.state.c16,
+      c17: this.state.c17,
+      c18: this.state.c18,
+      c19: this.state.c19,
+      c20: this.state.c20
+    })
+      .then(res => {
+        this.handleShowAlert(
+          "success",
+          "Éxito.",
+          "Los cambios han sido guardados satisfactoriamente."
+        )
+      })
+      .catch(err => console.log(err));
+  };
+
+  // alert arrow functions
+  handleShowAlert = (variant, heading, body) => {
+    this.setState(
+      { alertVariant: variant, alertHeading: heading, alertBody: body },
+      () => this.setState({ showAlert: true })
+    );
+    // this.setState.myalert({ variant: variant, heading: heading, body: body, show: true });
+  };
+  handleCloseAlert = () => this.setState({ showAlert: false });
 
   // authenticates user and load his/her audits
   authUserAndSelectedAudit = () => {
@@ -66,7 +184,7 @@ class CEFS extends Component {
 
   render() {
     // there is no user data
-    if (!this.state.loggedUser || !this.state.selectedAudit) {
+    if (!this.state.loggedUser || !this.state.selectedAudit || !this.state.answersLoaded) {
       return <MySpinner />;
     }
 
@@ -87,19 +205,19 @@ class CEFS extends Component {
         ]}
         phasesProps={[
           {
-            text: "Plan de Trabajo",
+            text: "Guía",
             link: "/audits/workplan/" + this.state.selectedAudit.id
           },
           {
-            text: "Fase de Planeación",
+            text: "Planeación",
             link: "/audits/planning/" + this.state.selectedAudit.id
           },
           {
-            text: "Fase de Programación",
+            text: "Programación",
             link: "/audits/fieldwork/" + this.state.selectedAudit.id
           },
           {
-            text: "Fase de Ejecución",
+            text: "Ejecución",
             link: "/audits/exection/" + this.state.selectedAudit.id
           }
         ]}
@@ -135,7 +253,7 @@ class CEFS extends Component {
         {/* title */}
         <div className="d-flex align-items-center p-2 mb-4">
           <Image
-            src="https://image.flaticon.com/icons/svg/201/201557.svg"
+            src="https://image.flaticon.com/icons/svg/204/204278.svg"
             width="65"
             height="65"
             fluid
@@ -145,101 +263,116 @@ class CEFS extends Component {
           </h2>
         </div>
 
+        {/* buttons */}
+        <div className="text-right">
+          <Button variant="info" onClick={this.handleSaveAnswers} className="mr-2"><i className="fas fa-save mr-2"></i>Guardar</Button>
+          <Button variant="secondary" onClick={this.generatePDF}><i className="fas fa-file-pdf mr-2"></i>PDF</Button>
+        </div>
+
+        {/* alert */}
+        <Alert
+          className="mt-4"
+          show={this.state.showAlert}
+          variant={this.state.alertVariant}
+          onClose={this.handleCloseAlert}
+          dismissible>
+          <Alert.Heading>{this.state.alertHeading}</Alert.Heading>
+          <p>{this.state.alertBody}</p>
+        </Alert>
+
         {/* page content */}
-        <Form className="bg-white rounded shadow-sm p-3">
+        <Form className="bg-white rounded shadow-sm p-3 mt-4">
 
-          <Form.Text className="lead mb-2">I. Información contable, con la desagregación siguiente:</Form.Text>
+          <Form.Text className="lead mb-4">I. Información contable, con la desagregación siguiente:</Form.Text>
 
-          <Form.Group className="ml-lg-4" controlId="cb1">
-            <Form.Check type="checkbox" label="Estado de situación financiera." />
+          <Form.Group className="ml-lg-4">
+            <Form.Check type="checkbox" label="Estado de situación financiera." name="c1" defaultChecked={this.state.c1} onChange={this.handleChangeChk} />
           </Form.Group>
 
-          <Form.Group className="ml-lg-4" controlId="cb2">
-            <Form.Check type="checkbox" label="Estado de variación en la hacienda pública." />
+          <Form.Group className="ml-lg-4">
+            <Form.Check type="checkbox" label="Estado de variación en la hacienda pública." name="c2" defaultChecked={this.state.c2} onChange={this.handleChangeChk} />
           </Form.Group>
 
-          <Form.Group className="ml-lg-4" controlId="cb3">
-            <Form.Check type="checkbox" label="Estado de cambios en la situación financiera." />
+          <Form.Group className="ml-lg-4">
+            <Form.Check type="checkbox" label="Estado de cambios en la situación financiera." name="c3" defaultChecked={this.state.c3} onChange={this.handleChangeChk} />
           </Form.Group>
 
-          <Form.Group className="ml-lg-4" controlId="cb4">
-            <Form.Check type="checkbox" label="Informes sobre pasivos contingentes." />
+          <Form.Group className="ml-lg-4">
+            <Form.Check type="checkbox" label="Informes sobre pasivos contingentes." name="c4" defaultChecked={this.state.c4} onChange={this.handleChangeChk} />
           </Form.Group>
 
-          <Form.Group className="ml-lg-4" controlId="cb5">
-            <Form.Check type="checkbox" label="Notas a los estados financieros." />
+          <Form.Group className="ml-lg-4">
+            <Form.Check type="checkbox" label="Notas a los estados financieros." name="c5" defaultChecked={this.state.c5} onChange={this.handleChangeChk} />
           </Form.Group>
 
-          <Form.Group className="ml-lg-4" controlId="cb6">
-            <Form.Check type="checkbox" label="Estado analítico del activo." />
+          <Form.Group className="ml-lg-4">
+            <Form.Check type="checkbox" label="Estado analítico del activo." name="c6" defaultChecked={this.state.c6} onChange={this.handleChangeChk} />
           </Form.Group>
 
-          <Form.Text className="mb-2 mt-0 ml-lg-4" style={styles.formssubtitles}>
-            Estado analítico de la deuda, del cual se derivarán las siguientes clasificaciones:
-</Form.Text>
+          <Form.Text className="mb-3 mt-0 ml-lg-4" style={styles.formssubtitles}>
+            Estado analítico de la deuda, del cual se derivarán las siguientes clasificaciones:</Form.Text>
 
-          <Form.Group className="ml-lg-4 pl-lg-4" controlId="cb7">
-            <Form.Check type="checkbox" label="Corto y largo plazo" />
+          <Form.Group className="ml-lg-4 pl-lg-4">
+            <Form.Check type="checkbox" label="Corto y largo plazo" name="c7" defaultChecked={this.state.c7} onChange={this.handleChangeChk} />
           </Form.Group>
 
-          <Form.Group className="ml-lg-4 pl-lg-4" controlId="cb8">
-            <Form.Check type="checkbox" label="Fuentes de financiamiento" />
+          <Form.Group className="ml-lg-4 pl-lg-4">
+            <Form.Check type="checkbox" label="Fuentes de financiamiento" name="c8" defaultChecked={this.state.c8} onChange={this.handleChangeChk} />
           </Form.Group>
 
-          <Form.Group className="ml-lg-4" controlId="cb9">
-            <Form.Check type="checkbox" label="Endeudamiento neto, financiamiento menos amortización." />
+          <Form.Group className="ml-lg-4">
+            <Form.Check type="checkbox" label="Endeudamiento neto, financiamiento menos amortización." name="c9" defaultChecked={this.state.c9} onChange={this.handleChangeChk} />
           </Form.Group>
 
-          <Form.Group className="ml-lg-4" controlId="cb10">
-            <Form.Check type="checkbox" label="Intereses de la deuda." />
+          <Form.Group className="ml-lg-4">
+            <Form.Check type="checkbox" label="Intereses de la deuda." name="c10" defaultChecked={this.state.c10} onChange={this.handleChangeChk} />
           </Form.Group>
 
-          <Form.Text className="lead mb-2">II. Información contable, con la desagregación siguiente:</Form.Text>
+          <Form.Text className="lead mb-4 mt-4">II. Información contable, con la desagregación siguiente:</Form.Text>
 
           <Form.Group className="ml-lg-4" controlId="cb11">
             <Form.Check type="checkbox" label="Estado analítico de ingresos, del que se derivará la presentación en clasificación económica por fuente de financiamiento y concepto." />
           </Form.Group>
 
           <Form.Text className="mb-2 mt-0 ml-lg-4" style={styles.formssubtitles}>
-            Estado analítico del ejercicio del presupuesto de egresos del que se derivarán las siguientes clasificaciones:
-</Form.Text>
+            Estado analítico del ejercicio del presupuesto de egresos del que se derivarán las siguientes clasificaciones:</Form.Text>
 
-          <Form.Group className="ml-lg-4 pl-lg-4" controlId="cb12">
-            <Form.Check type="checkbox" label="Administrativa." />
+          <Form.Group className="ml-lg-4 pl-lg-4">
+            <Form.Check type="checkbox" label="Administrativa." name="c12" defaultChecked={this.state.c12} onChange={this.handleChangeChk} />
           </Form.Group>
 
-          <Form.Group className="ml-lg-4 pl-lg-4" controlId="cb13">
-            <Form.Check type="checkbox" label="Económica y por objeto del gasto." />
+          <Form.Group className="ml-lg-4 pl-lg-4">
+            <Form.Check type="checkbox" label="Económica y por objeto del gasto." name="c13" defaultChecked={this.state.c13} onChange={this.handleChangeChk} />
           </Form.Group>
 
-          <Form.Group className="ml-lg-4 pl-lg-4" controlId="cb14">
-            <Form.Check type="checkbox" label="Funcional-Programática." />
+          <Form.Group className="ml-lg-4 pl-lg-4">
+            <Form.Check type="checkbox" label="Funcional-Programática." name="c14" defaultChecked={this.state.c14} onChange={this.handleChangeChk} />
           </Form.Group>
 
-          <Form.Group className="ml-lg-4" controlId="cb15">
-            <Form.Check type="checkbox" label="Endeudamiento neto, financiamiento menos amortización, del que derivará la clasificación por su origen en interno y externo." />
+          <Form.Group className="ml-lg-4">
+            <Form.Check type="checkbox" label="Endeudamiento neto, financiamiento menos amortización, del que derivará la clasificación por su origen en interno y externo." name="c15" defaultChecked={this.state.c15} onChange={this.handleChangeChk} />
           </Form.Group>
 
-          <Form.Group className="ml-lg-4" controlId="cb16">
-            <Form.Check type="checkbox" label="Intereses de la deuda." />
+          <Form.Group className="ml-lg-4">
+            <Form.Check type="checkbox" label="Intereses de la deuda." name="c16" defaultChecked={this.state.c16} onChange={this.handleChangeChk} />
           </Form.Group>
 
-          <Form.Group className="ml-lg-4" controlId="cb17">
-            <Form.Check type="checkbox" label="Un flujo de fondos que resuma todas las operaciones y los indicadores de la postura fiscal." />
+          <Form.Group className="ml-lg-4">
+            <Form.Check type="checkbox" label="Un flujo de fondos que resuma todas las operaciones y los indicadores de la postura fiscal." name="c17" defaultChecked={this.state.c17} onChange={this.handleChangeChk} />
           </Form.Group>
 
-          <Form.Text className="lead mb-2">III. Información contable, con la desagregación siguiente:</Form.Text>
+          <Form.Text className="lead mb-4 mt-4">III. Información contable, con la desagregación siguiente:</Form.Text>
 
-          <Form.Group className="ml-lg-4" controlId="cb18">
-            <Form.Check type="checkbox" label="Gasto por categoría programática." />
+          <Form.Group className="ml-lg-4">
+            <Form.Check type="checkbox" label="Gasto por categoría programática." name="c18" defaultChecked={this.state.c18} onChange={this.handleChangeChk} />
           </Form.Group>
 
-          <Form.Group className="ml-lg-4" controlId="cb19">
-            <Form.Check type="checkbox" label="Programas y proyectos de inversión." />
+          <Form.Group className="ml-lg-4">
+            <Form.Check type="checkbox" label="Programas y proyectos de inversión." name="c19" defaultChecked={this.state.c19} onChange={this.handleChangeChk} />
           </Form.Group>
 
-          <Form.Group className="ml-lg-4" controlId="cb20">
-            <Form.Check type="checkbox" label="Indicadores de resultados." />
+          <Form.Group className="ml-lg-4">
+            <Form.Check type="checkbox" label="Indicadores de resultados." name="c20" defaultChecked={this.state.c20} onChange={this.handleChangeChk} />
           </Form.Group>
 
         </Form>

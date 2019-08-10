@@ -1,4 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
+
     const Balanza = sequelize.define("Balanza", {
         auditId: {
             type: DataTypes.INTEGER,
@@ -9,7 +10,7 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: true
         },
         rubro: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: true
         },
         clasificación: {
