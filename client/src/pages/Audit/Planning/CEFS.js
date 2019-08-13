@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import MyBreadcrum from "../../../components/MyBreadcrum/MyBreadcrum";
 import Layout from "../../../components/Layout/Layout";
 import MySpinner from "../../../components/MySpinner/MySpinner";
+import ScrollButton from "../../../components/ScrollButton/ScrollButton";
 import Image from "react-bootstrap/Image";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -90,7 +91,7 @@ class CEFS extends Component {
           });
       })
       .catch(err => console.log(err))
-  }
+  };
   handleChangeChk = event => {
     const name = event.target.name;
     if (event.target.checked) {
@@ -556,6 +557,8 @@ class CEFS extends Component {
           </Form.Group>
 
         </Form>
+
+        <ScrollButton scrollStepInPx="50" delayInMs="16.66" />
 
       </Layout>
     );

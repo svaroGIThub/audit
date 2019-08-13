@@ -63,35 +63,14 @@ class Balanza extends Component {
     };
 
     // upload files handler
-    handleFiles = files => {
-        // console.log(this.state);
-        const reader = new FileReader();
-        const auditId = this.state.selectedAudit.id;
-        reader.onload = function (e) {
-            // console.log(reader.result);
-            const csv = {};
-            csv.auditId = auditId;
-            csv.file = reader.result;
-            API.uploadBalanza(csv)
-                .then(res => {
-                    console.log(res);
-                })
-                .catch(err => {
-                    console.log(err);
-                })
-        }
-        reader.readAsText(files[0]);
-    }
-
-    onChangeHandler = event => {
-        console.log(event.target.files[0])
+    chooseFileHandler = event => {
+        console.log(event.target.files[0]);
         this.setState({
             selectedFile: event.target.files[0],
             loaded: 0,
         })
     }
-
-    onClickHandler = (e) => {
+    uploadHandler = (e) => {
         e.preventDefault();
         let formData = new FormData();
         formData.append("csvFile", this.state.selectedFile);
@@ -106,28 +85,6 @@ class Balanza extends Component {
             .catch(err => {
                 console.log(err);
             })
-    }
-
-    newFile = event => {
-        // console.log(event.target.files[0])
-        this.setState({
-            selectedFile: event.target.files[0],
-            loaded: 0,
-        }, () => {
-            // e.preventDefault();
-            let formData = new FormData();
-            formData.append("csvFile", this.state.selectedFile);
-            // for (var key of formData.entries()) {
-            //     console.log(key[0] + ', ' + key[1])
-            // }
-            API.uploadBalanza(formData)
-                .then(res => {
-                    console.log(res.data);
-                })
-                .catch(err => {
-                    console.log(err);
-                })
-        })
     }
 
     componentDidMount() {
@@ -204,41 +161,41 @@ class Balanza extends Component {
                 </div>
 
                 {/* page content */}
-                {(!this.state.selectedAudit.hasBalanza) ?
-                    (<Container className="mt-4 text-center" fluid>
-                        <p className="lead">Esta Auditoría no cuenta con una Balanza.</p>
-                        {(this.state.loggedUser.role === "Admin") ?
-                            (<>
-                                {/* <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}>
-                                    <Button variant="primary">Subir CSV</Button>
-                                </ReactFileReader>
-                                <hr /> */}
-                                <Row>
-                                    <Col md={{ span: 6, offset: 3 }}>
-                                        <Form onSubmit={this.onClickHandler} encType="multipart/form-data" className="bg-white" width="300">
-                                            <Form.Row>
-                                                <input type="file" name="file" className="" onChange={this.onChangeHandler} />
-                                            </Form.Row>
-
-                                            <Form.Row className="mt-4">
-                                                <Button type="submit" variant="primary">Upload</Button>
-                                            </Form.Row>
-                                        </Form>
-                                    </Col>
-                                </Row>
-
-                                {/* <ProgressBar className="mt-4" now={60} /> */}
-                            </>) :
-                            (<Button variant="primary" disabled>Subir</Button>)
-                        }
-                    </Container>)
-                    :
-                    (<Container className="mt-4 text-center">
-                        <p className="lead">Hay balanza!</p>
-                    </Container>)
+                {
+                    (!this.state.selectedAudit.hasBalanza) ?
+                        (
+                            <Container className="mt-4 text-center" fluid>
+                                <p className="lead">Esta Auditoría no cuenta con una Balanza.</p>
+                                {
+                                    (this.state.loggedUser.role === "Admin") ?
+                                        (
+                                            <Row>
+                                                <Col md={{ span: 6, offset: 3 }}>
+                                                    <Form onSubmit={this.uploadHandler} encType="multipart/form-data">
+                                                        <Form.Row>
+                                                            <input type="file" name="file" onChange={this.chooseFileHandler} />
+                                                        </Form.Row>
+                                                        <Form.Row className="mt-4">
+                                                            <Button type="submit" variant="primary">Upload</Button>
+                                                        </Form.Row>
+                                                    </Form>
+                                                </Col>
+                                            </Row>
+                                        ) :
+                                        (
+                                            <Button variant="primary" disabled>Subir</Button>
+                                        )
+                                }
+                            </Container>
+                        )
+                        :
+                        (
+                            <Container className="mt-4 text-center">
+                                <p className="lead">Esta Auditoría cuenta con una Balanza</p>
+                                {/* show the balanza */}
+                            </Container>
+                        )
                 }
-
-
 
             </Layout >
         );

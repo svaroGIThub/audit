@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import MyBreadcrum from "../../../components/MyBreadcrum/MyBreadcrum";
 import Layout from "../../../components/Layout/Layout";
 import MySpinner from "../../../components/MySpinner/MySpinner";
+import ScrollButton from "../../../components/ScrollButton/ScrollButton";
 import Image from "react-bootstrap/Image";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -310,7 +311,7 @@ class CCI extends Component {
           });
       })
       .catch(err => console.log(err))
-  }
+  };
   handleAnswerChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -1538,7 +1539,7 @@ class CCI extends Component {
         {/* buttons */}
         <div className="text-right">
           <Button variant="info" onClick={this.handleSaveAnswers} className="mr-2"><i className="fas fa-save mr-2"></i>Guardar</Button>
-          <Button variant="secondary" onClick={this.generatePDF}><i className="fas fa-file-pdf mr-2"></i>PDF</Button>
+          <Button variant="secondary" onClick={this.generatePDF} className="mr-2"><i className="fas fa-file-pdf mr-2"></i>PDF</Button>
         </div>
 
         {/* alert */}
@@ -1551,7 +1552,6 @@ class CCI extends Component {
           <Alert.Heading>{this.state.alertHeading}</Alert.Heading>
           <p>{this.state.alertBody}</p>
         </Alert>
-
 
         {/* page content */}
         <Form>
@@ -2703,6 +2703,8 @@ class CCI extends Component {
             <Form.Control as="textarea" rows="2" name="a125" value={this.state.a125} onChange={this.handleAnswerChange} />
           </Form.Group>
         </Form>
+
+        <ScrollButton scrollStepInPx="50" delayInMs="16.66" />
 
       </Layout>
     );
