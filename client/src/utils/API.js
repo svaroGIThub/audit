@@ -10,8 +10,8 @@ export default {
 
   // audits
 
-  getAllAudits: function () {
-    return axios.get("/api/audit/all");
+  getAllAudits: function (page) {
+    return axios.get("/api/audit/all", page);
   },
 
   getSelectedAudit: function (id) {

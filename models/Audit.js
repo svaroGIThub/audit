@@ -1,5 +1,14 @@
 module.exports = function (sequelize, DataTypes) {
+
+  // set id to ALLOWNULL = TRUE 
+  // because the auto increment is being handled by mysql
+
   const Audit = sequelize.define("Audit", {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      primaryKey: true
+    },
     clientName: {
       type: DataTypes.STRING,
       allowNull: false
@@ -21,10 +30,18 @@ module.exports = function (sequelize, DataTypes) {
       defaultValue: false,
       allowNull: false
     },
-    hasNomina: {
+    hasNómina: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
       allowNull: false
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: true
     }
   });
 

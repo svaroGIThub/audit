@@ -126,7 +126,15 @@ module.exports = function (sequelize, DataTypes) {
         a122: { type: DataTypes.TEXT, allowNull: true, defaultValue: "" },
         a123: { type: DataTypes.TEXT, allowNull: true, defaultValue: "" },
         a124: { type: DataTypes.TEXT, allowNull: true, defaultValue: "" },
-        a125: { type: DataTypes.TEXT, allowNull: true, defaultValue: "" }
+        a125: { type: DataTypes.TEXT, allowNull: true, defaultValue: "" },
+        createdAt: {
+            type: DataTypes.DATE,
+            allowNull: true
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            allowNull: true
+        }
     }, {
             tableName: "cci"
         });

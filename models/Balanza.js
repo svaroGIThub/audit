@@ -3,7 +3,7 @@ module.exports = function (sequelize, DataTypes) {
     const Balanza = sequelize.define("Balanza", {
         auditId: {
             type: DataTypes.INTEGER,
-            allowNull: true
+            allowNull: false
         },
         mes: {
             type: DataTypes.STRING,
@@ -43,6 +43,14 @@ module.exports = function (sequelize, DataTypes) {
         },
         saldoFinal: {
             type: DataTypes.DOUBLE,
+            allowNull: true
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            allowNull: true
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
             allowNull: true
         }
     });

@@ -44,11 +44,25 @@ CREATE TABLE audits (
   clientAcronym VARCHAR(50) NOT NULL,
   year INT NOT NULL,
   description VARCHAR(250) NOT NULL,
+  hasBalanza BOOLEAN NOT NULL,
+  hasNómina BOOLEAN NOT NULL,
   createdAt DATE NULL,
   updatedAt DATE NULL,
   PRIMARY KEY (id)
 );
 
-INSERT INTO audit_db.audits (id, clientName, clientAcronym, year, description) VALUES (1, 'Secretaría de Educación de Veracruz', 'SEV', 2018, 'This is a description');
-INSERT INTO audit_db.audits (id, clientName, clientAcronym, year, description) VALUES (2, 'Asamblea Legislativa del Distrito Federal', 'ALDF', 2017, 'This is a description');
-INSERT INTO audit_db.audits (id, clientName, clientAcronym, year, description) VALUES (3, 'Colegio de Bachilleres del Estado de Veracruz', 'COBAEV', 2017, 'This is a description');
+INSERT INTO audit_db.audits (id, clientName, clientAcronym, year, description, hasBalanza, hasNómina) VALUES (1, 'Secretaría de Educación de Veracruz', 'SEV', 2016, 'This is a description', false, false);
+INSERT INTO audit_db.audits (id, clientName, clientAcronym, year, description, hasBalanza, hasNómina) VALUES (2, 'Asamblea Legislativa del Distrito Federal', 'ALDF', 2017, 'This is a description', false, false);
+INSERT INTO audit_db.audits (id, clientName, clientAcronym, year, description, hasBalanza, hasNómina) VALUES (3, 'Colegio de Bachilleres del Estado de Veracruz', 'COBAEV', 2017, 'This is a description', false, false);
+INSERT INTO audit_db.audits (id, clientName, clientAcronym, year, description, hasBalanza, hasNómina) VALUES (4, 'Secretaría de Educación de Veracruz', 'SEV', 2018, 'This is a description', false, false);
+INSERT INTO audit_db.audits (id, clientName, clientAcronym, year, description, hasBalanza, hasNómina) VALUES (5, 'Órgano de Fiscalización Superior del Estado de Veracruz', 'ORFIS', 2017, 'This is a description', false, false);
+INSERT INTO audit_db.audits (id, clientName, clientAcronym, year, description, hasBalanza, hasNómina) VALUES (6, 'Órgano de Fiscalización Superior del Estado de Veracruz', 'ORFIS', 2018, 'This is a description', false, false);
+INSERT INTO audit_db.audits (id, clientName, clientAcronym, year, description, hasBalanza, hasNómina) VALUES (7, 'Colegio de Estudios Científicos y Tecnológicos del Estado de Veracruz', 'CECYTEV', 2018, 'This is a description', false, false);
+INSERT INTO audit_db.audits (id, clientName, clientAcronym, year, description, hasBalanza, hasNómina) VALUES (8, 'Asamblea Legislativa del Distrito Federal', 'ALDF', 2015, 'This is a description', false, false);
+INSERT INTO audit_db.audits (id, clientName, clientAcronym, year, description, hasBalanza, hasNómina) VALUES (9, 'Secretaría de Educación de Veracruz', 'SEV', 2017, 'This is a description', false, false);
+INSERT INTO audit_db.audits (id, clientName, clientAcronym, year, description, hasBalanza, hasNómina) VALUES (10, 'Secretaría de Educación de Veracruz', 'SEV', 2019, 'This is a description', false, false);
+INSERT INTO audit_db.audits (id, clientName, clientAcronym, year, description, hasBalanza, hasNómina) VALUES (11, 'Contraloría General', 'CONTRALORÍA', 2019, 'This is a description', false, false);
+INSERT INTO audit_db.audits (id, clientName, clientAcronym, year, description, hasBalanza, hasNómina) VALUES (12, 'Contraloría General', 'CONTRALORÍA', 2020, 'This is a description', false, false);
+INSERT INTO audit_db.audits (id, clientName, clientAcronym, year, description, hasBalanza, hasNómina) VALUES (13, 'Contraloría General', 'CONTRALORÍA', 2021, 'This is a description', false, false);
+INSERT INTO audit_db.audits (id, clientName, clientAcronym, year, description, hasBalanza, hasNómina) VALUES (14, 'Contraloría General', 'CONTRALORÍA', 2022, 'This is a description', false, false);
+INSERT INTO audit_db.audits (id, clientName, clientAcronym, year, description, hasBalanza, hasNómina) VALUES (15, 'Contraloría General', 'CONTRALORÍA', 2023, 'This is a description', false, false);

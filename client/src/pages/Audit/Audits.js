@@ -6,9 +6,14 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import Alert from "react-bootstrap/Alert";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Pagination from "react-bootstrap/Pagination";
 import API from "../../utils/API";
+import { throws } from "assert";
 
 class Audits extends Component {
   state = {
@@ -21,7 +26,10 @@ class Audits extends Component {
     alertHeading: null,
     alertBody: null,
     // create audit modal
-    showModal: false
+    showModal: false,
+    //pagination
+    totalPages: 1,
+    activePage: 1
   };
 
   // modal arrow functions
@@ -48,7 +56,7 @@ class Audits extends Component {
           "Éxito.",
           "La Auditoría ha sido creada satisfactoriamente."
         );
-        this.loadAudits();
+        this.loadAudits(1);
         this.handleCloseModal();
       })
       .catch(err => console.log(err));
@@ -65,10 +73,10 @@ class Audits extends Component {
   handleCloseAlert = () => this.setState({ showAlert: false });
 
   // Loads all audits and sets them to this.state.audits
-  loadAudits = () => {
-    API.getAllAudits()
+  loadAudits = page => {
+    API.getAllAudits(page)
       .then(res => {
-        this.setState({ audits: res.data });
+        this.setState({ audits: res.data.audits, totalPages: res.data.totalPages });
       })
       .catch(err => console.log(err));
   };
@@ -106,7 +114,7 @@ class Audits extends Component {
       API.getUserInfo(uid)
         .then(res => {
           this.setState({ loggedUser: res.data }, () => {
-            this.loadAudits();
+            this.loadAudits(1);
           });
         })
         .catch(err => console.log(err));
@@ -118,7 +126,7 @@ class Audits extends Component {
       API.getUserInfo(uid)
         .then(res => {
           this.setState({ loggedUser: res.data }, () => {
-            this.loadAudits();
+            this.loadAudits(1);
           });
         })
         .catch(err => console.log(err));
@@ -133,6 +141,19 @@ class Audits extends Component {
       return false;
     }
   };
+
+  //
+  setPages = () => {
+    let pagination = [];
+    for (let i = 1; i <= this.state.totalPages; i++) {
+      pagination.push(
+        <Pagination.Item key={i} active={i === this.state.activePage}>
+          {i}
+        </Pagination.Item>
+      );
+    }
+    return pagination
+  }
 
   componentDidMount() {
     this.authUserAndLoadAudits();
@@ -232,8 +253,7 @@ class Audits extends Component {
           show={this.state.showAlert}
           variant={this.state.alertVariant}
           onClose={this.handleCloseAlert}
-          dismissible
-        >
+          dismissible>
           <Alert.Heading>{this.state.alertHeading}</Alert.Heading>
           <p>{this.state.alertBody}</p>
         </Alert>
@@ -241,19 +261,40 @@ class Audits extends Component {
         {/* if there are audits */}
         {this.state.audits.length ? (
           <>
-            {/* audits */}
+            {/* filters */}
+            <Row>
+              {/* filters */}
+              <Col sm={8}>
+                <Form>
+                  <Form.Group>
+                    <Form.Control as="select">
+                      <option>Todos los Clientes</option>
+                      <option>SEV</option>
+                      <option>CONTRALORÍA</option>
+                    </Form.Control>
+                  </Form.Group>
+                </Form>
+              </Col>
+              {/* pagination> */}
+              <Col sm={4} className="d-flex justify-content-center flex-wrap">
+                <Pagination>
+                  {this.setPages()}
+                </Pagination>
+              </Col>
+            </Row>
+
+            {/* my audits */}
             <ListGroup>
               {this.state.audits.map(audit => {
                 return (
                   <ListGroup.Item
                     action
                     key={audit.id}
-                    href={"/audits/workplan/" + audit.id}
-                  >
-                    <strong className="h3">
-                      {audit.clientAcronym} {audit.year}
-                    </strong>
+                    href={"/audits/workplan/" + audit.id}>
+                    <strong className="h3 mr-2" style={{ fontWeight: 600 }}>{audit.clientAcronym}</strong>
+                    <span className="h3">{audit.year}</span>
                     <p className="mb-0">{audit.description}</p>
+                    <small>Last updated 3 mins ago</small>
                   </ListGroup.Item>
                 );
               })}

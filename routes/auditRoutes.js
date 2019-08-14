@@ -4,11 +4,32 @@ const model = require("../models");
 // get all audits
 // matches with /api/audit/all
 router.get("/all", function (req, res) {
+
+  let page = req.body.page;
+  let offset;
+
+  switch (page) {
+    case 1:
+      offset = 0;
+      break;
+    default:
+      offset = (page - 1) * 5;
+  }
+
   model.Audit.findAll({
-    order: ["clientName"]
+    order: [
+      ["clientName", "desc"],
+      ["year", "asc"]
+    ],
+    offset: offset,
+    limit: 5
   })
-    .then(function (data) {
-      res.json(data);
+    .then(function (audits) {
+      let totalPages = Math.ceil(audits.length / 5);
+      let data = {};
+      data.totalPages = totalPages;
+      data.audits = audits;
+      res.send(data);
     })
     .catch(function (err) {
       res.send(err);

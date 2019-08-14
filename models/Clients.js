@@ -1,6 +1,14 @@
 module.exports = function (sequelize, DataTypes) {
 
+  // set id to ALLOWNULL = TRUE 
+  // because the auto increment is being handled by mysql
+
   const Client = sequelize.define("Client", {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      primaryKey: true
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false
@@ -15,6 +23,14 @@ module.exports = function (sequelize, DataTypes) {
     },
     address: {
       type: DataTypes.STRING,
+      allowNull: true
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
       allowNull: true
     }
   });

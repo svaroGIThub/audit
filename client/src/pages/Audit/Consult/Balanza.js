@@ -176,7 +176,11 @@ class Balanza extends Component {
                                                             <input type="file" name="file" onChange={this.chooseFileHandler} />
                                                         </Form.Row>
                                                         <Form.Row className="mt-4">
-                                                            <Button type="submit" variant="primary">Upload</Button>
+                                                            {this.state.selectedFile
+                                                                ?
+                                                                (<Button type="submit" variant="primary">Upload</Button>)
+                                                                :
+                                                                (<Button type="submit" variant="primary" disabled>Upload</Button>)}
                                                         </Form.Row>
                                                     </Form>
                                                 </Col>

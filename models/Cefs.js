@@ -21,7 +21,15 @@ module.exports = function (sequelize, DataTypes) {
         c17: { type: DataTypes.BOOLEAN, allowNull: true, defaultValue: false },
         c18: { type: DataTypes.BOOLEAN, allowNull: true, defaultValue: false },
         c19: { type: DataTypes.BOOLEAN, allowNull: true, defaultValue: false },
-        c20: { type: DataTypes.BOOLEAN, allowNull: true, defaultValue: false }
+        c20: { type: DataTypes.BOOLEAN, allowNull: true, defaultValue: false },
+        createdAt: {
+            type: DataTypes.DATE,
+            allowNull: true
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            allowNull: true
+        }
     }, {
             tableName: "Cefs"
         });
