@@ -9,11 +9,9 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import Alert from "react-bootstrap/Alert";
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Pagination from "react-bootstrap/Pagination";
 import API from "../../utils/API";
-import { throws } from "assert";
 
 class Audits extends Component {
   state = {
@@ -56,7 +54,7 @@ class Audits extends Component {
           "Éxito.",
           "La Auditoría ha sido creada satisfactoriamente."
         );
-        this.loadAudits(1);
+        this.loadAudits();
         this.handleCloseModal();
       })
       .catch(err => console.log(err));
@@ -73,10 +71,14 @@ class Audits extends Component {
   handleCloseAlert = () => this.setState({ showAlert: false });
 
   // Loads all audits and sets them to this.state.audits
-  loadAudits = page => {
+  loadAudits = () => {
+    let page = 1;
     API.getAllAudits(page)
       .then(res => {
-        this.setState({ audits: res.data.audits, totalPages: res.data.totalPages });
+        this.setState({
+          audits: res.data.audits,
+          totalPages: res.data.totalPages
+        });
       })
       .catch(err => console.log(err));
   };
@@ -114,7 +116,7 @@ class Audits extends Component {
       API.getUserInfo(uid)
         .then(res => {
           this.setState({ loggedUser: res.data }, () => {
-            this.loadAudits(1);
+            this.loadAudits();
           });
         })
         .catch(err => console.log(err));
@@ -126,7 +128,7 @@ class Audits extends Component {
       API.getUserInfo(uid)
         .then(res => {
           this.setState({ loggedUser: res.data }, () => {
-            this.loadAudits(1);
+            this.loadAudits();
           });
         })
         .catch(err => console.log(err));
@@ -152,8 +154,8 @@ class Audits extends Component {
         </Pagination.Item>
       );
     }
-    return pagination
-  }
+    return pagination;
+  };
 
   componentDidMount() {
     this.authUserAndLoadAudits();
@@ -224,8 +226,8 @@ class Audits extends Component {
                       );
                     })
                   ) : (
-                      <></>
-                    )}
+                    <></>
+                  )}
                 </Form.Control>
               </Form.Group>
               <Form.Group>
@@ -253,7 +255,8 @@ class Audits extends Component {
           show={this.state.showAlert}
           variant={this.state.alertVariant}
           onClose={this.handleCloseAlert}
-          dismissible>
+          dismissible
+        >
           <Alert.Heading>{this.state.alertHeading}</Alert.Heading>
           <p>{this.state.alertBody}</p>
         </Alert>
@@ -277,9 +280,7 @@ class Audits extends Component {
               </Col>
               {/* pagination> */}
               <Col sm={4} className="d-flex justify-content-center flex-wrap">
-                <Pagination>
-                  {this.setPages()}
-                </Pagination>
+                <Pagination>{this.setPages()}</Pagination>
               </Col>
             </Row>
 
@@ -290,8 +291,11 @@ class Audits extends Component {
                   <ListGroup.Item
                     action
                     key={audit.id}
-                    href={"/audits/workplan/" + audit.id}>
-                    <strong className="h3 mr-2" style={{ fontWeight: 600 }}>{audit.clientAcronym}</strong>
+                    href={"/audits/workplan/" + audit.id}
+                  >
+                    <strong className="h3 mr-2" style={{ fontWeight: 600 }}>
+                      {audit.clientAcronym}
+                    </strong>
                     <span className="h3">{audit.year}</span>
                     <p className="mb-0">{audit.description}</p>
                     <small>Last updated 3 mins ago</small>
@@ -310,33 +314,33 @@ class Audits extends Component {
                 </div>
               </>
             ) : (
-                <>
-                  <div className="text-right mt-3">
-                    <Button variant="primary" disabled>
-                      Nueva Auditoría
+              <>
+                <div className="text-right mt-3">
+                  <Button variant="primary" disabled>
+                    Nueva Auditoría
                   </Button>
-                  </div>
-                </>
-              )}
+                </div>
+              </>
+            )}
           </>
         ) : (
-            // if there are no audits
-            <>
-              <div className="text-center mt-4">
-                <p className="lead">No hay Auditorías para mostrar.</p>
-                {/* if the user is not an admin, show the new audit button disabled */}
-                {this.isUserAdmin() ? (
-                  <Button variant="primary" onClick={this.handleShowModal}>
-                    Nueva Auditoría
+          // if there are no audits
+          <>
+            <div className="text-center mt-4">
+              <p className="lead">No hay Auditorías para mostrar.</p>
+              {/* if the user is not an admin, show the new audit button disabled */}
+              {this.isUserAdmin() ? (
+                <Button variant="primary" onClick={this.handleShowModal}>
+                  Nueva Auditoría
                 </Button>
-                ) : (
-                    <Button variant="primary" disabled>
-                      Nueva Auditoría
+              ) : (
+                <Button variant="primary" disabled>
+                  Nueva Auditoría
                 </Button>
-                  )}
-              </div>
-            </>
-          )}
+              )}
+            </div>
+          </>
+        )}
       </Layout>
     );
   }
