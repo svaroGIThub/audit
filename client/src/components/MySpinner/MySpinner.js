@@ -6,7 +6,7 @@ const styles = {
     container: {
         marginTop: 150,
         textAlign: "center",
-        color: "darkslategray"
+        color: "rgb(26,26,26)"
     },
     spinner: {
         marginTop: 20,

@@ -16,8 +16,8 @@ setDefaultLocale("es");
 
 const styles = {
   myRow: {
-    backgroundColor: "dimgray",
-    color: "ghostwhite"
+    backgroundColor: "slategray",
+    color: "white"
   }
 }
 
@@ -100,7 +100,7 @@ class Workplan extends Component {
         }}
         menuProps={[
           { text: "Tablero", link: "/dashboard" },
-          { text: "Auditorías", link: "/audits" },
+          { text: "Auditorías", link: "/audits/1" },
           { text: "Clientes", link: "/clients" }
         ]}
         phasesProps={[
@@ -128,7 +128,7 @@ class Workplan extends Component {
       >
         <MyBreadcrum
           pages={[
-            { key: "1", page: "Auditorías", link: "/audits" },
+            { key: "1", page: "Auditorías", link: "/audits/1" },
             {
               key: "2",
               page:
@@ -154,7 +154,6 @@ class Workplan extends Component {
         </div>
 
         {/* page content */}
-
         <h1 className="my-4">Fase de Planeación</h1>
         <hr />
 
@@ -236,7 +235,7 @@ class Workplan extends Component {
             <tr>
               <td>5</td>
               <td>
-                Efectuar revisión analítica general de los estados financieros al 31 de diciembre de {this.state.selectedAudit.year} como sigue:<ul>
+                Efectuar la revisión analítica general de los estados financieros al 31 de diciembre de {this.state.selectedAudit.year} como sigue:<ul>
                   <li>Comparar las cifras presentadas al 31 de diciembre de {this.state.selectedAudit.year} con las correspondientes al ejercicio de {this.state.selectedAudit.year} y convertir los balances y los estados de resultados a porcentajes integrales.</li>
                   <li>Determinar variaciones en importe y porcentaje, analizando y documentando aquellas que se consideren significativas por concepto, importe o porcentaje de incremento o decremento. </li>
                 </ul>
@@ -256,7 +255,7 @@ class Workplan extends Component {
             <tr>
               <td>6</td>
               <td>
-                De las partidas o renglones más destacados de los estados de situación financiera y de actividades, realizar una revisión analítica detallada, como es obtener su integración, comportamiento durante el año y pruebas globales.</td>
+                Realizar una revisión analítica detallada de las partidas o renglones más destacados de los estados de situación financiera y de actividades, como es: obtener su integración, comportamiento durante el año y pruebas globales.</td>
               <td>Link</td>
               <td> <DatePicker
                 selected={this.state.date}
@@ -339,7 +338,6 @@ class Workplan extends Component {
               <th>Término</th>
             </tr>
           </thead>
-
           <tbody>
             <tr>
               <td>1</td>
@@ -361,7 +359,7 @@ class Workplan extends Component {
             <tr>
               <td>2</td>
               <td>
-                Actualizar nuestro conocimiento sobre los procedimientos de control existentes con especial énfasis en las áreas calificadas como de alto riesgo o de importancia crítica, como son; manejo de efectivo, bienes muebles, cumplimiento con la ley de adquisiciones, ejercicio del presupuesto, etc. (estudio y evaluación del control interno existente).</td>
+                Actualizar información acerca de los procedimientos de control existentes con especial énfasis en las áreas calificadas como de alto riesgo o de importancia crítica, como son: manejo de efectivo, bienes muebles, cumplimiento con la ley de adquisiciones, ejercicio del presupuesto, etc. (estudio y evaluación del control interno existente).</td>
               <td>Link</td>
               <td> <DatePicker
                 selected={this.state.date}
@@ -424,8 +422,8 @@ class Workplan extends Component {
               <th>Término</th>
             </tr>
           </thead>
-
           <tbody>
+
             <tr>
               <td>1</td>
               <td>
@@ -446,9 +444,7 @@ class Workplan extends Component {
 
             <tr>
               <td>2</td>
-              <td>
-                Evaluar el cumplimiento por parte de la Entidad de los Postulados de Contabilidad Gubernamental.
-          </td>
+              <td>Evaluar el cumplimiento por parte de la Entidad de los Postulados de Contabilidad Gubernamental.</td>
               <td>Link</td>
               <td> <DatePicker
                 selected={this.state.date}
@@ -482,7 +478,7 @@ class Workplan extends Component {
             <tr>
               <td>4</td>
               <td>
-                Confirmaciones de Abogados: Preparar la carta de solicitud de confirmaciones de abogados externos, que hayan trabajado para la el Entidad durante el ejercicio {this.state.selectedAudit.year}.
+                Preparar la carta de solicitud de confirmaciones de abogados externos, que hayan trabajado para la el Entidad durante el ejercicio {this.state.selectedAudit.year}.
 		</td>
               <td>Link</td>
               <td> <DatePicker
@@ -536,7 +532,7 @@ class Workplan extends Component {
             <tr>
               <td>7</td>
               <td>
-                Preparar o actualizar la carta de declaraciones de la Alta Dirección “carta de la gerencia”.
+                Preparar o actualizar la carta de declaraciones de la Alta Dirección “Carta de la Gerencia”.
 		</td>
               <td>Link</td>
               <td> <DatePicker
@@ -572,12 +568,16 @@ class Workplan extends Component {
           <tbody>
 
             <tr>
+              <td colSpan={5} style={styles.myRow}>
+                <span>Pruebas de Control</span>
+              </td>
+            </tr>
+
+            <tr>
               <td>1</td>
               <td>
-                Pruebas de Control.- Comprobar la efectividad de los atributos de control seleccionados y
-                su adecuado funcionamiento y proporcionar bases suficientes para asegurar de manera razonable que los
-                objetivos de control contable (autorización, procesamiento y clasificación de transacciones, verificación y
-evaluación y salvaguarda física) realmente se están logrando.</td>
+                Comprobar la efectividad de los atributos de control seleccionados y
+                su adecuado funcionamiento y proporcionar bases suficientes para asegurar de manera razonable que los objetivos de control contable (autorización, procesamiento y clasificación de transacciones, verificación y evaluación y salvaguarda física) realmente se están logrando.</td>
               <td>Link</td>
               <td> <DatePicker
                 selected={this.state.date}
@@ -592,9 +592,15 @@ evaluación y salvaguarda física) realmente se están logrando.</td>
             </tr>
 
             <tr>
+              <td colSpan={5} style={styles.myRow}>
+                <span>Pruebas de Verificación (Sustantivas)</span>
+              </td>
+            </tr>
+
+            <tr>
               <td>2</td>
               <td>
-                Pruebas de verificación (sustantivas).- Proporcionar evidencia comprobatoria relativa a las aseveraciones que hace la administración de la entidad en los estados financieros, con respecto:
+                Proporcionar evidencia comprobatoria relativa a las aseveraciones que hace la administración de la entidad en los estados financieros, con respecto:
 A que los activos, pasivos y patrimonio existen, que son del periodo auditado, están completos, son propiedad de la entidad, fueron contabilizados de acuerdo a postulados de contabilidad gubernamental y bases especiales de registro.</td>
               <td>Link</td>
               <td> <DatePicker
@@ -674,7 +680,7 @@ A que los activos, pasivos y patrimonio existen, que son del periodo auditado, e
             <tr>
               <td>3</td>
               <td>
-                En coordinación con la revisión del gasto, verificar si los bienes y servicios cargados al ejercicio del presupuesto se hayan recibido; en caso contrario, ver si se procedió a la cancelación de la afectación presupuestaria.</td>
+                Verificar en coordinación con la revisión del gasto, si los bienes y servicios cargados al ejercicio del presupuesto se hayan recibido; en caso contrario, ver si se procedió a la cancelación de la afectación presupuestaria.</td>
               <td>Link</td>
               <td> <DatePicker
                 selected={this.state.date}
@@ -731,7 +737,7 @@ A que los activos, pasivos y patrimonio existen, que son del periodo auditado, e
           </tbody>
         </Table>
 
-        <h3 className="my-4">Efectivo en Caja, Bancos e Inversiones (Fondos Revolventes)</h3>
+        <h3 className="my-4">Efectivo en Caja, Bancos e Inversiones</h3>
         <p>O/ Objetivos: Determinar la razonabilidad de los saldos presentados al 31 de diciembre de {this.state.selectedAudit.year} en los rubros de fondos fijos, bancos e inversiones.</p>
 
         <Table striped bordered responsive className="mt-3 shadow-sm">
@@ -747,6 +753,12 @@ A que los activos, pasivos y patrimonio existen, que son del periodo auditado, e
           </thead>
 
           <tbody>
+
+            <tr>
+              <td colSpan={5} style={styles.myRow}>
+                <span>Fondos Revolventes</span>
+              </td>
+            </tr>
 
             <tr>
               <td>1</td>
@@ -785,7 +797,7 @@ A que los activos, pasivos y patrimonio existen, que son del periodo auditado, e
             <tr>
               <td>3</td>
               <td>
-                Como evento posterior efectuar en forma selectiva arqueos a los fondos y verificar los del cierre de ejercicio efectuados por personal de la Entidad y de la Contraloría Interna.</td>
+                Efectuar en forma selectiva arqueos a los fondos y verificar los del cierre de ejercicio efectuados por personal de la Entidad y de la Contraloría Interna.</td>
               <td>Link</td>
               <td> <DatePicker
                 selected={this.state.date}
@@ -815,24 +827,13 @@ A que los activos, pasivos y patrimonio existen, que son del periodo auditado, e
                 onChange={this.handleChange} />
               </td>
             </tr>
-          </tbody>
-        </Table>
-
-        <h3 className="my-4">Bancos</h3>
-
-        <Table striped bordered responsive className="mt-3 shadow-sm">
-          <thead>
 
             <tr>
-              <th>#</th>
-              <th>Procedimientos</th>
-              <th>REF/PT</th>
-              <th>Inicio</th>
-              <th>Término</th>
+              <td colSpan={5} style={styles.myRow}>
+                <span>Bancos</span>
+              </td>
             </tr>
-          </thead>
 
-          <tbody>
             <tr>
               <td>5</td>
               <td>
@@ -1026,50 +1027,17 @@ A que los activos, pasivos y patrimonio existen, que son del periodo auditado, e
         <p>A/ Que las adquisiciones que realiza la entidad se apeguen a la normatividad vigente (Ley de adquisiciones y arrendamiento de bienes y servicios).</p>
         <p>B/ La existencia de controles establecidos que garanticen su uso y salvaguarda de los bienes muebles.</p>
         <p>C/ Cerciorarse de la existencia y funcionamiento de los procedimientos que garanticen la salvaguarda y uso de los bienes que conforman el almacén general.</p>
+        <p>Obtener por el ejercicio {this.state.selectedAudit.year}, lo siguiente:</p>
 
-        <Table striped bordered responsive className="mt-3 shadow-sm">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Procedimientos</th>
-              <th>REF/PT</th>
-              <th>Inicio</th>
-              <th>Término</th>
-            </tr>
-          </thead>
-
-          <tbody>
-
-            <tr>
-              <td>1</td>
-              <td>
-                Obtener por el ejercicio {this.state.selectedAudit.year}, lo siguiente:
-<ul>
-                  <li>Relación de pedidos elaborados, fincados y recibidos en {this.state.selectedAudit.year}.</li>
-                  <li>Relación de licitaciones durante {this.state.selectedAudit.year}.</li>
-                  <li>Inventario teórico, y en su caso físico de las existencias que conserven al 31 de diciembre de {this.state.selectedAudit.year} en sus almacenes (de insumos, materiales, bienes muebles, etc.).  </li>
-                  <li>Inventario teórico y en su caso físico de los bienes muebles e inmuebles al 31 de diciembre de {this.state.selectedAudit.year}.</li>
-                  <li>Relación de bienes muebles (incluye vehículos) adquiridos, enajenados, donados, destruidos, etc. en el periodo de revisión, según el área de Recursos Materiales.</li>
-                  <li>Copia del padrón vehicular al 31 de diciembre de {this.state.selectedAudit.year}.</li>
-                  <li>Auxiliares contables de las cuentas de presupuesto que detallen las aplicaciones.</li>
-                </ul>
-              </td>
-              <td>Link</td>
-              <td> <DatePicker
-                selected={this.state.date}
-                onSelect={this.handleSelect}
-                onChange={this.handleChange} />
-              </td>
-              <td> <DatePicker
-                selected={this.state.date}
-                onSelect={this.handleSelect}
-                onChange={this.handleChange} />
-              </td>
-            </tr>
-          </tbody>
-        </Table>
-
-        <h3 className="my-4">Adquisiciones</h3>
+        <ul>
+          <li>Relación de pedidos elaborados, fincados y recibidos en {this.state.selectedAudit.year}.</li>
+          <li>Relación de licitaciones durante {this.state.selectedAudit.year}.</li>
+          <li>Inventario teórico, y en su caso físico de las existencias que conserven al 31 de diciembre de {this.state.selectedAudit.year} en sus almacenes (de insumos, materiales, bienes muebles, etc.).</li>
+          <li>Inventario teórico y en su caso físico de los bienes muebles e inmuebles al 31 de diciembre de {this.state.selectedAudit.year}.</li>
+          <li>Relación de bienes muebles (incluye vehículos) adquiridos, enajenados, donados, destruidos, etc. en el periodo de revisión, según el área de Recursos Materiales.</li>
+          <li>Copia del padrón vehicular al 31 de diciembre de {this.state.selectedAudit.year}.</li>
+          <li>Auxiliares contables de las cuentas de presupuesto que detallen las aplicaciones.</li>
+        </ul>
 
         <Table striped bordered responsive className="mt-3 shadow-sm">
           <thead>
@@ -1109,7 +1077,7 @@ A que los activos, pasivos y patrimonio existen, que son del periodo auditado, e
             <tr>
               <td>2</td>
               <td>
-                La relación de pedidos solicitarla en archivo digital y hacer agrupaciones por proveedor y por fecha con la finalidad de detectar pedidos de bienes similares cuya adquisición pudiera haberse fraccionado para evitar la licitación.</td>
+                Solicitar en archivo digital la relación de pedidos y hacer agrupaciones por proveedor y por fecha con la finalidad de detectar pedidos de bienes similares cuya adquisición pudiera haberse fraccionado para evitar la licitación.</td>
               <td>Link</td>
               <td> <DatePicker
                 selected={this.state.date}
@@ -1126,7 +1094,7 @@ A que los activos, pasivos y patrimonio existen, que son del periodo auditado, e
             <tr>
               <td>3</td>
               <td>
-                De la relación de licitaciones por adquisiciones, arrendamientos y contrataciones de servicios realizadas durante {this.state.selectedAudit.year}, seleccionar las de mayor importe y revisar los expedientes en cuanto a cumplimiento con la Ley de adquisiciones arrendamientos y administración de bienes.</td>
+                Seleccionar de la relación de licitaciones por adquisiciones, arrendamientos y contrataciones de servicios realizadas durante {this.state.selectedAudit.year} las de mayor importe y revisar los expedientes en cuanto a cumplimiento con la Ley de adquisiciones arrendamientos y administración de bienes.</td>
               <td>Link</td>
               <td> <DatePicker
                 selected={this.state.date}
@@ -1139,24 +1107,12 @@ A que los activos, pasivos y patrimonio existen, que son del periodo auditado, e
                 onChange={this.handleChange} />
               </td>
             </tr>
-          </tbody>
-        </Table>
-
-        <h3 className="my-4">Almacén General</h3>
-
-        <Table striped bordered responsive className="mt-3 shadow-sm">
-          <thead>
 
             <tr>
-              <th>#</th>
-              <th>Procedimientos</th>
-              <th>REF/PT</th>
-              <th>Inicio</th>
-              <th>Término</th>
+              <td colSpan={5} style={styles.myRow}>
+                <span>Almacén General</span>
+              </td>
             </tr>
-          </thead>
-
-          <tbody>
 
             <tr>
               <td>4</td>
@@ -1195,7 +1151,7 @@ A que los activos, pasivos y patrimonio existen, que son del periodo auditado, e
             <tr>
               <td>6</td>
               <td>
-                De la relación de existencias al cierre del ejercicio, seleccionar 30 artículos para verificar su valor de acuerdo a facturas y notas de entradas, así como verificar su salida en lo que va del {this.state.selectedAudit.year} o en su caso, verificar su existencia físicamente.</td>
+                Seleccionar 30 artículos de la relación de existencias al cierre del ejercicio para verificar su valor de acuerdo a facturas y notas de entradas, así como verificar su salida en lo que va del {this.state.selectedAudit.year} o en su caso, verificar su existencia físicamente.</td>
               <td>Link</td>
               <td> <DatePicker
                 selected={this.state.date}
@@ -1208,24 +1164,12 @@ A que los activos, pasivos y patrimonio existen, que son del periodo auditado, e
                 onChange={this.handleChange} />
               </td>
             </tr>
-          </tbody>
-        </Table>
-
-        <h3 className="my-4">Bienes Inmuebles</h3>
-
-        <Table striped bordered responsive className="mt-3 shadow-sm">
-          <thead>
 
             <tr>
-              <th>#</th>
-              <th>Procedimientos</th>
-              <th>REF/PT</th>
-              <th>Inicio</th>
-              <th>Término</th>
+              <td colSpan={5} style={styles.myRow}>
+                <span>Bienes Inmuebles</span>
+              </td>
             </tr>
-          </thead>
-
-          <tbody>
 
             <tr>
               <td>7</td>
@@ -1522,7 +1466,7 @@ A que los activos, pasivos y patrimonio existen, que son del periodo auditado, e
             <tr>
               <td>3</td>
               <td>
-                Con base al resumen anterior seleccionar aquellas partidas que destaquen en cuanto a importe y variación entre meses para efectuar su revisión documental. Una vez seleccionadas las partidas en el mes, obtener la integración del movimiento por número de póliza.</td>
+                Obtener la integración del movimiento por número de póliza, una vez seleccionadas las partidas en el mes, con base al resumen anterior seleccionar aquellas partidas que destaquen en cuanto a importe y variación entre meses para efectuar su revisión documental.</td>
               <td>Link</td>
               <td> <DatePicker
                 selected={this.state.date}
@@ -1573,23 +1517,12 @@ A que los activos, pasivos y patrimonio existen, que son del periodo auditado, e
                 onChange={this.handleChange} />
               </td>
             </tr>
-          </tbody>
-        </Table>
 
-        <h3 className="my-4">Materiales y suministros</h3>
-
-        <Table striped bordered responsive className="mt-3 shadow-sm">
-          <thead>
             <tr>
-              <th>#</th>
-              <th>Procedimientos</th>
-              <th>REF/PT</th>
-              <th>Inicio</th>
-              <th>Término</th>
+              <td colSpan={5} style={styles.myRow}>
+                <span>Materiales y Suministros</span>
+              </td>
             </tr>
-          </thead>
-
-          <tbody>
 
             <tr>
               <td>5</td>
@@ -1611,7 +1544,7 @@ A que los activos, pasivos y patrimonio existen, que son del periodo auditado, e
             <tr>
               <td>6</td>
               <td>
-                De las adquisiciones de bienes y/o servicios que por su importe debieron licitarse de conformidad con la Ley de Adquisiciones, hacer el cruce con la revisión según programa de adquisiciones.</td>
+                Hacer el cruce de las adquisiciones de bienes y/o servicios que por su importe debieron licitarse de conformidad con la Ley de Adquisiciones, con la revisión según programa de adquisiciones.</td>
               <td>Link</td>
               <td> <DatePicker
                 selected={this.state.date}
@@ -1641,24 +1574,13 @@ A que los activos, pasivos y patrimonio existen, que son del periodo auditado, e
                 onChange={this.handleChange} />
               </td>
             </tr>
-          </tbody>
-        </Table>
-
-        <h3 className="my-4">Servicios Generales</h3>
-
-        <Table striped bordered responsive className="mt-3 shadow-sm">
-          <thead>
 
             <tr>
-              <th>#</th>
-              <th>Procedimientos</th>
-              <th>REF/PT</th>
-              <th>Inicio</th>
-              <th>Término</th>
+              <td colSpan={5} style={styles.myRow}>
+                <span>Servicios Generales</span>
+              </td>
             </tr>
-          </thead>
 
-          <tbody>
             <tr>
               <td>8</td>
               <td>
@@ -1696,7 +1618,7 @@ A que los activos, pasivos y patrimonio existen, que son del periodo auditado, e
             <tr>
               <td>10</td>
               <td>
-                En forma general se deberán verificar las licitaciones efectuadas en aquellos casos en que por el monto y naturaleza del servicio así se requiera, evaluando de acuerdo a las muestras los contratos de servicios correspondientes.</td>
+                Verificar en forma general las licitaciones efectuadas en aquellos casos en que por el monto y naturaleza del servicio así se requiera, evaluando de acuerdo a las muestras los contratos de servicios correspondientes.</td>
               <td>Link</td>
               <td> <DatePicker
                 selected={this.state.date}
@@ -1992,9 +1914,15 @@ A que los activos, pasivos y patrimonio existen, que son del periodo auditado, e
             </tr>
 
             <tr>
+              <td colSpan={5} style={styles.myRow}>
+                <span>Honorarios</span>
+              </td>
+            </tr>
+
+            <tr>
               <td>11</td>
               <td>
-                Honorarios: Efectuar un análisis comparativo de los contratos celebrados con prestadores de servicios y de lo efectivamente pagado.</td>
+                Efectuar un análisis comparativo de los contratos celebrados con prestadores de servicios y de lo efectivamente pagado.</td>
               <td>Link</td>
               <td> <DatePicker
                 selected={this.state.date}
@@ -2008,22 +1936,11 @@ A que los activos, pasivos y patrimonio existen, que son del periodo auditado, e
               </td>
             </tr>
 
-          </tbody>
-        </Table>
-
-        <h3 className="my-4">K/ Impuestos, derechos y cuotas</h3>
-
-        <Table striped bordered responsive className="mt-3 shadow-sm">
-          <thead>
             <tr>
-              <th>#</th>
-              <th>Procedimientos</th>
-              <th>REF/PT</th>
-              <th>Inicio</th>
-              <th>Término</th>
+              <td colSpan={5} style={styles.myRow}>
+                <span>K/ Impuestos, derechos y cuotas</span>
+              </td>
             </tr>
-          </thead>
-          <tbody>
 
             <tr>
               <td>12</td>
@@ -2045,7 +1962,7 @@ A que los activos, pasivos y patrimonio existen, que son del periodo auditado, e
             <tr>
               <td>13</td>
               <td>
-                De los impuestos y cuotas a cargo, solicitar los papeles de trabajo en los que se determinaron las bases para efectuar el entero correspondiente; verificar la corrección de las mismas y la aplicación presupuestal, incluyendo la revisión del soporte documental que los ampara.</td>
+                Solicitar los papeles de trabajo de los impuestos y cuotas a cargo en los que se determinaron las bases para efectuar el entero correspondiente; verificar la corrección de las mismas y la aplicación presupuestal, incluyendo la revisión del soporte documental que los ampara.</td>
               <td>Link</td>
               <td> <DatePicker
                 selected={this.state.date}

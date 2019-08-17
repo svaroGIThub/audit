@@ -1,11 +1,8 @@
 import React from "react";
-import Layout from "../../components/Layout/Layout";
 
 function NoMatch() {
   return (
-    <Layout>
-      <h1>404 - Page Not Found</h1>
-    </Layout>
+    <h1>404 - Esta página no existe.</h1>
   );
 }
 

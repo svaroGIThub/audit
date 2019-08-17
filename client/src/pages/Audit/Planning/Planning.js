@@ -83,7 +83,7 @@ class Planning extends Component {
         }}
         menuProps={[
           { text: "Tablero", link: "/dashboard" },
-          { text: "Auditorías", link: "/audits" },
+          { text: "Auditorías", link: "/audits/1" },
           { text: "Clientes", link: "/clients" }
         ]}
         phasesProps={[
@@ -111,7 +111,7 @@ class Planning extends Component {
       >
         <MyBreadcrum
           pages={[
-            { key: "1", page: "Auditorías", link: "/audits" },
+            { key: "1", page: "Auditorías", link: "/audits/1" },
             {
               key: "2",
               page:
@@ -172,22 +172,6 @@ class Planning extends Component {
         {/* menu */}
         <p className="lead">Ligas</p>
         <Accordion>
-          {/* <Card style={styles.accordionCard}>
-            <Accordion.Toggle as={Card.Header} eventKey="0">
-              Revisión Analítica General (RAG)
-              <i className="fas fa-chevron-down text-secondary ml-2" />
-            </Accordion.Toggle>
-            <Accordion.Collapse eventKey="0">
-              <Card.Body>
-                <p className="mb-2">
-                  <a href="/audits">Cédula Presupuestos</a>
-                </p>
-                <p className="mb-0">
-                  <a href="/audits">Balanza con RAG 1, 2 y 3</a>
-                </p>
-              </Card.Body>
-            </Accordion.Collapse>
-          </Card> */}
           <Card style={styles.accordionCard}>
             <Accordion.Toggle as={Card.Header} eventKey="1">
               Cuestionarios

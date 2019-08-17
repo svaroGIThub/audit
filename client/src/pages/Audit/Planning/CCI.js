@@ -1475,7 +1475,7 @@ class CCI extends Component {
         }}
         menuProps={[
           { text: "Tablero", link: "/dashboard" },
-          { text: "Auditorías", link: "/audits" },
+          { text: "Auditorías", link: "/audits/1" },
           { text: "Clientes", link: "/clients" }
         ]}
         phasesProps={[
@@ -1503,7 +1503,7 @@ class CCI extends Component {
       >
         <MyBreadcrum
           pages={[
-            { key: "1", page: "Auditorías", link: "/audits" },
+            { key: "1", page: "Auditorías", link: "/audits/1" },
             {
               key: "2",
               page:

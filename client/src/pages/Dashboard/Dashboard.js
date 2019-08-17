@@ -61,7 +61,7 @@ class Dashboard extends Component {
         }}
         menuProps={[
           { text: "Tablero", link: "/dashboard" },
-          { text: "Auditorías", link: "/audits" },
+          { text: "Auditorías", link: "/audits/1" },
           { text: "Clientes", link: "/clients" }
         ]}
       >
@@ -166,6 +166,7 @@ class Dashboard extends Component {
             </Card.Body>
           </Card>
         </CardColumns>
+
       </Layout>
     );
   }

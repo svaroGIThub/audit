@@ -107,13 +107,14 @@ class ReactRouter extends Component {
               )}
             />
             <Redirect from="/login" to="/dashboard" />
-            <Route component={NoMatch} loggedUser={this.state.user} />
+            <Route component={NoMatch} />
           </Switch>
         ) : (
             <Switch>
               <Route exact path="/login" component={Login} />
               {/* <Redirect from="/dashboard" to="/login" /> */}
               <Redirect to="/login" />
+              {/* <Route component={Login} loggedUser={this.state.user} /> */}
             </Switch>
           )}
       </Router>

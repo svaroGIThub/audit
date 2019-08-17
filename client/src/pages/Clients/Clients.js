@@ -185,7 +185,7 @@ class Clients extends Component {
         }}
         menuProps={[
           { text: "Tablero", link: "/dashboard" },
-          { text: "Auditorías", link: "/audits" },
+          { text: "Auditorías", link: "/audits/1" },
           { text: "Clientes", link: "/clients" }
         ]}
       >
