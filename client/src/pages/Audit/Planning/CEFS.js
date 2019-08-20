@@ -409,7 +409,7 @@ class CEFS extends Component {
       >
         <MyBreadcrum
           pages={[
-            { key: "1", page: "Auditorías", link: "/audits/1" },
+            { key: "1", page: "Auditorías", link: "/audits" },
             {
               key: "2",
               page:
