@@ -381,7 +381,7 @@ class CEFS extends Component {
         }}
         menuProps={[
           { text: "Tablero", link: "/dashboard" },
-          { text: "Auditorías", link: "/audits/1" },
+          { text: "Auditorías", link: "/audits" },
           { text: "Clientes", link: "/clients" }
         ]}
         phasesProps={[
