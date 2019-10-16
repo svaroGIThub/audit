@@ -1,0 +1,56 @@
+[
+  {
+    "model": "Client",
+    "data": {
+      "name": "Secretaría de Educación de Veracruz",
+      "abbreviation": "SEV",
+      "rfc": "SED9905019C2",
+      "address": "Km 4.5, Carretera federal Xalapa-Veracruz s/n, Col. Sahop, CP 91190, Veracruz, México"
+    }
+  },
+  {
+    "model": "Client",
+    "data": {
+      "name": "Contraloría General",
+      "abbreviation": "CONTRALORÍA",
+      "rfc": "CGE000520DV5",
+      "address": "Carrillo Puerto No. 20 Piso 1, Colonia Centro, Veracruz, México"
+    }
+  },
+  {
+    "model": "Client",
+    "data": {
+      "name": "Asamblea Legislativa del Distrito Federal",
+      "abbreviation": "ALDF",
+      "rfc": "ALD971028S24",
+      "address": "Donceles y Allende s/n Centro Histórico, Delegación Cuahutémoc, CP 06010, CDMX"
+    }
+  },
+  {
+    "model": "Client",
+    "data": {
+      "name": "Órgano de Fiscalización Superior del Estado de Veracruz",
+      "abbreviation": "ORFIS",
+      "rfc": "OFS000526912",
+      "address": "Carretera Xalapa-Veracruz No. 1102, Esq. Boulevard Culturas Veacruzanas. Ref: Col. Reserva Territorial, C.P. 91096, Veracruz, México"
+    }
+  },
+  {
+    "model": "Client",
+    "data": {
+      "name": "Colegio de Bachilleres del Estado de Veracruz",
+      "abbreviation": "COBAEV",
+      "rfc": "CBE880730K13",
+      "address": "Avenida Américas No. 24, Col. Aguacatal, CP 91130, Veracruz, México"
+    }
+  },
+  {
+    "model": "Client",
+    "data": {
+      "name": "Colegio de Estudios Científicos y Tecnológicos del Estado de Veracruz",
+      "abbreviation": "CECYTEV",
+      "rfc": "CEC941104AN5",
+      "address": "Manuel R. Gutiérrez 12 del Maestro, C.P. 91030, Veracruz, México"
+    }
+  }
+]

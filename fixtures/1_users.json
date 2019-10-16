@@ -1,0 +1,26 @@
+[
+  {
+    "model": "User",
+    "data": {
+      "firebase_uid": "C7kTH27i1aSqbHgcgQwrtFuF3FO2",
+      "role": "Admin",
+      "name": "Aldo",
+      "firstSurname": "Solano",
+      "secondSurname": "González",
+      "email": "aldoglez34@gmail.com",
+      "phone": "2281112031"
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "firebase_uid": "Cj9OROU6keXOqDe8DNzIy9ayHTU2",
+      "role": "Auditor",
+      "name": "Rosa Elena",
+      "firstSurname": "Solano",
+      "secondSurname": "González",
+      "email": "rosa.solano@freyssiniermex.com",
+      "phone": "2288351170"
+    }
+  }
+]

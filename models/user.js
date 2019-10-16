@@ -1,20 +1,22 @@
-module.exports = function (sequelize, DataTypes) {
-
+module.exports = function(sequelize, DataTypes) {
   const User = sequelize.define("User", {
-    uid: {
+    firebase_uid: {
       type: DataTypes.STRING,
-      primaryKey: true,
       allowNull: false
     },
     role: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    firstName: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    lastName: {
+    firstSurname: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    secondSurname: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -26,7 +28,7 @@ module.exports = function (sequelize, DataTypes) {
         isEmail: true
       }
     },
-    phoneNumber: {
+    phone: {
       type: DataTypes.STRING,
       allowNull: true
     },

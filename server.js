@@ -1,8 +1,17 @@
-// Define middleware
 const express = require("express");
 const app = express();
-const cors = require("cors");
-app.use(cors());
+// const cors = require("cors");
+const morgan = require("morgan");
+const PORT = process.env.PORT || 3001;
+const models = require("./models");
+const path = require("path");
+const sequelize_fixtures = require("sequelize-fixtures");
+
+// middleware
+app.use(morgan("dev"));
+// app.use(cors());
+
+// parse request body as JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -11,7 +20,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-// Add all API routes
+// API routes
 const userRoutes = require("./routes/userRoutes");
 app.use("/api/user", userRoutes);
 const auditRoutes = require("./routes/auditRoutes");
@@ -23,18 +32,24 @@ app.use("/api/upload", uploadRoutes);
 const surveyRoutes = require("./routes/surveyRoutes");
 app.use("/api/survey", surveyRoutes);
 
-// Send every other request to the React app
-// Define any API routes before this runs
-const path = require("path");
+// send every other request to the React app
+// define any API routes before this runs
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
-// Run the server
-const PORT = process.env.PORT || 3001;
-const db = require("./models");
-db.sequelize.sync({ force: false }).then(function () {
-  app.listen(PORT, function () {
-    console.log("🌎 ==> API server now on port " + PORT);
+// sync db
+// when in dev force: true
+// when in prod force: false
+models.sequelize.sync({ force: false }).then(function() {
+  // load fixtures files into the db
+  // it's important that the process is finished in order
+  sequelize_fixtures.loadFile("fixtures/*.json", models).then(function() {
+    console.log("dev data loaded successfully");
+  });
+
+  // start server
+  app.listen(PORT, () => {
+    console.log(`🌎 ==> API server now on port ${PORT}!`);
   });
 });
