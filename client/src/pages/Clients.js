@@ -130,8 +130,8 @@ class Clients extends Component {
         <div className="d-flex align-items-center p-2 mb-4">
           <Image
             src="https://image.flaticon.com/icons/svg/201/201581.svg"
-            width="65"
-            height="65"
+            width="55"
+            height="55"
             fluid
           />
           <h2 className="ml-3 my-auto">Clientes</h2>
