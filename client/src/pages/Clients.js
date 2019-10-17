@@ -1,13 +1,11 @@
 import React, { Component } from "react";
-import MyBreadcrum from "../components/MyBreadcrum";
+import { connect } from "react-redux";
 import Layout from "./Layout";
 import { Table, Button, Image, Modal, Alert, Form } from "react-bootstrap";
-import MySpinner from "../components/MySpinner";
 import API from "../utils/API";
 
 class Clients extends Component {
   state = {
-    loggedUser: null,
     clients: [],
     // all alerts
     showAlert: false,
@@ -117,81 +115,117 @@ class Clients extends Component {
       .catch(err => console.log(err));
   };
 
-  // authenticates user and load his/her audits
-  authUserAndLoadClients = () => {
-    // if there is NOT a user in the local storage
-    // AND there are props from the previous component
-    // this means the user is coming from the Login component
-    // take the uid from the props
-    if (!localStorage.getItem("user") && this.props.loggedUser.uid) {
-      const uid = this.props.loggedUser.uid;
-      localStorage.setItem("user", uid);
-      API.getUserInfo(uid)
-        .then(res => {
-          this.setState({ loggedUser: res.data }, () => {
-            this.loadClients();
-          });
-        })
-        .catch(err => console.log(err));
-    }
-    // if there IS a user in the localstorage
-    // log that one
-    else if (localStorage.getItem("user")) {
-      const uid = localStorage.getItem("user");
-      API.getUserInfo(uid)
-        .then(res => {
-          this.setState({ loggedUser: res.data }, () => {
-            this.loadClients();
-          });
-        })
-        .catch(err => console.log(err));
-    }
-  };
-
   componentDidMount() {
-    this.authUserAndLoadClients();
+    API.getAllClients()
+      .then(res => {
+        this.setState({ clients: res.data });
+      })
+      .catch(err => console.log(err));
   }
 
-  //cheks if user is an admin
-  isUserAdmin = () => {
-    if (this.state.loggedUser.role === "Admin") {
-      return true;
-    } else {
-      return false;
-    }
-  };
+  CreateClientModal() {
+    return (
+      <Modal
+        show={this.state.showCreateModal}
+        onHide={this.handleCloseCreateModal}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Nuevo Cliente</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group>
+              <Form.Label>1. Nombre completo*</Form.Label>
+              <Form.Control type="text" id="name" />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>2. Acrónimo/Abreviación*</Form.Label>
+              <Form.Control type="text" id="acronym" />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>3. RFC</Form.Label>
+              <Form.Control type="text" id="rfc" />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>4. Dirección</Form.Label>
+              <Form.Control as="textarea" rows="3" id="address" />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={this.handleCloseCreateModal}>
+            Cancelar
+          </Button>
+          <Button variant="primary" onClick={this.handleCreateFormSubmit}>
+            Crear
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+
+  EditClientModal() {
+    return (
+      <Modal show={this.state.showEditModal} onHide={this.handleCloseEditModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Editar Cliente</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group>
+              <Form.Label>1. Nombre completo</Form.Label>
+              <Form.Control
+                type="text"
+                name="editName"
+                value={this.state.editName}
+                onChange={this.handleEditInputChange}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>2. Acrónimo/Abreviación</Form.Label>
+              <Form.Control
+                type="text"
+                name="editAcronym"
+                value={this.state.editAcronym}
+                onChange={this.handleEditInputChange}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>3. RFC</Form.Label>
+              <Form.Control
+                type="text"
+                name="editRfc"
+                value={this.state.editRfc}
+                onChange={this.handleEditInputChange}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>4. Dirección</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows="3"
+                name="editAddress"
+                value={this.state.editAddress}
+                onChange={this.handleEditInputChange}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={this.handleCloseEditModal}>
+            Cancelar
+          </Button>
+          <Button variant="info" onClick={this.handleEditFormSubmit}>
+            Guardar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
 
   render() {
-    // there is no user data
-    if (!this.state.loggedUser) {
-      return <MySpinner />;
-    }
-
-    // there is user data
     return (
-      // layout
-      <Layout
-        userProps={{
-          user:
-            this.state.loggedUser.firstName +
-            " " +
-            this.state.loggedUser.lastName,
-          role: this.state.loggedUser.role
-        }}
-        menuProps={[
-          { text: "Tablero", link: "/dashboard" },
-          { text: "Auditorías", link: "/audits" },
-          { text: "Clientes", link: "/clients" }
-        ]}
-      >
-        {/* breadcrum */}
-        <MyBreadcrum
-          pages={[
-            { key: "1", page: "Clientes", link: "/clients" },
-            { key: "2", page: "Mis Clientes", link: "nolink" }
-          ]}
-        />
-
+      <Layout>
         {/* title */}
         <div className="d-flex align-items-center p-2 mb-4">
           <Image
@@ -202,104 +236,10 @@ class Clients extends Component {
           />
           <h2 className="ml-3 my-auto">Mis Clientes</h2>
         </div>
-
-        {/* create client modal */}
-        <Modal
-          show={this.state.showCreateModal}
-          onHide={this.handleCloseCreateModal}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Nuevo Cliente</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <Form.Group>
-                <Form.Label>1. Nombre completo*</Form.Label>
-                <Form.Control type="text" id="name" />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>2. Acrónimo/Abreviación*</Form.Label>
-                <Form.Control type="text" id="acronym" />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>3. RFC</Form.Label>
-                <Form.Control type="text" id="rfc" />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>4. Dirección</Form.Label>
-                <Form.Control as="textarea" rows="3" id="address" />
-              </Form.Group>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleCloseCreateModal}>
-              Cancelar
-            </Button>
-            <Button variant="primary" onClick={this.handleCreateFormSubmit}>
-              Crear
-            </Button>
-          </Modal.Footer>
-        </Modal>
-
+        {/* content */}
+        <this.CreateClientModal />
         {/* edit client modal */}
-        <Modal
-          show={this.state.showEditModal}
-          onHide={this.handleCloseEditModal}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Editar Cliente</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <Form.Group>
-                <Form.Label>1. Nombre completo</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="editName"
-                  value={this.state.editName}
-                  onChange={this.handleEditInputChange}
-                />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>2. Acrónimo/Abreviación</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="editAcronym"
-                  value={this.state.editAcronym}
-                  onChange={this.handleEditInputChange}
-                />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>3. RFC</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="editRfc"
-                  value={this.state.editRfc}
-                  onChange={this.handleEditInputChange}
-                />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>4. Dirección</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows="3"
-                  name="editAddress"
-                  value={this.state.editAddress}
-                  onChange={this.handleEditInputChange}
-                />
-              </Form.Group>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleCloseEditModal}>
-              Cancelar
-            </Button>
-            <Button variant="info" onClick={this.handleEditFormSubmit}>
-              Guardar
-            </Button>
-          </Modal.Footer>
-        </Modal>
-
+        <this.EditClientModal />
         {/* alert */}
         <Alert
           show={this.state.showAlert}
@@ -310,7 +250,6 @@ class Clients extends Component {
           <Alert.Heading>{this.state.alertHeading}</Alert.Heading>
           <p>{this.state.alertBody}</p>
         </Alert>
-
         {/* if there are clients */}
         {this.state.clients.length ? (
           <>
@@ -346,9 +285,8 @@ class Clients extends Component {
                 })}
               </tbody>
             </Table>
-
             {/* conditional rendering, checks if the user is an Admin */}
-            {this.isUserAdmin() ? (
+            {this.props.user.role === "Admin" ? (
               <>
                 <div className="text-right mt-3">
                   <Button
@@ -381,7 +319,7 @@ class Clients extends Component {
             <div className="text-center mt-4">
               <p className="lead">No hay Clientes para mostrar.</p>
               {/* if the user is not an admin, show the new client button disabled */}
-              {this.isUserAdmin() ? (
+              {this.props.user.role === "Admin" ? (
                 <Button variant="primary" onClick={this.handleShowCreateModal}>
                   Nuevo Cliente
                 </Button>
@@ -398,4 +336,13 @@ class Clients extends Component {
   }
 }
 
-export default Clients;
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  null
+)(Clients);

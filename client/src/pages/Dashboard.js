@@ -1,6 +1,5 @@
 import React from "react";
 import { Card, Image, CardColumns } from "react-bootstrap";
-// import MyBreadcrumb from "../components/MyBreadcrumb";
 import Layout from "./Layout";
 import { useSelector } from "react-redux";
 
@@ -8,32 +7,18 @@ function Dashboard() {
   const user = useSelector(state => state.user);
 
   return (
-    <Layout
-      // menuProps={[
-      //   { text: "Tablero", link: "/dashboard" },
-      //   { text: "Auditorías", link: "/audits" },
-      //   { text: "Clientes", link: "/clients" }
-      // ]}
-    >
-      {/* <MyBreadcrum
-        pages={[
-          { key: "1", page: "Tablero", link: "/dashboard" },
-          { key: "2", page: "Mi Tablero", link: "nolink" }
-        ]}
-      /> */}
-
+    <Layout>
       {/* title */}
       <div className="d-flex align-items-center p-2 mb-4">
         <Image
           src="https://image.flaticon.com/icons/svg/1055/1055644.svg"
-          width="65"
-          height="65"
+          width="55"
+          height="55"
           fluid
         />
-        <h2 className="ml-3 my-auto">Mi Tablero</h2>
+        <h2 className="ml-3 my-auto">Tablero</h2>
       </div>
-
-      {/* TEST */}
+      {/* content */}
       <CardColumns>
         <Card>
           <Card.Img

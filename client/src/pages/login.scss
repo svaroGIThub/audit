@@ -44,14 +44,11 @@
 
 .loginbttn {
   background-color: #7289da;
-  color: #ffffff;
-  opacity: 0.9;
+  color: white;
   &:hover {
-    background-color: #7289da !important;
-    opacity: 1;
+    background-color: #8197e4;
   }
-}
-
-.myswitch {
-  background-color: red !important;
+  &:disabled {
+    background-color: #99aab5 !important;
+  }
 }

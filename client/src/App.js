@@ -56,6 +56,8 @@ class App extends Component {
         ) : (
           <Switch>
             <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/audits" component={Audits} />
+            <Route exact path="/clients" component={Clients} />
             <Redirect from="/" to="/dashboard" />
           </Switch>
         )}

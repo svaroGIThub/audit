@@ -1,18 +1,10 @@
 import React from "react";
-import {
-  Navbar,
-  Button,
-  NavDropdown,
-  Nav,
-  Dropdown,
-  NavItem,
-  NavLink
-} from "react-bootstrap";
+import { Navbar, Button, NavDropdown, Nav } from "react-bootstrap";
 import fire from "../firebase/Fire";
 import { useSelector } from "react-redux";
 import "./mynavbar.scss";
 
-function MyNavbar(props) {
+function MyNavbar() {
   const user = useSelector(state => state.user);
 
   const logout = () => {
@@ -20,90 +12,66 @@ function MyNavbar(props) {
   };
 
   return (
-    <Navbar
-      collapseOnSelect
-      expand="md"
-      id="navbarStyle"
-      // bg="dark"
-      // variant="dark"
-    >
-      <Navbar.Brand id="navbarLogo">APAG</Navbar.Brand>
+    <Navbar collapseOnSelect expand="md" id="navbarStyle" variant="dark">
+      <Navbar.Brand id="navbarLogo" href="/">
+        APAG
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
           {/* menu dropdown */}
-          <NavDropdown className="text-light" title="Menú">
-            {/* {props.menuProps.map(item => {
-              return (
-                <NavDropdown.Item key={item.text} href={item.link}>
-                  {item.text}
-                </NavDropdown.Item>
-              );
-            })} */}
+          <NavDropdown
+            className="text-light"
+            variant="light"
+            title="Menú"
+            id="menudrop"
+          >
+            <NavDropdown.Item href="/dashboard">Tablero</NavDropdown.Item>
+            <NavDropdown.Item href="/audits">Auditorías</NavDropdown.Item>
+            <NavDropdown.Item href="/clients">Clientes</NavDropdown.Item>
           </NavDropdown>
-          {/* <Dropdown as={NavItem}>
-            <Dropdown.Toggle as={NavLink}>Click to see more…</Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item>Hello there!</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown> */}
-          <NavDropdown className="text-light" variant="light" title="Dropdown" id="nav-dropdown">
-            <NavDropdown.Item eventKey="4.1">Action</NavDropdown.Item>
-            <NavDropdown.Item eventKey="4.2">Another action</NavDropdown.Item>
-            <NavDropdown.Item eventKey="4.3">
-              Something else here
-            </NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item eventKey="4.4">Separated link</NavDropdown.Item>
+          {/* audit dropdown */}
+          <NavDropdown
+            className="text-light"
+            variant="light"
+            title="Auditoría"
+            id="auditdrop"
+          >
+            <NavDropdown.Item href="/dashboard">Guía</NavDropdown.Item>
+            <NavDropdown.Item href="/dashboard">Planeación</NavDropdown.Item>
+            <NavDropdown.Item href="/dashboard">Programación</NavDropdown.Item>
+            <NavDropdown.Item href="/dashboard">Ejecución</NavDropdown.Item>
           </NavDropdown>
-          {/* auditoría dropdown */}
-          {/* {props.phasesProps ? (
-            <NavDropdown title="Auditoría">
-              {props.phasesProps.map(item => {
-                return (
-                  <NavDropdown.Item key={item.text} href={item.link}>
-                    {item.text}
-                  </NavDropdown.Item>
-                );
-              })}
-            </NavDropdown>
-          ) : (
-            ""
-          )} */}
           {/* consult dropdown */}
-          {/* {props.consultProps ? (
-            <NavDropdown title="Consulta">
-              {props.consultProps.map(item => {
-                return (
-                  <NavDropdown.Item key={item.text} href={item.link}>
-                    {item.text}
-                  </NavDropdown.Item>
-                );
-              })}
-            </NavDropdown>
-          ) : (
-            ""
-          )} */}
+          <NavDropdown
+            className="text-light"
+            variant="light"
+            title="Consulta"
+            id="consultdrop"
+          >
+            <NavDropdown.Item href="/dashboard">Balanza</NavDropdown.Item>
+            <NavDropdown.Item href="/dashboard">Nómina</NavDropdown.Item>
+          </NavDropdown>
         </Nav>
-
         {/* user */}
         <Nav className="d-flex align-items-md-center">
-          <Navbar.Text style={{ color: "gainsboro" }}>
+          <Navbar.Text style={{ color: "rgba(255,255,255,.5)" }}>
             Usuario:
             <span className="ml-2" style={{ color: "#7289da" }}>
               {user.name + " " + user.firstSurname}
             </span>
           </Navbar.Text>
-
           {/* role */}
-          <Navbar.Text className="ml-md-4" style={{ color: "gainsboro" }}>
+          <Navbar.Text
+            className="ml-md-4"
+            style={{ color: "rgba(255,255,255,.5)" }}
+          >
             Rol:
             <span className="ml-2" style={{ color: "#7289da" }}>
               {user.role}
             </span>
           </Navbar.Text>
-
-          {/* signout */}
+          {/* signout bttn */}
           <Navbar.Text className="ml-md-4">
             <Button variant="danger" size="sm" onClick={logout}>
               Cerrar Sesión
