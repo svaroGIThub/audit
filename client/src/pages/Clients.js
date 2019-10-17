@@ -123,106 +123,6 @@ class Clients extends Component {
       .catch(err => console.log(err));
   }
 
-  CreateClientModal() {
-    return (
-      <Modal
-        show={this.state.showCreateModal}
-        onHide={this.handleCloseCreateModal}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Nuevo Cliente</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group>
-              <Form.Label>1. Nombre completo*</Form.Label>
-              <Form.Control type="text" id="name" />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>2. Acrónimo/Abreviación*</Form.Label>
-              <Form.Control type="text" id="acronym" />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>3. RFC</Form.Label>
-              <Form.Control type="text" id="rfc" />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>4. Dirección</Form.Label>
-              <Form.Control as="textarea" rows="3" id="address" />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={this.handleCloseCreateModal}>
-            Cancelar
-          </Button>
-          <Button variant="primary" onClick={this.handleCreateFormSubmit}>
-            Crear
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    );
-  }
-
-  EditClientModal() {
-    return (
-      <Modal show={this.state.showEditModal} onHide={this.handleCloseEditModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Editar Cliente</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group>
-              <Form.Label>1. Nombre completo</Form.Label>
-              <Form.Control
-                type="text"
-                name="editName"
-                value={this.state.editName}
-                onChange={this.handleEditInputChange}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>2. Acrónimo/Abreviación</Form.Label>
-              <Form.Control
-                type="text"
-                name="editAcronym"
-                value={this.state.editAcronym}
-                onChange={this.handleEditInputChange}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>3. RFC</Form.Label>
-              <Form.Control
-                type="text"
-                name="editRfc"
-                value={this.state.editRfc}
-                onChange={this.handleEditInputChange}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>4. Dirección</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows="3"
-                name="editAddress"
-                value={this.state.editAddress}
-                onChange={this.handleEditInputChange}
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={this.handleCloseEditModal}>
-            Cancelar
-          </Button>
-          <Button variant="info" onClick={this.handleEditFormSubmit}>
-            Guardar
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    );
-  }
-
   render() {
     return (
       <Layout>
@@ -234,12 +134,103 @@ class Clients extends Component {
             height="65"
             fluid
           />
-          <h2 className="ml-3 my-auto">Mis Clientes</h2>
+          <h2 className="ml-3 my-auto">Clientes</h2>
         </div>
         {/* content */}
-        <this.CreateClientModal />
+        <Modal
+          show={this.state.showCreateModal}
+          onHide={this.handleCloseCreateModal}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Nuevo Cliente</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group>
+                <Form.Label>1. Nombre completo*</Form.Label>
+                <Form.Control type="text" id="name" />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>2. Abreviatura*</Form.Label>
+                <Form.Control type="text" id="acronym" />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>3. RFC</Form.Label>
+                <Form.Control type="text" id="rfc" />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>4. Dirección</Form.Label>
+                <Form.Control as="textarea" rows="3" id="address" />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleCloseCreateModal}>
+              Cancelar
+            </Button>
+            <Button variant="primary" onClick={this.handleCreateFormSubmit}>
+              Crear
+            </Button>
+          </Modal.Footer>
+        </Modal>
         {/* edit client modal */}
-        <this.EditClientModal />
+        <Modal
+          show={this.state.showEditModal}
+          onHide={this.handleCloseEditModal}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Editar Cliente</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group>
+                <Form.Label>1. Nombre completo</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="editName"
+                  value={this.state.editName}
+                  onChange={this.handleEditInputChange}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>2. Abreviatura</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="editAcronym"
+                  value={this.state.editAcronym}
+                  onChange={this.handleEditInputChange}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>3. RFC</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="editRfc"
+                  value={this.state.editRfc}
+                  onChange={this.handleEditInputChange}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>4. Dirección</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows="3"
+                  name="editAddress"
+                  value={this.state.editAddress}
+                  onChange={this.handleEditInputChange}
+                />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleCloseEditModal}>
+              Cancelar
+            </Button>
+            <Button variant="info" onClick={this.handleEditFormSubmit}>
+              Guardar
+            </Button>
+          </Modal.Footer>
+        </Modal>
         {/* alert */}
         <Alert
           show={this.state.showAlert}
@@ -257,7 +248,7 @@ class Clients extends Component {
               <thead>
                 <tr>
                   <th>Nombre</th>
-                  <th>Acrónimo</th>
+                  <th>Abreviatura</th>
                   <th>RFC</th>
                   <th>Dirección</th>
                   <th>Editar</th>
@@ -268,7 +259,7 @@ class Clients extends Component {
                   return (
                     <tr key={client.id}>
                       <td>{client.name}</td>
-                      <td>{client.acronym}</td>
+                      <td>{client.abbreviation}</td>
                       <td>{client.rfc}</td>
                       <td>{client.address}</td>
                       <td className="text-center">
