@@ -1,40 +1,63 @@
 import React from "react";
-import { Navbar, Button, NavDropdown, Nav } from "react-bootstrap";
+import {
+  Navbar,
+  Button,
+  NavDropdown,
+  Nav,
+  Dropdown,
+  NavItem,
+  NavLink
+} from "react-bootstrap";
 import fire from "../firebase/Fire";
+import { useSelector } from "react-redux";
+import "./mynavbar.scss";
 
-const styles = {
-  navBarLogo: {
-    fontFamily: "Saira Stencil One",
-    fontSize: 36,
-    padding: 0
-  }
-};
+function MyNavbar(props) {
+  const user = useSelector(state => state.user);
 
-function logout() {
-  fire.auth().signOut();
-}
+  const logout = () => {
+    fire.auth().signOut();
+  };
 
-const MyNavbar = props => {
   return (
-    <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
-      <Navbar.Brand style={styles.navBarLogo} className="text-light">
-        AAG
-      </Navbar.Brand>
+    <Navbar
+      collapseOnSelect
+      expand="md"
+      id="navbarStyle"
+      // bg="dark"
+      // variant="dark"
+    >
+      <Navbar.Brand id="navbarLogo">APAG</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
           {/* menu dropdown */}
-          <NavDropdown title="Menú">
-            {props.menuProps.map(item => {
+          <NavDropdown className="text-light" title="Menú">
+            {/* {props.menuProps.map(item => {
               return (
                 <NavDropdown.Item key={item.text} href={item.link}>
                   {item.text}
                 </NavDropdown.Item>
               );
-            })}
+            })} */}
+          </NavDropdown>
+          {/* <Dropdown as={NavItem}>
+            <Dropdown.Toggle as={NavLink}>Click to see more…</Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item>Hello there!</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown> */}
+          <NavDropdown className="text-light" variant="light" title="Dropdown" id="nav-dropdown">
+            <NavDropdown.Item eventKey="4.1">Action</NavDropdown.Item>
+            <NavDropdown.Item eventKey="4.2">Another action</NavDropdown.Item>
+            <NavDropdown.Item eventKey="4.3">
+              Something else here
+            </NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item eventKey="4.4">Separated link</NavDropdown.Item>
           </NavDropdown>
           {/* auditoría dropdown */}
-          {props.phasesProps ? (
+          {/* {props.phasesProps ? (
             <NavDropdown title="Auditoría">
               {props.phasesProps.map(item => {
                 return (
@@ -46,9 +69,9 @@ const MyNavbar = props => {
             </NavDropdown>
           ) : (
             ""
-          )}
+          )} */}
           {/* consult dropdown */}
-          {props.consultProps ? (
+          {/* {props.consultProps ? (
             <NavDropdown title="Consulta">
               {props.consultProps.map(item => {
                 return (
@@ -60,19 +83,24 @@ const MyNavbar = props => {
             </NavDropdown>
           ) : (
             ""
-          )}
+          )} */}
         </Nav>
 
         {/* user */}
         <Nav className="d-flex align-items-md-center">
-          <Navbar.Text className="">
+          <Navbar.Text style={{ color: "gainsboro" }}>
             Usuario:
-            <span className="text-light ml-2">{props.userProps.user}</span>
+            <span className="ml-2" style={{ color: "#7289da" }}>
+              {user.name + " " + user.firstSurname}
+            </span>
           </Navbar.Text>
 
           {/* role */}
-          <Navbar.Text className="ml-md-4">
-            Rol:<span className="text-light ml-2">{props.userProps.role}</span>
+          <Navbar.Text className="ml-md-4" style={{ color: "gainsboro" }}>
+            Rol:
+            <span className="ml-2" style={{ color: "#7289da" }}>
+              {user.role}
+            </span>
           </Navbar.Text>
 
           {/* signout */}
@@ -85,6 +113,6 @@ const MyNavbar = props => {
       </Navbar.Collapse>
     </Navbar>
   );
-};
+}
 
 export default MyNavbar;

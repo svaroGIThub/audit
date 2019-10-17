@@ -32,3 +32,26 @@
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+#bigLogo {
+  font-family: Saira Stencil One;
+  font-weight: 500;
+  margin-bottom: 0;
+  color: #2c2f33;
+  font-size: 100px;
+  text-align: center;
+}
+
+.loginbttn {
+  background-color: #7289da;
+  color: #ffffff;
+  opacity: 0.9;
+  &:hover {
+    background-color: #7289da !important;
+    opacity: 1;
+  }
+}
+
+.myswitch {
+  background-color: red !important;
+}

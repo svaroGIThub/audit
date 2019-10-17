@@ -1,7 +1,7 @@
 {
-  "name": "mern",
+  "name": "APAG",
   "version": "1.0.0",
-  "description": "Mern Demo",
+  "description": "Asistente en el Proceso de Auditoría Gubernamental",
   "main": "server.js",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",

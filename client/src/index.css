@@ -1,6 +1,15 @@
 body {
   padding-bottom: 20px;
   background-color: #f5f5f5;
-  color: rgb(44, 44, 44);
-  font-family: "Ubuntu", sans-serif;
+  color: #23272a;
+  /* font-family: "Ubuntu", sans-serif; */
+  font-family: "Roboto", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Roboto Mono", monospace;
 }

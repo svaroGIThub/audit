@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Accordion, Card, Image } from "react-bootstrap";
 import MyBreadcrum from "../../components/MyBreadcrum";
-import Layout from "../../components/Layout";
+import Layout from "../Layout";
 import MySpinner from "../../components/MySpinner";
 import API from "../../utils/API";
 

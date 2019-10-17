@@ -1,90 +1,138 @@
-import React, { Component } from "react";
+import React from "react";
 import { Form, Button } from "react-bootstrap";
+import "./login.scss";
+import * as userActions from "../redux-actions/user";
+import { useDispatch } from "react-redux";
+import API from "../utils/API";
+import { Formik } from "formik";
 import fire from "../firebase/Fire";
-import "./login.css";
+const firebase = require("firebase/app");
 
-const styles = {
-  form: {
-    marginTop: 55
-  },
-  mainLogo: {
-    fontFamily: "Saira Stencil One",
-    fontWeight: 500,
-    marginBottom: 0,
-    color: "rgb(2, 29, 71)",
-    fontSize: "100px",
-    textAlign: "center"
-  }
-};
+function Login() {
+  const dispatch = useDispatch();
 
-class Login extends Component {
-  state = {
-    email: "",
-    password: ""
-  };
-
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
-  };
-
-  handleLoginSubmit = event => {
-    event.preventDefault();
-    fire
-      .auth()
-      .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then(u => {})
-      .catch(error => {
-        alert(error.message);
-      });
-  };
-
-  render() {
-    return (
-      <Form style={styles.form} className="form-signin ">
-        <h1 style={styles.mainLogo}>APAG</h1>
-        <h4 className="text-muted text-center mt-4">Ingresar</h4>
-        <Form.Group controlId="formBasicUser" className="mb-0 mt-3">
-          <Form.Control
-            type="text"
-            maxLength="100"
-            placeholder="Email"
-            name="email"
-            value={this.state.email}
-            onChange={this.handleInputChange}
-            required
-            autoFocus
-          />
-        </Form.Group>
-        <Form.Group controlId="formBasicPassword">
-          <Form.Control
-            type="password"
-            maxLength="30"
-            placeholder="Contraseña"
-            name="password"
-            value={this.state.password}
-            onChange={this.handleInputChange}
-          />
-        </Form.Group>
-        {/* <Form.Group controlId="formBasicChecbox">
-          <Form.Check
-            type="checkbox"
-            label="Recuérdame"
-            className="text-muted"
-          />
-        </Form.Group> */}
-        <Button
-          className="btn-lg mt-3"
-          variant="dark"
-          type="submit"
-          block
-          onClick={this.handleLoginSubmit}
-        >
-          Entrar
-        </Button>
-      </Form>
-    );
-  }
+  return (
+    <>
+      <Formik
+        initialValues={{ email: "", password: "", rememberme: false }}
+        onSubmit={(values, { setSubmitting }) => {
+          console.log(values);
+          setSubmitting(true);
+          if (values.rememberme) {
+            fire
+              .auth()
+              .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+              .then(function() {
+                return fire
+                  .auth()
+                  .signInWithEmailAndPassword(values.email, values.password)
+                  .then(res => {
+                    let uid = res.user.uid;
+                    console.log("udi: " + uid);
+                    // fetch user info from the db
+                    API.fetchUserInfo(uid)
+                      .then(res => {
+                        alert("¡Bienvenido!");
+                        dispatch(userActions.loginUser(res.data));
+                      })
+                      .catch(error => {
+                        alert("Error de la BD -> " + error);
+                        console.log(error);
+                        setSubmitting(false);
+                      });
+                  });
+              })
+              .catch(function(error) {
+                alert("Error de Firebase -> " + error.message);
+                console.log(error.code);
+                setSubmitting(false);
+              });
+          } else {
+            fire
+              .auth()
+              .setPersistence(firebase.auth.Auth.Persistence.SESSION)
+              .then(function() {
+                return fire
+                  .auth()
+                  .signInWithEmailAndPassword(values.email, values.password)
+                  .then(res => {
+                    let uid = res.user.uid;
+                    console.log("udi: " + uid);
+                    // fetch user info from the db
+                    API.fetchUserInfo(uid)
+                      .then(res => {
+                        alert("¡Bienvenido!");
+                        dispatch(userActions.loginUser(res.data));
+                      })
+                      .catch(error => {
+                        alert("Error de la BD -> " + error);
+                        console.log(error);
+                        setSubmitting(false);
+                      });
+                  });
+              })
+              .catch(function(error) {
+                alert("Error de Firebase -> " + error.message);
+                console.log(error.code);
+                setSubmitting(false);
+              });
+          }
+        }}
+      >
+        {({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+          <>
+            <Form
+              style={{ marginTop: 55 }}
+              className="form-signin mt-4 mb-0"
+              onSubmit={handleSubmit}
+            >
+              <h1 id="bigLogo">APAG</h1>
+              <small className="text-muted text-center">
+                Asistente en el Proceso de Auditoría Gubernamental
+              </small>
+              <Form.Group className="mt-4 mb-0" controlId="email">
+                <Form.Control
+                  type="text"
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  maxLength="100"
+                  placeholder="Email"
+                  autoFocus
+                />
+              </Form.Group>
+              <Form.Group controlId="password">
+                <Form.Control
+                  type="password"
+                  value={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  maxLength="30"
+                  placeholder="Contraseña"
+                />
+              </Form.Group>
+              <Form.Group controlId="rememberme">
+                <Form.Check
+                  type="checkbox"
+                  onChange={handleChange}
+                  label="Recuérdame"
+                  className="text-muted"
+                />
+              </Form.Group>
+              <Button
+                className="btn-lg mt-3 border-0 loginbttn"
+                type="submit"
+                disabled={isSubmitting}
+                block
+              >
+                Entrar
+              </Button>
+            </Form>
+          </>
+        )}
+      </Formik>
+    </>
+  );
 }
 
 export default Login;

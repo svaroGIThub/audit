@@ -3,14 +3,16 @@ const model = require("../models");
 
 // get user info from a given uid
 // matches with /api/user/:uid
-router.get("/:uid", function (req, res) {
+router.get("/:uid", function(req, res) {
   model.User.findOne({
-    where: { uid: req.params.uid }
+    where: {
+      firebase_uid: req.params.uid
+    }
   })
-    .then(function (data) {
+    .then(function(data) {
       res.json(data);
     })
-    .catch(function (err) {
+    .catch(function(err) {
       res.send(err);
     });
 });

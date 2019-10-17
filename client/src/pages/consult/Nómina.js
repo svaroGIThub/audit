@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Image, Container, Button } from "react-bootstrap";
 import MySpinner from "../../components/MySpinner";
 import MyBreadcrum from "../../components/MyBreadcrum";
-import Layout from "../../components/Layout";
+import Layout from "../Layout";
 import API from "../../utils/API";
 
 class Nómina extends Component {

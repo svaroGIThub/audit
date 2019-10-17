@@ -10,7 +10,7 @@ import {
   ListGroup
 } from "react-bootstrap";
 import MyBreadcrum from "../components/MyBreadcrum";
-import Layout from "../components/Layout";
+import Layout from "./Layout";
 import MySpinner from "../components/MySpinner";
 import MyTitle from "../components/MyTitle";
 import API from "../utils/API";

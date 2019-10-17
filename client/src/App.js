@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { logoutClient } from "./redux-actions/client";
+import { logoutUser } from "./redux-actions/user";
 import {
   BrowserRouter as Router,
   Route,
@@ -40,7 +40,7 @@ class App extends Component {
   authListener() {
     fire.auth().onAuthStateChanged(user => {
       if (!user) {
-        this.props.logoutClient();
+        this.props.logoutUser();
       }
     });
   }
@@ -48,79 +48,15 @@ class App extends Component {
   render() {
     return (
       <Router>
-        {this.state.user ? (
+        {!this.props.user.isLogged ? (
           <Switch>
-            <Route
-              exact
-              path="/"
-              render={() => <Dashboard loggedUser={this.state.user} />}
-            />
-            <Route
-              exact
-              path="/dashboard"
-              render={() => <Dashboard loggedUser={this.state.user} />}
-            />
-            <Route
-              exact
-              path="/clients"
-              render={() => <Clients loggedUser={this.state.user} />}
-            />
-            <Route
-              exact
-              path="/audits"
-              render={() => <Audits loggedUser={this.state.user} />}
-            />
-            <Route
-              exact
-              path="/audits/workplan/:id"
-              render={props => (
-                <Workplan routeProps={props} loggedUser={this.state.user} />
-              )}
-            />
-            <Route
-              exact
-              path="/audits/balanza/:id"
-              render={props => (
-                <Balanza routeProps={props} loggedUser={this.state.user} />
-              )}
-            />
-            <Route
-              exact
-              path="/audits/nomina/:id"
-              render={props => (
-                <Nomina routeProps={props} loggedUser={this.state.user} />
-              )}
-            />
-            <Route
-              exact
-              path="/audits/planning/:id"
-              render={props => (
-                <Planning routeProps={props} loggedUser={this.state.user} />
-              )}
-            />
-            <Route
-              exact
-              path="/audits/planning/cci/:id"
-              render={props => (
-                <CCI routeProps={props} loggedUser={this.state.user} />
-              )}
-            />
-            <Route
-              exact
-              path="/audits/planning/cefs/:id"
-              render={props => (
-                <CEFS routeProps={props} loggedUser={this.state.user} />
-              )}
-            />
-            <Redirect from="/" to="/dashboard" />
-            <Route component={NoMatch} />
+            <Route exact path="/" component={Login} />
+            <Redirect to="/" />
           </Switch>
         ) : (
           <Switch>
-            <Route exact path="/" component={Login} />
-            {/* <Redirect from="/dashboard" to="/login" /> */}
-            <Redirect to="/" />
-            {/* <Route component={Login} loggedUser={this.state.user} /> */}
+            <Route exact path="/dashboard" component={Dashboard} />
+            <Redirect from="/" to="/dashboard" />
           </Switch>
         )}
       </Router>
@@ -130,13 +66,12 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    manager: state.manager,
-    client: state.client
+    user: state.user
   };
 };
 
 const mapDispatchToProps = {
-  logoutClient
+  logoutUser
 };
 
 export default connect(

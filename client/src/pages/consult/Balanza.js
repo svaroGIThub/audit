@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Image, Container, Row, Col, Button, Form } from "react-bootstrap";
 import MyBreadcrum from "../../components/MyBreadcrum";
-import Layout from "../../components/Layout";
+import Layout from "../Layout";
 import MySpinner from "../../components/MySpinner";
 // import ReactFileReader from 'react-file-reader';
 // import ProgressBar from "react-bootstrap/ProgressBar";

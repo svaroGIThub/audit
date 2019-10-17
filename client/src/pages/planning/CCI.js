@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Image, Form, Button, Alert } from "react-bootstrap";
 import MyBreadcrum from "../../components/MyBreadcrum";
-import Layout from "../../components/Layout";
+import Layout from "../Layout";
 import MySpinner from "../../components/MySpinner";
 import ScrollButton from "../../components/ScrollButton";
 import API from "../../utils/API";
