@@ -25,18 +25,6 @@ class App extends Component {
     this.authListener();
   }
 
-  // authListener() {
-  //   firebase.auth().onAuthStateChanged(user => {
-  //     if (user) {
-  //       this.setState({ user });
-  //       localStorage.setItem("user", user.uid);
-  //     } else {
-  //       this.setState({ user: null });
-  //       localStorage.removeItem("user");
-  //     }
-  //   });
-  // }
-
   authListener() {
     fire.auth().onAuthStateChanged(user => {
       if (!user) {
@@ -56,8 +44,13 @@ class App extends Component {
         ) : (
           <Switch>
             <Route exact path="/dashboard" component={Dashboard} />
-            <Route exact path="/audits" component={Audits} />
             <Route exact path="/clients" component={Clients} />
+            <Route exact path="/audits" component={Audits} />
+            <Route
+              exact
+              path="/audits/workplan/:auditId"
+              render={props => <Workplan routeProps={props} />}
+            />
             <Redirect from="/" to="/dashboard" />
           </Switch>
         )}

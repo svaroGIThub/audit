@@ -6,6 +6,7 @@ import "./mynavbar.scss";
 
 function MyNavbar() {
   const user = useSelector(state => state.user);
+  const navbarDropdowns = useSelector(state => state.navbar);
 
   const logout = () => {
     fire.auth().signOut();
@@ -31,33 +32,39 @@ function MyNavbar() {
             <NavDropdown.Item href="/clients">Clientes</NavDropdown.Item>
           </NavDropdown>
           {/* audit dropdown */}
-          <NavDropdown
-            className="text-light"
-            variant="light"
-            title="Auditoría"
-            id="auditdrop"
-          >
-            <NavDropdown.Item href="/dashboard">Guía</NavDropdown.Item>
-            <NavDropdown.Item href="/dashboard">Planeación</NavDropdown.Item>
-            <NavDropdown.Item href="/dashboard">Programación</NavDropdown.Item>
-            <NavDropdown.Item href="/dashboard">Ejecución</NavDropdown.Item>
-          </NavDropdown>
+          {navbarDropdowns.auditDropdown.show ? (
+            <NavDropdown
+              className="text-light"
+              variant="light"
+              title="Auditoría"
+              id="auditdrop"
+            >
+              <NavDropdown.Item href="/dashboard">Guía</NavDropdown.Item>
+              <NavDropdown.Item href="/dashboard">Planeación</NavDropdown.Item>
+              <NavDropdown.Item href="/dashboard">
+                Programación
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/dashboard">Ejecución</NavDropdown.Item>
+            </NavDropdown>
+          ) : null}
           {/* consult dropdown */}
-          <NavDropdown
-            className="text-light"
-            variant="light"
-            title="Consulta"
-            id="consultdrop"
-          >
-            <NavDropdown.Item href="/dashboard">Balanza</NavDropdown.Item>
-            <NavDropdown.Item href="/dashboard">Nómina</NavDropdown.Item>
-          </NavDropdown>
+          {navbarDropdowns.consultDropdown.show ? (
+            <NavDropdown
+              className="text-light"
+              variant="light"
+              title="Consulta"
+              id="consultdrop"
+            >
+              <NavDropdown.Item href="/dashboard">Balanza</NavDropdown.Item>
+              <NavDropdown.Item href="/dashboard">Nómina</NavDropdown.Item>
+            </NavDropdown>
+          ) : null}
         </Nav>
         {/* user */}
         <Nav className="d-flex align-items-md-center">
           <Navbar.Text style={{ color: "rgba(255,255,255,.5)" }}>
             Usuario:
-            <span className="ml-2" style={{ color: "#7289da" }}>
+            <span className="ml-2 text-light">
               {user.name + " " + user.firstSurname}
             </span>
           </Navbar.Text>
@@ -67,9 +74,7 @@ function MyNavbar() {
             style={{ color: "rgba(255,255,255,.5)" }}
           >
             Rol:
-            <span className="ml-2" style={{ color: "#7289da" }}>
-              {user.role}
-            </span>
+            <span className="ml-2 text-light">{user.role}</span>
           </Navbar.Text>
           {/* signout bttn */}
           <Navbar.Text className="ml-md-4">

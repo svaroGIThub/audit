@@ -106,17 +106,8 @@ class Clients extends Component {
   };
   handleCloseAlert = () => this.setState({ showAlert: false });
 
-  // Loads all clients and sets them to this.state.clients
-  loadClients = () => {
-    API.getAllClients()
-      .then(res => {
-        this.setState({ clients: res.data });
-      })
-      .catch(err => console.log(err));
-  };
-
   componentDidMount() {
-    API.getAllClients()
+    API.fetchClients()
       .then(res => {
         this.setState({ clients: res.data });
       })

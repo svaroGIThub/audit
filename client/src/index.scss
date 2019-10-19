@@ -14,3 +14,15 @@ h4,
 h5 {
   font-family: "Roboto Mono", monospace;
 }
+
+.purplebttn {
+  border: 0;
+  background-color: #7289da;
+  color: white;
+  &:hover {
+    background-color: #8197e4;
+  }
+  &:disabled {
+    background-color: #99aab5 !important;
+  }
+}

@@ -1,0 +1,20 @@
+.auditItem {
+  background-color: #2c2f33;
+  &:hover {
+    background-color: #35383d;
+  }
+}
+
+.clientAbbr {
+  font-weight: 700;
+  color: #7289da;
+}
+
+.auditYear {
+  font-weight: 700;
+  color: #99aab5;
+}
+
+.description {
+  color: gainsboro;
+}

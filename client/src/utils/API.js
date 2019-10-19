@@ -9,12 +9,12 @@ export default {
 
   // audits
 
-  getAllAudits: function() {
+  fetchAudits: function() {
     return axios.get("/api/audit/all/");
   },
 
-  getSelectedAudit: function(id) {
-    return axios.get("/api/audit/" + id);
+  fetchOneAudit: function(auditId) {
+    return axios.get("/api/audit/" + auditId);
   },
 
   saveNewAudit: function(auditData) {
@@ -23,7 +23,7 @@ export default {
 
   // clients
 
-  getAllClients: function() {
+  fetchClients: function() {
     return axios.get("/api/client/all");
   },
 

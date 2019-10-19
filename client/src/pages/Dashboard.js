@@ -1,11 +1,8 @@
 import React from "react";
 import { Card, Image, CardColumns } from "react-bootstrap";
 import Layout from "./Layout";
-import { useSelector } from "react-redux";
 
 function Dashboard() {
-  const user = useSelector(state => state.user);
-
   return (
     <Layout>
       {/* title */}

@@ -7,15 +7,18 @@ import {
   Col,
   Alert,
   Row,
-  Pagination,
+  Spinner,
   ListGroup,
-  Image
+  Image,
+  Pagination
 } from "react-bootstrap";
 import Layout from "./Layout";
 import API from "../utils/API";
+import "./audits.scss";
 
 class Audits extends Component {
   state = {
+    isLoadingAudits: true,
     audits: [],
     clients: [],
     // alerts
@@ -28,16 +31,17 @@ class Audits extends Component {
   };
 
   componentDidMount() {
-    API.getAllAudits()
+    API.fetchAudits()
       .then(res => {
-        this.setState({ allAudits: res.data });
+        this.setState({ audits: res.data }, () =>
+          this.setState({ isLoadingAudits: false })
+        );
       })
       .catch(err => console.log(err));
   }
 
-  // Loads all clients to create a new audit
   loadClientsForNewAudit = () => {
-    API.getAllClients()
+    API.fetchClients()
       .then(res => {
         // if there are no clients in the db, show alert
         if (!res.data.length) {
@@ -55,7 +59,6 @@ class Audits extends Component {
       .catch(err => console.log(err));
   };
 
-  // modal arrow functions
   handleCloseModal = () => this.setState({ showModal: false });
   handleShowModal = () => this.loadClientsForNewAudit();
   handleFormSubmit = event => {
@@ -85,7 +88,7 @@ class Audits extends Component {
       .catch(err => console.log(err));
   };
 
-  // alert arrow functions
+  // alert
   handleShowAlert = (variant, heading, body) => {
     this.setState(
       { alertVariant: variant, alertHeading: heading, alertBody: body },
@@ -108,7 +111,7 @@ class Audits extends Component {
           />
           <h2 className="ml-3 my-auto">Auditorías</h2>
         </div>
-        {/* content */}
+        {/* utilities */}
         <Modal show={this.state.showModal} onHide={this.handleCloseModal}>
           <Modal.Header closeButton>
             <Modal.Title>Nueva Auditoría</Modal.Title>
@@ -163,78 +166,86 @@ class Audits extends Component {
           <Alert.Heading>{this.state.alertHeading}</Alert.Heading>
           <p>{this.state.alertBody}</p>
         </Alert>
-        {this.state.audits.length ? (
-          <>
-            {/* filters */}
-            <Row>
-              <Col sm={8}>
-                <Form>
-                  <Form.Group>
-                    Mostrando {this.state.limit} de
-                    {this.state.allAudits.length} auditorías
-                  </Form.Group>
-                </Form>
-              </Col>
-              {/* pagination> */}
-              <Col sm={4} className="d-flex justify-content-center flex-wrap">
-                <Pagination>{this.setPageNum()}</Pagination>
-              </Col>
-            </Row>
-            {/* my audits */}
-            <ListGroup>
-              {this.state.auditsPage.map(audit => {
-                return (
-                  <ListGroup.Item
-                    action
-                    key={audit.id}
-                    href={"/audits/workplan/" + audit.id}
-                  >
-                    <strong className="h3 mr-2" style={{ fontWeight: 600 }}>
-                      {audit.clientAcronym}
-                    </strong>
-                    <span className="h3">{audit.year}</span>
-                    <p className="mb-0">{audit.description}</p>
-                    <small>Last updated 3 mins ago</small>
-                  </ListGroup.Item>
-                );
-              })}
-            </ListGroup>
+        {/* content */}
+        <Row>
+          <Col className="d-flex align-items-center mb-3">
+            <Pagination className="mb-0" size="sm">
+              <Pagination.Prev disabled />
+              <Pagination.Item active>{1}</Pagination.Item>
+              <Pagination.Item>{2}</Pagination.Item>
+              <Pagination.Item>{3}</Pagination.Item>
+              <Pagination.Next />
+            </Pagination>
+          </Col>
+          <Col className="d-flex justify-content-end justify-content-right mb-3">
             {this.props.user.role === "Admin" ? (
-              <>
-                <div className="text-right mt-3">
-                  <Button variant="primary" onClick={this.handleShowModal}>
-                    Nueva Auditoría
-                  </Button>
-                </div>
-              </>
+              <Button className="purplebttn" onClick={this.handleShowModal}>
+                Nueva Auditoría
+              </Button>
             ) : (
-              <>
-                <div className="text-right mt-3">
-                  <Button variant="primary" disabled>
-                    Nueva Auditoría
-                  </Button>
-                </div>
-              </>
+              <Button className="purplebttn" disabled>
+                Nueva Auditoría
+              </Button>
             )}
-          </>
-        ) : (
-          // if there are no audits
-          <>
-            <div className="text-center mt-4">
-              <p className="lead">Tu lista de Auditorías está vacía</p>
-              {/* if the user is not an admin, show the new audit button disabled */}
-              {this.props.user.role === "Admin" ? (
-                <Button variant="primary" onClick={this.handleShowModal}>
-                  Nueva Auditoría
-                </Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            {!this.state.isLoadingAudits ? (
+              this.state.audits.length ? (
+                <div>
+                  <ListGroup className="border-0 shadow-sm">
+                    {this.state.audits.map(audit => {
+                      return (
+                        <ListGroup.Item
+                          action
+                          key={audit.id}
+                          className="auditItem "
+                          href={"/audits/workplan/" + audit.id}
+                        >
+                          <div className="d-flex flex-row">
+                            <h3 className="mr-2 clientAbbr">
+                              {audit.clientAbbreviation}
+                            </h3>
+                            <h3 className="auditYear">{audit.year}</h3>
+                          </div>
+                          <p className="mb-0 description">
+                            {audit.description}
+                          </p>
+                          <small className="text-secondary">
+                            Last updated 3 mins ago
+                          </small>
+                        </ListGroup.Item>
+                      );
+                    })}
+                  </ListGroup>
+                </div>
               ) : (
-                <Button variant="primary" disabled>
-                  Nueva Auditoría
-                </Button>
-              )}
-            </div>
-          </>
-        )}
+                <div className="text-center mt-4">
+                  <p className="text-muted">
+                    Tu lista de Auditorías está vacía
+                  </p>
+                  {this.props.user.role === "Admin" ? (
+                    <Button
+                      className="purplebttn"
+                      onClick={this.handleShowModal}
+                    >
+                      Nueva Auditoría
+                    </Button>
+                  ) : (
+                    <Button className="purplebttn" disabled>
+                      Nueva Auditoría
+                    </Button>
+                  )}
+                </div>
+              )
+            ) : (
+              <div className="text-center mt-4 pt-4">
+                <Spinner animation="border" />
+              </div>
+            )}
+          </Col>
+        </Row>
       </Layout>
     );
   }

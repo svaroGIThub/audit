@@ -16,7 +16,6 @@ function Login() {
       <Formik
         initialValues={{ email: "", password: "", rememberme: false }}
         onSubmit={(values, { setSubmitting }) => {
-          console.log(values);
           setSubmitting(true);
           if (values.rememberme) {
             fire
@@ -120,7 +119,7 @@ function Login() {
                 />
               </Form.Group>
               <Button
-                className="btn-lg mt-3 border-0 loginbttn"
+                className="btn-lg mt-3 purplebttn"
                 type="submit"
                 disabled={isSubmitting}
                 block
