@@ -8,6 +8,8 @@ import API from "../utils/API";
 function Workplan(props) {
   const [audit, setAudit] = useState(null);
 
+  const auditDropdown = useSelector(state => state.auditDropdown);
+
   useEffect(() => {
     let auditId = props.routeProps.match.params.auditId;
     API.fetchOneAudit(auditId)

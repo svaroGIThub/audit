@@ -21,16 +21,18 @@ function MyNavbar() {
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
           {/* menu dropdown */}
-          <NavDropdown
-            className="text-light"
-            variant="light"
-            title="Menú"
-            id="menudrop"
-          >
-            <NavDropdown.Item href="/dashboard">Tablero</NavDropdown.Item>
-            <NavDropdown.Item href="/audits">Auditorías</NavDropdown.Item>
-            <NavDropdown.Item href="/clients">Clientes</NavDropdown.Item>
-          </NavDropdown>
+          {navbarDropdowns.menuDropdown.show ? (
+            <NavDropdown
+              className="text-light"
+              variant="light"
+              title="Menú"
+              id="menudrop"
+            >
+              <NavDropdown.Item href="/dashboard">Tablero</NavDropdown.Item>
+              <NavDropdown.Item href="/audits">Auditorías</NavDropdown.Item>
+              <NavDropdown.Item href="/clients">Clientes</NavDropdown.Item>
+            </NavDropdown>
+          ) : null}
           {/* audit dropdown */}
           {navbarDropdowns.auditDropdown.show ? (
             <NavDropdown
