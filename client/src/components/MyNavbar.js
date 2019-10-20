@@ -41,12 +41,13 @@ function MyNavbar() {
               title="Auditoría"
               id="auditdrop"
             >
-              <NavDropdown.Item href="/dashboard">Guía</NavDropdown.Item>
-              <NavDropdown.Item href="/dashboard">Planeación</NavDropdown.Item>
-              <NavDropdown.Item href="/dashboard">
-                Programación
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/dashboard">Ejecución</NavDropdown.Item>
+              {navbarDropdowns.auditDropdown.items.map(i => {
+                return (
+                  <NavDropdown.Item key={i.name} href={i.to}>
+                    {i.name}
+                  </NavDropdown.Item>
+                );
+              })}
             </NavDropdown>
           ) : null}
           {/* consult dropdown */}
@@ -57,8 +58,13 @@ function MyNavbar() {
               title="Consulta"
               id="consultdrop"
             >
-              <NavDropdown.Item href="/dashboard">Balanza</NavDropdown.Item>
-              <NavDropdown.Item href="/dashboard">Nómina</NavDropdown.Item>
+              {navbarDropdowns.consultDropdown.items.map(i => {
+                return (
+                  <NavDropdown.Item key={i.name} href={i.to}>
+                    {i.name}
+                  </NavDropdown.Item>
+                );
+              })}
             </NavDropdown>
           ) : null}
         </Nav>
@@ -66,7 +72,7 @@ function MyNavbar() {
         <Nav className="d-flex align-items-md-center">
           <Navbar.Text style={{ color: "rgba(255,255,255,.5)" }}>
             Usuario:
-            <span className="ml-2 text-light">
+            <span className="ml-2" style={{ color: "#7289da" }}>
               {user.name + " " + user.firstSurname}
             </span>
           </Navbar.Text>
@@ -76,7 +82,9 @@ function MyNavbar() {
             style={{ color: "rgba(255,255,255,.5)" }}
           >
             Rol:
-            <span className="ml-2 text-light">{user.role}</span>
+            <span className="ml-2" style={{ color: "#7289da" }}>
+              {user.role}
+            </span>
           </Navbar.Text>
           {/* signout bttn */}
           <Navbar.Text className="ml-md-4">

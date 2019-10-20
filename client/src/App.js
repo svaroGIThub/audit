@@ -7,17 +7,17 @@ import {
   Switch,
   Redirect
 } from "react-router-dom";
-import NoMatch from "./pages/NoMatch";
+// import NoMatch from "./pages/NoMatch";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Audits from "./pages/Audits";
 import Workplan from "./pages/Workplan";
 import Clients from "./pages/Clients";
-import Balanza from "./pages/consult/Balanza";
-import Nomina from "./pages/consult/Nómina";
-import Planning from "./pages/planning/Planning";
-import CCI from "./pages/planning/CCI";
-import CEFS from "./pages/planning/CEFS";
+// import Balanza from "./pages/consult/Balanza";
+// import Nomina from "./pages/consult/Nómina";
+// import Planning from "./pages/planning/Planning";
+// import CCI from "./pages/planning/CCI";
+// import CEFS from "./pages/planning/CEFS";
 import fire from "./firebase/Fire";
 
 class App extends Component {

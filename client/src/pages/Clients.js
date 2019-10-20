@@ -302,11 +302,14 @@ class Clients extends Component {
               <p className="lead">No hay Clientes para mostrar.</p>
               {/* if the user is not an admin, show the new client button disabled */}
               {this.props.user.role === "Admin" ? (
-                <Button variant="primary" onClick={this.handleShowCreateModal}>
+                <Button
+                  className="purplebttn"
+                  onClick={this.handleShowCreateModal}
+                >
                   Nuevo Cliente
                 </Button>
               ) : (
-                <Button variant="primary" disabled>
+                <Button className="purplebttn" disabled>
                   Nuevo Cliente
                 </Button>
               )}

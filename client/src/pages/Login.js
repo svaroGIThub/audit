@@ -27,7 +27,6 @@ function Login() {
                   .signInWithEmailAndPassword(values.email, values.password)
                   .then(res => {
                     let uid = res.user.uid;
-                    console.log("udi: " + uid);
                     // fetch user info from the db
                     API.fetchUserInfo(uid)
                       .then(res => {
@@ -56,7 +55,6 @@ function Login() {
                   .signInWithEmailAndPassword(values.email, values.password)
                   .then(res => {
                     let uid = res.user.uid;
-                    console.log("udi: " + uid);
                     // fetch user info from the db
                     API.fetchUserInfo(uid)
                       .then(res => {

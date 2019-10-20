@@ -10,9 +10,10 @@ export const hideMenuDropdown = () => {
   };
 };
 
-export const showAuditDropdown = () => {
+export const showAuditDropdown = data => {
   return {
-    type: "navbar/showAuditDropdown"
+    type: "navbar/showAuditDropdown",
+    data
   };
 };
 
@@ -22,9 +23,10 @@ export const hideAuditDropdown = () => {
   };
 };
 
-export const showConsultDropdown = () => {
+export const showConsultDropdown = data => {
   return {
-    type: "navbar/showConsultDropdown"
+    type: "navbar/showConsultDropdown",
+    data
   };
 };
 

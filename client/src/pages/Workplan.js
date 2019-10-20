@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import * as navbarActions from "../redux-actions/navbar";
 import { Image } from "react-bootstrap";
 import Layout from "./Layout";
 import ScrollButton from "../components/ScrollButton";
@@ -9,8 +10,24 @@ function Workplan(props) {
   const [audit, setAudit] = useState(null);
 
   const auditDropdown = useSelector(state => state.auditDropdown);
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    // hide or show navbar dropdowns
+    dispatch(navbarActions.hideMenuDropdown());
+    let auditItems = [
+      { to: "/dashboard", name: "Guía" },
+      { to: "/dashboard", name: "Planeación" },
+      { to: "/dashboard", name: "Programación" },
+      { to: "/dashboard", name: "Ejecución" }
+    ];
+    dispatch(navbarActions.showAuditDropdown(auditItems));
+    let consultitems = [
+      { to: "/dashboard", name: "Balanza" },
+      { to: "/dashboard", name: "Nómina" }
+    ];
+    dispatch(navbarActions.showConsultDropdown(consultitems));
+    // fet audit info
     let auditId = props.routeProps.match.params.auditId;
     API.fetchOneAudit(auditId)
       .then(res => {

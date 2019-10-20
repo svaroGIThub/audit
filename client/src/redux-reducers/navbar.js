@@ -1,27 +1,55 @@
 const navbarReducers = (
   state = {
-    menuDropdown: { show: false },
+    menuDropdown: { show: true },
     auditDropdown: { show: false, items: [] },
     consultDropdown: { show: false, items: [] }
   },
   action
 ) => {
   switch (action.type) {
+    case "navbar/showMenuDropdown":
+      return {
+        ...state,
+        menuDropdown: {
+          show: true
+        }
+      };
+    case "navbar/hideMenuDropdown":
+      return {
+        ...state,
+        menuDropdown: {
+          show: false
+        }
+      };
     case "navbar/showAuditDropdown":
       return {
-        auditDropdown: true
+        ...state,
+        auditDropdown: {
+          show: true,
+          items: action.data
+        }
       };
     case "navbar/hideAuditDropdown":
       return {
-        auditDropdown: false
+        ...state,
+        auditDropdown: {
+          show: false
+        }
       };
     case "navbar/showConsultDropdown":
       return {
-        consultDropdown: true
+        ...state,
+        consultDropdown: {
+          show: true,
+          items: action.data
+        }
       };
     case "navbar/hideConsultDropdown":
       return {
-        consultDropdown: false
+        ...state,
+        consultDropdown: {
+          show: false
+        }
       };
     default:
       return state;
