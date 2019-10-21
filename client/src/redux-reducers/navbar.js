@@ -1,6 +1,6 @@
 const navbarReducers = (
   state = {
-    menuDropdown: { show: true },
+    menuDropdown: { show: false },
     auditDropdown: { show: false, items: [] },
     consultDropdown: { show: false, items: [] }
   },

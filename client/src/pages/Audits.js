@@ -102,15 +102,10 @@ class Audits extends Component {
     return (
       <Layout>
         {/* title */}
-        <div className="d-flex align-items-center p-2 mb-4">
-          <Image
-            src="https://image.flaticon.com/icons/svg/201/201558.svg"
-            width="55"
-            height="55"
-            fluid
-          />
-          <h2 className="ml-3 my-auto">Auditorías</h2>
-        </div>
+        <h2>
+          <strong>/Auditorías</strong>
+        </h2>
+        <hr />
         {/* utilities */}
         <Modal show={this.state.showModal} onHide={this.handleCloseModal}>
           <Modal.Header closeButton>

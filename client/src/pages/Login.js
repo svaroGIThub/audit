@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Button } from "react-bootstrap";
 import "./login.scss";
 import * as userActions from "../redux-actions/user";
+import * as navbarActions from "../redux-actions/navbar";
 import { useDispatch } from "react-redux";
 import API from "../utils/API";
 import { Formik } from "formik";
@@ -31,6 +32,11 @@ function Login() {
                     API.fetchUserInfo(uid)
                       .then(res => {
                         alert("¡Bienvenido!");
+                        // before login user hide/show menus on the navbar
+                        dispatch(navbarActions.hideAuditDropdown());
+                        dispatch(navbarActions.hideConsultDropdown());
+                        dispatch(navbarActions.showMenuDropdown());
+                        // then login user
                         dispatch(userActions.loginUser(res.data));
                       })
                       .catch(error => {
@@ -59,6 +65,11 @@ function Login() {
                     API.fetchUserInfo(uid)
                       .then(res => {
                         alert("¡Bienvenido!");
+                        // before login user hide/show menus on the navbar
+                        dispatch(navbarActions.hideAuditDropdown());
+                        dispatch(navbarActions.hideConsultDropdown());
+                        dispatch(navbarActions.showMenuDropdown());
+                        // then login user
                         dispatch(userActions.loginUser(res.data));
                       })
                       .catch(error => {

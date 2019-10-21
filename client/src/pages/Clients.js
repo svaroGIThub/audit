@@ -272,7 +272,7 @@ class Clients extends Component {
               <>
                 <div className="text-right mt-3">
                   <Button
-                    variant="primary"
+                    className="purplebttn"
                     onClick={this.handleShowCreateModal}
                   >
                     Nuevo Cliente
@@ -282,7 +282,7 @@ class Clients extends Component {
             ) : (
               <>
                 <div className="text-right mt-3">
-                  <Button variant="primary" disabled>
+                  <Button className="purplebttn" disabled>
                     Nuevo Cliente
                   </Button>
                 </div>

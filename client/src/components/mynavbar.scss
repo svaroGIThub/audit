@@ -1,14 +1,18 @@
-#navbarStyle {
+#navStyle {
   background-color: #23272a !important;
-  color: ghostwhite;
+  width: 300px;
 }
 
-#navbarLogo {
+#navLogo {
   font-family: Saira Stencil One;
   color: #7289da;
-  font-size: 38px;
+  font-size: 50px;
   padding: 0;
+}
+
+.navLink {
+  color: rgba(255, 255, 255, 0.5) !important;
   &:hover {
-    color: #8197e4;
+    color: ghostwhite;
   }
 }

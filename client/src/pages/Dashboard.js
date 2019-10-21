@@ -5,17 +5,10 @@ import Layout from "./Layout";
 function Dashboard() {
   return (
     <Layout>
-      {/* title */}
-      <div className="d-flex align-items-center p-2 mb-4">
-        <Image
-          src="https://image.flaticon.com/icons/svg/1055/1055644.svg"
-          width="55"
-          height="55"
-          fluid
-        />
-        <h2 className="ml-3 my-auto">Tablero</h2>
-      </div>
-      {/* content */}
+      <h2>
+        <strong>/Tablero</strong>
+      </h2>
+      <hr />
       <CardColumns>
         <Card>
           <Card.Img

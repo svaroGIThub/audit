@@ -13,88 +13,49 @@ function MyNavbar() {
   };
 
   return (
-    <Navbar collapseOnSelect expand="md" id="navbarStyle" variant="dark">
-      <Navbar.Brand id="navbarLogo" href="/">
-        APAG
-      </Navbar.Brand>
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className="mr-auto">
-          {/* menu dropdown */}
-          {navbarDropdowns.menuDropdown.show ? (
-            <NavDropdown
-              className="text-light"
-              variant="light"
-              title="Menú"
-              id="menudrop"
-            >
-              <NavDropdown.Item href="/dashboard">Tablero</NavDropdown.Item>
-              <NavDropdown.Item href="/audits">Auditorías</NavDropdown.Item>
-              <NavDropdown.Item href="/clients">Clientes</NavDropdown.Item>
-            </NavDropdown>
-          ) : null}
-          {/* audit dropdown */}
-          {navbarDropdowns.auditDropdown.show ? (
-            <NavDropdown
-              className="text-light"
-              variant="light"
-              title="Auditoría"
-              id="auditdrop"
-            >
-              {navbarDropdowns.auditDropdown.items.map(i => {
-                return (
-                  <NavDropdown.Item key={i.name} href={i.to}>
-                    {i.name}
-                  </NavDropdown.Item>
-                );
-              })}
-            </NavDropdown>
-          ) : null}
-          {/* consult dropdown */}
-          {navbarDropdowns.consultDropdown.show ? (
-            <NavDropdown
-              className="text-light"
-              variant="light"
-              title="Consulta"
-              id="consultdrop"
-            >
-              {navbarDropdowns.consultDropdown.items.map(i => {
-                return (
-                  <NavDropdown.Item key={i.name} href={i.to}>
-                    {i.name}
-                  </NavDropdown.Item>
-                );
-              })}
-            </NavDropdown>
-          ) : null}
-        </Nav>
-        {/* user */}
-        <Nav className="d-flex align-items-md-center">
-          <Navbar.Text style={{ color: "rgba(255,255,255,.5)" }}>
-            Usuario:
-            <span className="ml-2" style={{ color: "#7289da" }}>
-              {user.name + " " + user.firstSurname}
-            </span>
+    <>
+      {/* VERTICAL navbar */}
+      {/* <Navbar  className="flex-column h-100"> */}
+      {/* top section */}
+      {/* <Navbar.Brand className="bg-warning" id="navbarLogo">
+          APAG
+        </Navbar.Brand> */}
+      <Nav id="navStyle" className="flex-column p-3 h-100">
+        {/* logo */}
+        <Nav.Item className="text-center py-2" id="navLogo">
+          APAG
+        </Nav.Item>
+        {/* top section */}
+        <Nav.Link className="navLink" href="/dashboard">
+          <i class="fas fa-tachometer-alt mr-2" />
+          Tablero
+        </Nav.Link>
+        <Nav.Link className="navLink" href="/audits">
+          <i class="fas fa-file-alt mr-2" />
+          Auditorías
+        </Nav.Link>
+        <Nav.Link className="navLink" href="/clients">
+          <i class="fas fa-user-friends mr-2" />
+          Clientes
+        </Nav.Link>
+        {/* bottom section */}
+        <div className="d-flex flex-column mt-auto">
+          <Navbar.Text style={{ color: "#7289da" }}>
+            <i class="fas fa-user mr-1" />
+            {user.name + " " + user.firstSurname}
           </Navbar.Text>
-          {/* role */}
-          <Navbar.Text
-            className="ml-md-4"
-            style={{ color: "rgba(255,255,255,.5)" }}
-          >
-            Rol:
-            <span className="ml-2" style={{ color: "#7289da" }}>
-              {user.role}
-            </span>
+          <Navbar.Text style={{ color: "#7289da" }}>
+            <i class="fas fa-shield-alt mr-1" />
+            {user.role}
           </Navbar.Text>
-          {/* signout bttn */}
-          <Navbar.Text className="ml-md-4">
-            <Button variant="danger" size="sm" onClick={logout}>
-              Cerrar Sesión
-            </Button>
-          </Navbar.Text>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+          <Button className="mt-2" variant="danger" onClick={logout}>
+            Salir
+          </Button>
+        </div>
+      </Nav>
+      {/* </Navbar> */}
+      {/* HORIZONTAL navbar */}
+    </>
   );
 }
 
