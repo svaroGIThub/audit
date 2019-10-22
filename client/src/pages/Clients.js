@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Layout from "./Layout";
-import { Table, Button, Image, Modal, Alert, Form } from "react-bootstrap";
+import { Table, Button, Row, Modal, Alert, Form } from "react-bootstrap";
 import API from "../utils/API";
 
 class Clients extends Component {
@@ -118,15 +118,19 @@ class Clients extends Component {
     return (
       <Layout>
         {/* title */}
-        <div className="d-flex align-items-center p-2 mb-4">
-          <Image
-            src="https://image.flaticon.com/icons/svg/201/201581.svg"
-            width="55"
-            height="55"
-            fluid
-          />
-          <h2 className="ml-3 my-auto">Clientes</h2>
+        <div className="d-flex flex-row">
+          <h2>
+            <strong>/Clientes</strong>
+          </h2>
+          <Button
+            className="purplebttn ml-auto shadow-sm"
+            onClick={this.handleShowCreateModal}
+            disabled={this.props.user.role === "Admin" ? false : true}
+          >
+            Nuevo Cliente
+          </Button>
         </div>
+        <hr />
         {/* content */}
         <Modal
           show={this.state.showCreateModal}
@@ -234,87 +238,42 @@ class Clients extends Component {
         </Alert>
         {/* if there are clients */}
         {this.state.clients.length ? (
-          <>
-            <Table striped bordered responsive>
-              <thead>
-                <tr>
-                  <th>Nombre</th>
-                  <th>Abreviatura</th>
-                  <th>RFC</th>
-                  <th>Dirección</th>
-                  <th>Editar</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.state.clients.map(client => {
-                  return (
-                    <tr key={client.id}>
-                      <td>{client.name}</td>
-                      <td>{client.abbreviation}</td>
-                      <td>{client.rfc}</td>
-                      <td>{client.address}</td>
-                      <td className="text-center">
-                        <Button
-                          variant="info"
-                          onClick={() => this.handleShowEditModal(client.id)}
-                          size="sm"
-                        >
-                          <i className="fas fa-pen mx-2" />
-                        </Button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </Table>
-            {/* conditional rendering, checks if the user is an Admin */}
-            {this.props.user.role === "Admin" ? (
-              <>
-                <div className="text-right mt-3">
-                  <Button
-                    className="purplebttn"
-                    onClick={this.handleShowCreateModal}
-                  >
-                    Nuevo Cliente
-                  </Button>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="text-right mt-3">
-                  <Button className="purplebttn" disabled>
-                    Nuevo Cliente
-                  </Button>
-                </div>
-              </>
-            )}
-
-            {/* <div className="text-right mt-2">
-              <Button variant="primary" onClick={this.handleShowCreateModal}>
-                Nuevo Cliente
-              </Button>
-            </div> */}
-          </>
+          <Table striped bordered responsive>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Abreviatura</th>
+                <th>RFC</th>
+                <th>Dirección</th>
+                <th>Editar</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.clients.map(client => {
+                return (
+                  <tr key={client.id}>
+                    <td>{client.name}</td>
+                    <td>{client.abbreviation}</td>
+                    <td>{client.rfc}</td>
+                    <td>{client.address}</td>
+                    <td className="text-center">
+                      <Button
+                        variant="info"
+                        onClick={() => this.handleShowEditModal(client.id)}
+                        size="sm"
+                      >
+                        <i className="fas fa-pen mx-2" />
+                      </Button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
         ) : (
-          // if there are no clients
-          <>
-            <div className="text-center mt-4">
-              <p className="lead">No hay Clientes para mostrar.</p>
-              {/* if the user is not an admin, show the new client button disabled */}
-              {this.props.user.role === "Admin" ? (
-                <Button
-                  className="purplebttn"
-                  onClick={this.handleShowCreateModal}
-                >
-                  Nuevo Cliente
-                </Button>
-              ) : (
-                <Button className="purplebttn" disabled>
-                  Nuevo Cliente
-                </Button>
-              )}
-            </div>
-          </>
+          <div className="text-center mt-4">
+            <p className="lead">No hay Clientes para mostrar.</p>
+          </div>
         )}
       </Layout>
     );

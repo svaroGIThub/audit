@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Button, NavDropdown, Nav } from "react-bootstrap";
+import { Navbar, Button, Nav } from "react-bootstrap";
 import fire from "../firebase/Fire";
 import { useSelector } from "react-redux";
 import "./mynavbar.scss";
@@ -15,45 +15,50 @@ function MyNavbar() {
   return (
     <>
       {/* VERTICAL navbar */}
-      {/* <Navbar  className="flex-column h-100"> */}
-      {/* top section */}
-      {/* <Navbar.Brand className="bg-warning" id="navbarLogo">
-          APAG
-        </Navbar.Brand> */}
       <Nav id="navStyle" className="flex-column p-3 h-100">
-        {/* logo */}
-        <Nav.Item className="text-center py-2" id="navLogo">
-          APAG
-        </Nav.Item>
         {/* top section */}
-        <Nav.Link className="navLink" href="/dashboard">
-          <i class="fas fa-tachometer-alt mr-2" />
+        <Nav.Item className="text-center py-2">
+          <a href="/dashboard" id="navLogo">
+            APAG
+          </a>
+        </Nav.Item>
+        <hr id="logoDivider" />
+        <Nav.Link className="px-0 navLink" href="/dashboard">
+          <i className="fas fa-hand-point-right mr-2" />
           Tablero
         </Nav.Link>
-        <Nav.Link className="navLink" href="/audits">
-          <i class="fas fa-file-alt mr-2" />
+        <Nav.Link className="px-0 navLink" href="/audits">
+          <i className="fas fa-hand-point-right mr-2" />
           Auditorías
         </Nav.Link>
-        <Nav.Link className="navLink" href="/clients">
-          <i class="fas fa-user-friends mr-2" />
+        <Nav.Link className="px-0 navLink" href="/clients">
+          <i className="fas fa-hand-point-right mr-2" />
           Clientes
         </Nav.Link>
         {/* bottom section */}
-        <div className="d-flex flex-column mt-auto">
-          <Navbar.Text style={{ color: "#7289da" }}>
-            <i class="fas fa-user mr-1" />
-            {user.name + " " + user.firstSurname}
-          </Navbar.Text>
-          <Navbar.Text style={{ color: "#7289da" }}>
-            <i class="fas fa-shield-alt mr-1" />
-            {user.role}
-          </Navbar.Text>
-          <Button className="mt-2" variant="danger" onClick={logout}>
-            Salir
-          </Button>
-        </div>
+        <Navbar.Text
+          className="d-flex flex-row mt-auto pb-0 px-0"
+          style={{ color: "#7289da" }}
+        >
+          <div className="text-center" style={{ width: "40px" }}>
+            <i className="fas fa-user" />
+          </div>
+          <div>{user.name + " " + user.firstSurname}</div>
+        </Navbar.Text>
+        <Navbar.Text
+          className="d-flex flex-row pb-0 px-0"
+          style={{ color: "#7289da" }}
+        >
+          <div className="text-center" style={{ width: "40px" }}>
+            <i className="fas fa-shield-alt" />
+          </div>
+          <div>{user.role}</div>
+        </Navbar.Text>
+        <Button className="mt-3 shadow-sm" variant="danger" onClick={logout}>
+          <i className="fas fa-door-open mr-1" />
+          Cerrar sesión
+        </Button>
       </Nav>
-      {/* </Navbar> */}
       {/* HORIZONTAL navbar */}
     </>
   );

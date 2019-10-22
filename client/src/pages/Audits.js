@@ -9,7 +9,7 @@ import {
   Row,
   Spinner,
   ListGroup,
-  Image,
+  Dropdown,
   Pagination
 } from "react-bootstrap";
 import Layout from "./Layout";
@@ -101,10 +101,18 @@ class Audits extends Component {
   render() {
     return (
       <Layout>
-        {/* title */}
-        <h2>
-          <strong>/Auditorías</strong>
-        </h2>
+        <div className="d-flex flex-row">
+          <h2>
+            <strong>/Auditorías</strong>
+          </h2>
+          <Button
+            className="purplebttn ml-auto shadow-sm"
+            onClick={this.handleShowCreateModal}
+            disabled={this.props.user.role === "Admin" ? false : true}
+          >
+            Nueva Auditoría
+          </Button>
+        </div>
         <hr />
         {/* utilities */}
         <Modal show={this.state.showModal} onHide={this.handleCloseModal}>
@@ -164,6 +172,18 @@ class Audits extends Component {
         {/* content */}
         <Row>
           <Col className="d-flex align-items-center mb-3">
+            <Dropdown>
+              <Dropdown.Toggle variant="transparent" className="m-0 p-0">
+                Filtros
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Col>
+          <Col className="d-flex align-items-center justify-content-end mb-3">
             <Pagination className="mb-0" size="sm">
               <Pagination.Prev disabled />
               <Pagination.Item active>{1}</Pagination.Item>
@@ -171,17 +191,6 @@ class Audits extends Component {
               <Pagination.Item>{3}</Pagination.Item>
               <Pagination.Next />
             </Pagination>
-          </Col>
-          <Col className="d-flex justify-content-end justify-content-right mb-3">
-            {this.props.user.role === "Admin" ? (
-              <Button className="purplebttn" onClick={this.handleShowModal}>
-                Nueva Auditoría
-              </Button>
-            ) : (
-              <Button className="purplebttn" disabled>
-                Nueva Auditoría
-              </Button>
-            )}
           </Col>
         </Row>
         <Row>
@@ -195,7 +204,7 @@ class Audits extends Component {
                         <ListGroup.Item
                           action
                           key={audit.id}
-                          className="auditItem "
+                          className="auditItem"
                           href={"/audits/workplan/" + audit.id}
                         >
                           <div className="d-flex flex-row">
@@ -220,18 +229,6 @@ class Audits extends Component {
                   <p className="text-muted">
                     Tu lista de Auditorías está vacía
                   </p>
-                  {this.props.user.role === "Admin" ? (
-                    <Button
-                      className="purplebttn"
-                      onClick={this.handleShowModal}
-                    >
-                      Nueva Auditoría
-                    </Button>
-                  ) : (
-                    <Button className="purplebttn" disabled>
-                      Nueva Auditoría
-                    </Button>
-                  )}
                 </div>
               )
             ) : (
