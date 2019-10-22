@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Button, Nav } from "react-bootstrap";
+import { Button, Nav } from "react-bootstrap";
 import fire from "../firebase/Fire";
 import { useSelector } from "react-redux";
 import "./mynavbar.scss";
@@ -23,39 +23,36 @@ function MyNavbar() {
           </a>
         </Nav.Item>
         <hr id="logoDivider" />
-        <Nav.Link className="px-0 navLink" href="/dashboard">
-          <i className="fas fa-hand-point-right mr-2" />
+        <Nav.Link className="navLink pb-1" href="/dashboard">
+          <i className="fas fa-tachometer-alt" style={{ width: "32px" }} />
           Tablero
         </Nav.Link>
-        <Nav.Link className="px-0 navLink" href="/audits">
-          <i className="fas fa-hand-point-right mr-2" />
+        <Nav.Link className="navLink pb-1" href="/audits">
+          <i className="fas fa-book" style={{ width: "32px" }} />
           Auditorías
         </Nav.Link>
-        <Nav.Link className="px-0 navLink" href="/clients">
-          <i className="fas fa-hand-point-right mr-2" />
+        <Nav.Link className="navLink pb-1" href="/clients">
+          <i className="fas fa-users" style={{ width: "32px" }} />
           Clientes
         </Nav.Link>
         {/* bottom section */}
-        <Navbar.Text
-          className="d-flex flex-row mt-auto pb-0 px-0"
-          style={{ color: "#7289da" }}
+        <Nav.Link
+          className="navLink pb-1 bottom mt-auto"
+          href="/clients"
+          style={{ cursor: "context-menu" }}
         >
-          <div className="text-center" style={{ width: "40px" }}>
-            <i className="fas fa-user" />
-          </div>
-          <div>{user.name + " " + user.firstSurname}</div>
-        </Navbar.Text>
-        <Navbar.Text
-          className="d-flex flex-row pb-0 px-0"
-          style={{ color: "#7289da" }}
+          <i className="fas fa-user" style={{ width: "32px" }} />
+          {user.name + " " + user.firstSurname}
+        </Nav.Link>
+        <Nav.Link
+          className="navLink pb-1 bottom"
+          href="/clients"
+          style={{ cursor: "context-menu" }}
         >
-          <div className="text-center" style={{ width: "40px" }}>
-            <i className="fas fa-shield-alt" />
-          </div>
-          <div>{user.role}</div>
-        </Navbar.Text>
+          <i className="fas fa-shield-alt" style={{ width: "32px" }} />
+          {user.role}
+        </Nav.Link>
         <Button className="mt-3 shadow-sm" variant="danger" onClick={logout}>
-          <i className="fas fa-door-open mr-1" />
           Cerrar sesión
         </Button>
       </Nav>

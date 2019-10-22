@@ -1,6 +1,6 @@
 #navStyle {
   background-color: #2c2f33 !important;
-  width: 225px;
+  width: 247px;
   height: 100%;
   position: fixed;
   z-index: 1;
@@ -36,5 +36,8 @@
   }
   &.active {
     color: ghostwhite !important;
+  }
+  &.bottom {
+    color: #7289da !important;
   }
 }
