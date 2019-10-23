@@ -1,37 +1,30 @@
-export const showMenuDropdown = () => {
+// ==================================================================
+// HOME menu actions
+
+export const showHomeMenu = () => {
   return {
-    type: "navbar/showMenuDropdown"
+    type: "navbar/showHomeMenu"
   };
 };
 
-export const hideMenuDropdown = () => {
+export const hideHomeMenu = () => {
   return {
-    type: "navbar/hideMenuDropdown"
+    type: "navbar/hideHomeMenu"
   };
 };
 
-export const showAuditDropdown = data => {
+// ==================================================================
+// AUDIT menu actions
+
+export const showAuditMenu = data => {
   return {
-    type: "navbar/showAuditDropdown",
+    type: "navbar/showAuditMenu",
     data
   };
 };
 
-export const hideAuditDropdown = () => {
+export const hideAuditMenu = () => {
   return {
-    type: "navbar/hideAuditDropdown"
-  };
-};
-
-export const showConsultDropdown = data => {
-  return {
-    type: "navbar/showConsultDropdown",
-    data
-  };
-};
-
-export const hideConsultDropdown = () => {
-  return {
-    type: "navbar/hideConsultDropdown"
+    type: "navbar/hideAuditMenu"
   };
 };

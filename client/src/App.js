@@ -9,9 +9,10 @@ import {
   Redirect
 } from "react-router-dom";
 import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
+// import Dashboard from "./pages/Dashboard";
+import AuditHome from "./pages/AuditHome";
 import Audits from "./pages/Audits";
-import Workplan from "./pages/Workplan";
+// import Workplan from "./pages/Workplan";
 import Clients from "./pages/Clients";
 // import Balanza from "./pages/consult/Balanza";
 // import Nomina from "./pages/consult/Nómina";
@@ -44,15 +45,14 @@ function App() {
       ) : (
         // this happens if user IS logged
         <Switch>
-          <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/clients" component={Clients} />
           <Route exact path="/audits" component={Audits} />
           <Route
             exact
-            path="/audits/workplan/:auditId"
-            render={props => <Workplan routeProps={props} />}
+            path="/audit/home/:auditId"
+            render={props => <AuditHome routeProps={props} />}
           />
-          <Redirect from="/" to="/dashboard" />
+          <Redirect from="/" to="/audits" />
         </Switch>
       )}
     </Router>

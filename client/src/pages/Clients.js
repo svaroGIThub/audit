@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Layout from "./Layout";
-import { Table, Button, Row, Modal, Alert, Form } from "react-bootstrap";
+import { Table, Button, Modal, Alert, Form } from "react-bootstrap";
 import API from "../utils/API";
 
 class Clients extends Component {
@@ -107,6 +107,7 @@ class Clients extends Component {
   handleCloseAlert = () => this.setState({ showAlert: false });
 
   componentDidMount() {
+    // fetch clients
     API.fetchClients()
       .then(res => {
         this.setState({ clients: res.data });
@@ -238,7 +239,7 @@ class Clients extends Component {
         </Alert>
         {/* if there are clients */}
         {this.state.clients.length ? (
-          <Table striped bordered responsive>
+          <Table className="mt-2" striped bordered responsive>
             <thead>
               <tr>
                 <th>Nombre</th>

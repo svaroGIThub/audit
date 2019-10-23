@@ -33,11 +33,17 @@
   border-top-right-radius: 0;
 }
 
+.noglow {
+  outline: none;
+  box-shadow: none !important;
+  border: 1px solid #ccc !important;
+}
+
 #bigLogo {
   font-family: Saira Stencil One;
   font-weight: 500;
   margin-bottom: 0;
-  color: #2c2f33;
+  color: #7289da;
   font-size: 100px;
   text-align: center;
 }

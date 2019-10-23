@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { showHomeMenu, hideAuditMenu } from "../redux-actions/navbar";
 import {
   Button,
   Modal,
@@ -31,6 +32,10 @@ class Audits extends Component {
   };
 
   componentDidMount() {
+    // show home menu and hide audit menu
+    this.props.showHomeMenu();
+    this.props.hideAuditMenu();
+    // fetch audits
     API.fetchAudits()
       .then(res => {
         this.setState({ audits: res.data }, () =>
@@ -182,6 +187,15 @@ class Audits extends Component {
                 <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
+            <Dropdown className="ml-3">
+              <Dropdown.Toggle variant="transparent" className="m-0 p-0">
+                Ordenado
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">Por cliente</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">Por año</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </Col>
           <Col className="d-flex align-items-center justify-content-end mb-3">
             <Pagination className="mb-0" size="sm">
@@ -205,13 +219,13 @@ class Audits extends Component {
                           action
                           key={audit.id}
                           className="auditItem"
-                          href={"/audits/workplan/" + audit.id}
+                          href={"/audit/home/" + audit.id}
                         >
                           <div className="d-flex flex-row">
-                            <h3 className="mr-2 clientAbbr">
+                            <h3 className="mr-2 mb-0">
                               {audit.clientAbbreviation}
                             </h3>
-                            <h3 className="auditYear">{audit.year}</h3>
+                            <h3 className="mb-0 text-muted">{audit.year}</h3>
                           </div>
                           <p className="mb-0 description">
                             {audit.description}
@@ -249,7 +263,12 @@ const mapStateToProps = state => {
   };
 };
 
+const mapDispatchToProps = {
+  showHomeMenu,
+  hideAuditMenu
+};
+
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(Audits);

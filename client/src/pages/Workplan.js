@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import * as navbarActions from "../redux-actions/navbar";
-import { Image, Card, ButtonGroup, Button } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import Layout from "./Layout";
 import ScrollButton from "../components/ScrollButton";
 import API from "../utils/API";
@@ -12,22 +12,22 @@ function Workplan(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // get the auditid from the url
+    // // get the auditid from the url
     let auditId = props.routeProps.match.params.auditId;
-    // hide or show navbar dropdowns
-    dispatch(navbarActions.hideMenuDropdown());
-    let auditItems = [
-      { to: "/audits/workplan" + auditId, name: "Guía" },
-      { to: "/audits/planning" + auditId, name: "Planeación" },
-      { to: "/audits/workplan" + auditId, name: "Programación" },
-      { to: "/audits/workplan" + auditId, name: "Ejecución" }
-    ];
-    dispatch(navbarActions.showAuditDropdown(auditItems));
-    let consultitems = [
-      { to: "/audits/consult/balanza" + auditId, name: "Balanza" },
-      { to: "/audits/consult/nómina" + auditId, name: "Nómina" }
-    ];
-    dispatch(navbarActions.showConsultDropdown(consultitems));
+    // // hide or show navbar dropdowns
+    // dispatch(navbarActions.hideMenu());
+    // let auditItems = [
+    //   { to: "/audits/workplan" + auditId, name: "Guía" },
+    //   { to: "/audits/planning" + auditId, name: "Planeación" },
+    //   { to: "/audits/workplan" + auditId, name: "Programación" },
+    //   { to: "/audits/workplan" + auditId, name: "Ejecución" }
+    // ];
+    // dispatch(navbarActions.showAudit(auditItems));
+    // let consultitems = [
+    //   { to: "/audits/consult/balanza" + auditId, name: "Balanza" },
+    //   { to: "/audits/consult/nómina" + auditId, name: "Nómina" }
+    // ];
+    // dispatch(navbarActions.showConsult(consultitems));
     // fetch audit info
     API.fetchOneAudit(auditId)
       .then(res => {
@@ -38,27 +38,11 @@ function Workplan(props) {
 
   return audit ? (
     <Layout>
-      {/* title */}
-      {/* <div className="d-flex align-items-center p-2 mb-4">
-        <Image
-          src="https://image.flaticon.com/icons/svg/201/201556.svg"
-          width="55"
-          height="55"
-          fluid
-        />
-        <h2 className="ml-3 my-auto">Guía de trabajo</h2>
-      </div> */}
-      <div className="text-right mb-3">
-        {/* <ButtonGroup aria-label="Basic example">
-          <Button className="purplebttn">Planeación</Button>
-          <Button className="purplebttn">Planeación</Button>
-          <Button className="purplebttn">Ejecución</Button>
-          <Button variant="danger">Cerrar Auditoría</Button>
-        </ButtonGroup> */}
-        {/* <a className="text-danger" href="/">
-          Cerrar Auditoría
-        </a> */}
-      </div>
+      <h2>
+        <strong>/Guía de trabajo</strong>
+      </h2>
+      <hr />
+      <div className="text-right mb-3"></div>
       {/* content */}
       <Card>
         <Card.Header>Detalles</Card.Header>

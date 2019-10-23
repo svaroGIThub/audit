@@ -1,12 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Button, Nav } from "react-bootstrap";
 import fire from "../firebase/Fire";
-import { useSelector } from "react-redux";
 import "./mynavbar.scss";
 
 function MyNavbar() {
   const user = useSelector(state => state.user);
-  const navbarDropdowns = useSelector(state => state.navbar);
+  const navbar = useSelector(state => state.navbar);
+  const audit = useSelector(state => state.audit);
 
   const logout = () => {
     fire.auth().signOut();
@@ -16,46 +17,114 @@ function MyNavbar() {
     <>
       {/* VERTICAL navbar */}
       <Nav id="navStyle" className="flex-column p-3 h-100">
-        {/* top section */}
-        <Nav.Item className="text-center py-2">
-          <a href="/dashboard" id="navLogo">
-            APAG
-          </a>
+        <Nav.Item className="text-center" id="navLogo">
+          APAG
         </Nav.Item>
-        <hr id="logoDivider" />
-        <Nav.Link className="navLink pb-1" href="/dashboard">
-          <i className="fas fa-tachometer-alt" style={{ width: "32px" }} />
-          Tablero
-        </Nav.Link>
-        <Nav.Link className="navLink pb-1" href="/audits">
-          <i className="fas fa-book" style={{ width: "32px" }} />
-          Auditorías
-        </Nav.Link>
-        <Nav.Link className="navLink pb-1" href="/clients">
-          <i className="fas fa-users" style={{ width: "32px" }} />
-          Clientes
-        </Nav.Link>
+        {/* home menu */}
+        {navbar.homeMenu.show ? (
+          <>
+            <Nav.Item className="mt-2 mb-1" style={{ color: "gray" }}>
+              <small>MENÚ</small>
+            </Nav.Item>
+            <Nav.Link className="navLink pb-1 pl-0 active" href="/audits">
+              <i className="fas fa-project-diagram" style={{ width: "32px" }} />
+              Auditorías
+            </Nav.Link>
+            <Nav.Link className="navLink pb-1 pl-0" href="/clients">
+              <i className="fas fa-user-friends" style={{ width: "32px" }} />
+              Clientes
+            </Nav.Link>
+          </>
+        ) : null}
+        {/* ==================================================== */}
+        {/* audit menu */}
+        {navbar.auditMenu.show && audit.isOpen ? (
+          <>
+            <Nav.Item className="mt-2 mb-1" style={{ color: "gray" }}>
+              <small>{audit.name}</small>
+            </Nav.Item>
+            <Nav.Link
+              className="navLink pb-1 pl-0"
+              href={navbar.auditMenu.items[0].to}
+            >
+              <i className="fas fa-home" style={{ width: "32px" }} />
+              Inicio
+            </Nav.Link>
+            <Nav.Link
+              className="navLink pb-1 pl-0"
+              href={navbar.auditMenu.items[1].to}
+            >
+              <i className="fas fa-info-circle" style={{ width: "32px" }} />
+              Detalles
+            </Nav.Link>
+            <Nav.Item className="mt-2 mb-1" style={{ color: "gray" }}>
+              <small>FASES</small>
+            </Nav.Item>
+            <Nav.Link
+              className="navLink pb-1 pl-0"
+              href={navbar.auditMenu.items[2].to}
+            >
+              <i className="fas fa-tasks" style={{ width: "32px" }} />
+              Planeación
+            </Nav.Link>
+            <Nav.Link
+              className="navLink pb-1 pl-0"
+              href={navbar.auditMenu.items[3].to}
+            >
+              <i className="fas fa-chess" style={{ width: "32px" }} />
+              Ejecución
+            </Nav.Link>
+            <Nav.Link
+              className="navLink pb-1 pl-0"
+              href={navbar.auditMenu.items[4].to}
+            >
+              <i className="fas fa-folder-open" style={{ width: "32px" }} />
+              Informes
+            </Nav.Link>
+            <Nav.Link
+              className="navLink pb-1 pl-0"
+              href={navbar.auditMenu.items[5].to}
+            >
+              <i className="fas fa-flag" style={{ width: "32px" }} />
+              Seguimiento
+            </Nav.Link>
+            <Nav.Item className="mt-2 mb-1" style={{ color: "gray" }}>
+              <small>CONSULTAR</small>
+            </Nav.Item>
+            <Nav.Link
+              className="navLink pb-1 pl-0"
+              href={navbar.auditMenu.items[6].to}
+            >
+              <i className="far fa-file-alt" style={{ width: "32px" }} />
+              Nómina
+            </Nav.Link>
+            <Nav.Link
+              className="navLink pb-1 pl-0"
+              href={navbar.auditMenu.items[7].to}
+            >
+              <i className="far fa-file-alt" style={{ width: "32px" }} />
+              Balanza
+            </Nav.Link>
+          </>
+        ) : null}
         {/* bottom section */}
-        <Nav.Link
-          className="navLink pb-1 bottom mt-auto"
-          href="/clients"
-          style={{ cursor: "context-menu" }}
-        >
-          <i className="fas fa-user" style={{ width: "32px" }} />
+        <Nav.Item className="pb-0 mt-auto" style={{ color: "ghostwhite" }}>
+          <i className="fas fa-user" style={{ width: "28px" }} />
           {user.name + " " + user.firstSurname}
-        </Nav.Link>
-        <Nav.Link
-          className="navLink pb-1 bottom"
-          href="/clients"
-          style={{ cursor: "context-menu" }}
-        >
-          <i className="fas fa-shield-alt" style={{ width: "32px" }} />
+        </Nav.Item>
+        <Nav.Item style={{ color: "ghostwhite" }}>
+          <i className="fas fa-shield-alt" style={{ width: "28px" }} />
           {user.role}
-        </Nav.Link>
-        <Button className="mt-3 shadow-sm" variant="danger" onClick={logout}>
-          Cerrar sesión
+        </Nav.Item>
+        <Nav.Item style={{ color: "ghostwhite" }}>
+          <i className="fas fa-shield-alt" style={{ width: "28px" }} />
+          Cerrar auditoría
+        </Nav.Item>
+        <Button className="mt-2 shadow-sm" variant="danger" onClick={logout}>
+          Salir
         </Button>
       </Nav>
+      {/* ============================================================================= */}
       {/* HORIZONTAL navbar */}
     </>
   );

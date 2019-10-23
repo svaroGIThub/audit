@@ -15,18 +15,6 @@
   color: #7289da;
   font-size: 50px;
   padding: 0;
-  cursor: pointer;
-  outline: none;
-  text-decoration: none;
-  &:hover {
-    color: #879adf;
-  }
-}
-
-#logoDivider {
-  margin-top: 0px;
-  width: 100%;
-  background-color: gray !important;
 }
 
 .navLink {
@@ -36,8 +24,5 @@
   }
   &.active {
     color: ghostwhite !important;
-  }
-  &.bottom {
-    color: #7289da !important;
   }
 }
