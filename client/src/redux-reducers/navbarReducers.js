@@ -1,7 +1,7 @@
 const navbarReducers = (
   state = {
-    homeMenu: { show: false },
-    auditMenu: { show: false, items: [] }
+    homeMenu: { show: false, active: null },
+    auditMenu: { show: false, active: null, items: [] }
   },
   action
 ) => {
@@ -20,6 +20,14 @@ const navbarReducers = (
         ...state,
         homeMenu: {
           show: false
+        }
+      };
+    case "navbar/setHomeActive":
+      return {
+        ...state,
+        homeMenu: {
+          ...state.homeMenu,
+          active: action.data
         }
       };
     // ==================================================================

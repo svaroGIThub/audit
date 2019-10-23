@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Image, CardColumns } from "react-bootstrap";
+import { Card, CardColumns } from "react-bootstrap";
 import Layout from "./Layout";
 
 function Dashboard() {

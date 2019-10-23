@@ -26,11 +26,19 @@ function MyNavbar() {
             <Nav.Item className="mt-2 mb-1" style={{ color: "gray" }}>
               <small>MENÚ</small>
             </Nav.Item>
-            <Nav.Link className="navLink pb-1 pl-0 active" href="/audits">
+            <Nav.Link
+              className="navLink pb-1 pl-0"
+              href="/audits"
+              active={navbar.homeMenu.active === "Auditorías" ? true : false}
+            >
               <i className="fas fa-project-diagram" style={{ width: "32px" }} />
               Auditorías
             </Nav.Link>
-            <Nav.Link className="navLink pb-1 pl-0" href="/clients">
+            <Nav.Link
+              className="navLink pb-1 pl-0"
+              href="/clients"
+              active={navbar.homeMenu.active === "Clientes" ? true : false}
+            >
               <i className="fas fa-user-friends" style={{ width: "32px" }} />
               Clientes
             </Nav.Link>
@@ -108,17 +116,13 @@ function MyNavbar() {
           </>
         ) : null}
         {/* bottom section */}
-        <Nav.Item className="pb-0 mt-auto" style={{ color: "ghostwhite" }}>
+        <Nav.Item className="pb-0 mt-auto" style={{ color: "#7289da" }}>
           <i className="fas fa-user" style={{ width: "28px" }} />
           {user.name + " " + user.firstSurname}
         </Nav.Item>
-        <Nav.Item style={{ color: "ghostwhite" }}>
+        <Nav.Item style={{ color: "#7289da" }}>
           <i className="fas fa-shield-alt" style={{ width: "28px" }} />
           {user.role}
-        </Nav.Item>
-        <Nav.Item style={{ color: "ghostwhite" }}>
-          <i className="fas fa-shield-alt" style={{ width: "28px" }} />
-          Cerrar auditoría
         </Nav.Item>
         <Button className="mt-2 shadow-sm" variant="danger" onClick={logout}>
           Salir

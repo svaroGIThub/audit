@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { setHomeActive } from "../redux-actions/navbarActions";
 import Layout from "./Layout";
 import { Table, Button, Modal, Alert, Form } from "react-bootstrap";
 import API from "../utils/API";
@@ -107,6 +108,8 @@ class Clients extends Component {
   handleCloseAlert = () => this.setState({ showAlert: false });
 
   componentDidMount() {
+    // set active link
+    this.props.setHomeActive("Clientes");
     // fetch clients
     API.fetchClients()
       .then(res => {
@@ -287,7 +290,11 @@ const mapStateToProps = state => {
   };
 };
 
+const mapDispatchToProps = {
+  setHomeActive
+};
+
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(Clients);

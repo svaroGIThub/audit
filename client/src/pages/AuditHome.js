@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import * as auditActions from "../redux-actions/audit";
-import * as navbarActions from "../redux-actions/navbar";
+import * as auditActions from "../redux-actions/auditActions";
+import * as navbarActions from "../redux-actions/navbarActions";
 import API from "../utils/API";
 import { Card, CardColumns } from "react-bootstrap";
 import Layout from "./Layout";
 
 function AuditHome(props) {
-  const audit = useSelector(state => state.audit);
+  // const audit = useSelector(state => state.audit);
   const dispatch = useDispatch();
 
   useEffect(() => {

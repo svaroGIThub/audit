@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { showHomeMenu, hideAuditMenu } from "../redux-actions/navbar";
 import {
-  Button,
-  Modal,
-  Form,
+  showHomeMenu,
+  hideAuditMenu,
+  setHomeActive
+} from "../redux-actions/navbarActions";
+import {
   Col,
-  Alert,
   Row,
   Spinner,
   ListGroup,
@@ -16,25 +16,21 @@ import {
 import Layout from "./Layout";
 import API from "../utils/API";
 import "./audits.scss";
+import ModalNewAudit from "../components/ModalNewAudit";
 
 class Audits extends Component {
   state = {
     isLoadingAudits: true,
     audits: [],
-    clients: [],
-    // alerts
-    showAlert: false,
-    alertVariant: null,
-    alertHeading: null,
-    alertBody: null,
-    // create audit modal
-    showModal: false
+    clients: []
   };
 
   componentDidMount() {
     // show home menu and hide audit menu
     this.props.showHomeMenu();
     this.props.hideAuditMenu();
+    // set active item in the home menu
+    this.props.setHomeActive("Auditorías");
     // fetch audits
     API.fetchAudits()
       .then(res => {
@@ -45,127 +41,19 @@ class Audits extends Component {
       .catch(err => console.log(err));
   }
 
-  loadClientsForNewAudit = () => {
-    API.fetchClients()
-      .then(res => {
-        // if there are no clients in the db, show alert
-        if (!res.data.length) {
-          this.handleShowAlert(
-            "danger",
-            "No hay Clientes registrados",
-            "Para crear una Auditoría es necesario crear un Cliente primero"
-          );
-        }
-        // if there are clients in the db, show modal
-        else {
-          this.setState({ clients: res.data, showModal: true });
-        }
-      })
-      .catch(err => console.log(err));
-  };
-
-  handleCloseModal = () => this.setState({ showModal: false });
-  handleShowModal = () => this.loadClientsForNewAudit();
-  handleFormSubmit = event => {
-    event.preventDefault();
-    const sel = document.getElementById("dropdownClient");
-    const opt = sel.options[sel.selectedIndex];
-    let clientName = opt.getAttribute("clientName");
-    let clientAcronym = opt.text;
-    let year = document.getElementById("year").value;
-    let description = document.getElementById("description").value;
-    let newAudit = {
-      clientName: clientName,
-      clientAcronym: clientAcronym,
-      year: year,
-      description: description
-    };
-    API.saveNewAudit(newAudit)
-      .then(res => {
-        this.handleShowAlert(
-          "success",
-          "Éxito.",
-          "La Auditoría ha sido creada satisfactoriamente."
-        );
-        this.loadAudits();
-        this.handleCloseModal();
-      })
-      .catch(err => console.log(err));
-  };
-
-  // alert
-  handleShowAlert = (variant, heading, body) => {
-    this.setState(
-      { alertVariant: variant, alertHeading: heading, alertBody: body },
-      () => this.setState({ showAlert: true })
-    );
-    // this.setState.myalert({ variant: variant, heading: heading, body: body, show: true });
-  };
-  handleCloseAlert = () => this.setState({ showAlert: false });
-
   render() {
     return (
       <Layout>
+        {/* title */}
         <div className="d-flex flex-row">
           <h2>
             <strong>/Auditorías</strong>
           </h2>
-          <Button
-            className="purplebttn ml-auto shadow-sm"
-            onClick={this.handleShowCreateModal}
-            disabled={this.props.user.role === "Admin" ? false : true}
-          >
-            Nueva Auditoría
-          </Button>
+          <ModalNewAudit />
         </div>
         <hr />
         {/* utilities */}
-        <Modal show={this.state.showModal} onHide={this.handleCloseModal}>
-          <Modal.Header closeButton>
-            <Modal.Title>Nueva Auditoría</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <Form.Group>
-                <Form.Label>1. Cliente*</Form.Label>
-                <Form.Control as="select" id="dropdownClient">
-                  {this.state.clients ? (
-                    this.state.clients.map(client => {
-                      return (
-                        <option
-                          clientname={client.name}
-                          key={client.name}
-                          id="optionClients"
-                        >
-                          {client.acronym}
-                        </option>
-                      );
-                    })
-                  ) : (
-                    <></>
-                  )}
-                </Form.Control>
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>2. Ejercicio*</Form.Label>
-                <Form.Control type="text" id="year" />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>3. Descripción*</Form.Label>
-                <Form.Control as="textarea" rows="3" id="description" />
-              </Form.Group>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleCloseModal}>
-              Cancelar
-            </Button>
-            <Button variant="primary" onClick={this.handleFormSubmit}>
-              Crear
-            </Button>
-          </Modal.Footer>
-        </Modal>
-        <Alert
+        {/* <Alert
           show={this.state.showAlert}
           variant={this.state.alertVariant}
           onClose={this.handleCloseAlert}
@@ -173,9 +61,10 @@ class Audits extends Component {
         >
           <Alert.Heading>{this.state.alertHeading}</Alert.Heading>
           <p>{this.state.alertBody}</p>
-        </Alert>
+        </Alert> */}
         {/* content */}
         <Row>
+          {/* filters */}
           <Col className="d-flex align-items-center mb-3">
             <Dropdown>
               <Dropdown.Toggle variant="transparent" className="m-0 p-0">
@@ -197,6 +86,7 @@ class Audits extends Component {
               </Dropdown.Menu>
             </Dropdown>
           </Col>
+          {/* pagination */}
           <Col className="d-flex align-items-center justify-content-end mb-3">
             <Pagination className="mb-0" size="sm">
               <Pagination.Prev disabled />
@@ -207,42 +97,37 @@ class Audits extends Component {
             </Pagination>
           </Col>
         </Row>
+        {/* audits row */}
         <Row>
           <Col>
             {!this.state.isLoadingAudits ? (
               this.state.audits.length ? (
-                <div>
-                  <ListGroup className="border-0 shadow-sm">
-                    {this.state.audits.map(audit => {
-                      return (
-                        <ListGroup.Item
-                          action
-                          key={audit.id}
-                          className="auditItem"
-                          href={"/audit/home/" + audit.id}
-                        >
-                          <div className="d-flex flex-row">
-                            <h3 className="mr-2 mb-0">
-                              {audit.clientAbbreviation}
-                            </h3>
-                            <h3 className="mb-0 text-muted">{audit.year}</h3>
-                          </div>
-                          <p className="mb-0 description">
-                            {audit.description}
-                          </p>
-                          <small className="text-secondary">
-                            Last updated 3 mins ago
-                          </small>
-                        </ListGroup.Item>
-                      );
-                    })}
-                  </ListGroup>
-                </div>
+                <ListGroup className="border-0 shadow-sm">
+                  {this.state.audits.map(audit => {
+                    return (
+                      <ListGroup.Item
+                        action
+                        key={audit.id}
+                        className="auditItem"
+                        href={"/audit/home/" + audit.id}
+                      >
+                        <div className="d-flex flex-row">
+                          <h3 className="mr-2 mb-0">
+                            {audit.clientAbbreviation}
+                          </h3>
+                          <h3 className="mb-0 text-muted">{audit.year}</h3>
+                        </div>
+                        <p className="mb-0 description">{audit.description}</p>
+                        <small className="text-secondary">
+                          Última actualización {audit.updatedAt}
+                        </small>
+                      </ListGroup.Item>
+                    );
+                  })}
+                </ListGroup>
               ) : (
-                <div className="text-center mt-4">
-                  <p className="text-muted">
-                    Tu lista de Auditorías está vacía
-                  </p>
+                <div className="text-center text-muted mt-4">
+                  Tu lista de Auditorías está vacía
                 </div>
               )
             ) : (
@@ -265,7 +150,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   showHomeMenu,
-  hideAuditMenu
+  hideAuditMenu,
+  setHomeActive
 };
 
 export default connect(

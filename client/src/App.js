@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import * as userActions from "./redux-actions/user";
+import * as userActions from "./redux-actions/userActions";
 import fire from "./firebase/Fire";
 import {
   BrowserRouter as Router,

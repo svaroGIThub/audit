@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
-import userReducers from "./user";
-import navbarReducers from "./navbar";
-import auditReducers from "./audit";
+import user from "./userReducers";
+import navbar from "./navbarReducers";
+import audit from "./auditReducers";
 
 const rootReducer = combineReducers({
-  user: userReducers,
-  navbar: navbarReducers,
-  audit: auditReducers
+  user,
+  navbar,
+  audit
 });
 
 export default rootReducer;

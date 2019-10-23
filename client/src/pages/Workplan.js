@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import * as navbarActions from "../redux-actions/navbar";
+import * as navbarActions from "../redux-actions/navbarActions";
 import { Card } from "react-bootstrap";
 import Layout from "./Layout";
 import ScrollButton from "../components/ScrollButton";
