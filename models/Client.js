@@ -1,8 +1,11 @@
-module.exports = function (sequelize, DataTypes) {
-
-  // set id to ALLOWNULL = TRUE 
-  // because the auto increment is being handled by mysql
+module.exports = function(sequelize, DataTypes) {
   const Client = sequelize.define("Client", {
+    clientId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false
@@ -20,6 +23,10 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: true
     }
   });
+
+  Client.associate = function(models) {
+    Client.hasMany(models.Audit, { foreignKey: "clientId" });
+  };
 
   return Client;
 };

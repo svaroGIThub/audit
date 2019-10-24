@@ -94,7 +94,7 @@ function Login() {
                 onBlur={handleBlur}
                 maxLength="100"
                 placeholder="Email"
-                className="noglow"
+                className="noglowInput"
                 autoFocus
               />
             </Form.Group>
@@ -106,7 +106,7 @@ function Login() {
                 onBlur={handleBlur}
                 maxLength="30"
                 placeholder="Contraseña"
-                className="noglow"
+                className="noglowInput"
               />
             </Form.Group>
             <Form.Group controlId="rememberme">

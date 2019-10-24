@@ -1,56 +1,44 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Form, Modal, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Formik } from "formik";
-import API from "../utils/API";
 
-function ModalNewAudit() {
+function ModalEditClient(props) {
   // modal state
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  // clients state
-  const [clients, setClients] = useState([]);
-
   // user
   const user = useSelector(state => state.user);
 
-  useEffect(() => {
-    API.fetchClients()
-      .then(res => setClients(res.data))
-      .catch(err => console.log(err));
-  }, []);
-
   return user.role === "Admin" ? (
     <>
-      <Button className="purplebttn shadow-sm ml-auto" onClick={handleShow}>
-        Nueva Auditoría
+      <Button
+        variant="transparent"
+        className="noglowButton"
+        onClick={handleShow}
+      >
+        <i className="fas fa-edit" style={{ color: "#7289da" }} />
       </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header className="bg-light">
           <Modal.Title>
-            <h4 className="m-0 p-0">Nueva Auditoría</h4>
+            <h4 className="m-0 p-0">Editar Cliente</h4>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="bg-light">
           <Formik
             initialValues={{
-              clientAbr: "",
-              year: "",
-              description: ""
+              name: props.client.name,
+              abbreviation: props.client.abbreviation,
+              rfc: props.client.rfc,
+              address: props.client.address
             }}
             onSubmit={(values, { setSubmitting }) => {
               setSubmitting(true);
-              const sel = document.getElementById("clientAbreviation");
-              values.clientId = sel.getAttribute("clientId");
-              API.saveNewAudit(values)
-                .then(res => {
-                  alert("Auditoría creada con éxito");
-                  handleClose();
-                  window.location.reload();
-                })
-                .catch(err => console.log(err));
+              console.log(values);
+              //   window.location.reload();
             }}
           >
             {({
@@ -64,62 +52,64 @@ function ModalNewAudit() {
                 <Form noValidate onSubmit={handleSubmit}>
                   <Form.Group>
                     <Form.Label>
-                      Cliente
+                      Nombre
+                      <small className="text-muted ml-1">(80)</small>
                       <strong className="ml-1 text-danger">*</strong>
                     </Form.Label>
                     <Form.Control
-                      name="clientAbr"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      as="select"
-                      defaultValue={"DEFAULT"}
-                    >
-                      <option value="DEFAULT" disabled>
-                        Cliente...
-                      </option>
-                      {clients.length
-                        ? clients.map(c => {
-                            return (
-                              <option
-                                id="clientAbreviation"
-                                clientid={c.clientId}
-                                key={c.clientId}
-                              >
-                                {c.abbreviation}
-                              </option>
-                            );
-                          })
-                        : null}
-                    </Form.Control>
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>
-                      Año
-                      <strong className="ml-1 text-danger">*</strong>
-                    </Form.Label>
-                    <Form.Control
-                      maxLength="4"
-                      placeholder="Año..."
+                      maxLength="80"
+                      placeholder="Nombre..."
                       type="text"
-                      name="year"
-                      value={values.year}
+                      name="name"
+                      value={values.name}
                       onChange={handleChange}
                       onBlur={handleBlur}
                     />
                   </Form.Group>
                   <Form.Group>
                     <Form.Label>
-                      Descripción
+                      Abreviatura
+                      <small className="text-muted ml-1">(15)</small>
                       <strong className="ml-1 text-danger">*</strong>
+                    </Form.Label>
+                    <Form.Control
+                      maxLength="15"
+                      placeholder="Abreviatura..."
+                      type="text"
+                      name="abbreviation"
+                      value={values.abbreviation}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>
+                      RFC
+                      <small className="text-muted ml-1">(12)</small>
+                    </Form.Label>
+                    <Form.Control
+                      maxLength="12"
+                      placeholder="RFC..."
+                      type="text"
+                      name="rfc"
+                      value={values.rfc}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>
+                      Dirección
+                      <small className="text-muted ml-1">(150)</small>
                     </Form.Label>
                     <Form.Control
                       as="textarea"
                       rows="3"
-                      maxLength="250"
-                      placeholder="Descripción..."
+                      maxLength="150"
+                      placeholder="Dirección..."
                       type="text"
-                      name="description"
-                      value={values.description}
+                      name="address"
+                      value={values.address}
                       onChange={handleChange}
                       onBlur={handleBlur}
                     />
@@ -137,7 +127,7 @@ function ModalNewAudit() {
                       type="submit"
                       disabled={isSubmitting}
                     >
-                      Crear
+                      Guardar cambios
                     </Button>
                   </Form.Group>
                 </Form>
@@ -151,21 +141,19 @@ function ModalNewAudit() {
     <OverlayTrigger
       delay={{ show: 250, hide: 400 }}
       placement="left"
-      overlay={
-        <Tooltip>Sólo un administrador puede crear nuevas Auditorías</Tooltip>
-      }
+      overlay={<Tooltip>Sólo un administrador puede editar Clientes</Tooltip>}
     >
-      <span className="ml-auto">
+      <span>
         <Button
-          className="purplebttn shadow-sm"
+          variant="transparent"
           style={{ pointerEvents: "none" }}
           disabled
         >
-          Nueva Auditoría
+          <i className="fas fa-edit" />
         </Button>
       </span>
     </OverlayTrigger>
   );
 }
 
-export default ModalNewAudit;
+export default ModalEditClient;

@@ -2,54 +2,21 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { setHomeActive } from "../redux-actions/navbarActions";
 import Layout from "./Layout";
-import { Table, Button, Modal, Alert, Form } from "react-bootstrap";
+import { Table, Spinner } from "react-bootstrap";
 import API from "../utils/API";
+import ModalNewClient from "../components/ModalNewClient";
+import ModalEditClient from "../components/ModalEditClient";
+import ModalDeleteClient from "../components/ModalDeleteClient";
 
 class Clients extends Component {
   state = {
+    isLoadingClients: true,
     clients: [],
     // all alerts
     showAlert: false,
     alertVariant: null,
     alertHeading: null,
-    alertBody: null,
-    // create new client modal
-    showCreateModal: false,
-    // edit client modal
-    showEditModal: false,
-    idToUpdate: "",
-    editName: "",
-    editAcronym: "",
-    editRfc: "",
-    editAddress: ""
-  };
-
-  // create client modal arrow functions
-  handleShowCreateModal = () => this.setState({ showCreateModal: true });
-  handleCloseCreateModal = () =>
-    this.setState({ showCreateModal: false }, () => this.loadClients());
-  handleCreateFormSubmit = event => {
-    event.preventDefault();
-    let name = document.getElementById("name").value;
-    let acronym = document.getElementById("acronym").value;
-    let rfc = document.getElementById("rfc").value;
-    let address = document.getElementById("address").value;
-    let newClient = {
-      name: name,
-      acronym: acronym,
-      rfc: rfc,
-      address: address
-    };
-    API.saveNewClient(newClient)
-      .then(res => {
-        this.handleCloseCreateModal();
-        this.handleShowAlert(
-          "success",
-          "Éxito.",
-          "Un nuevo Cliente ha sido agregado satisfactoriamente."
-        );
-      })
-      .catch(err => console.log(err));
+    alertBody: null
   };
 
   // edit client modal arrow functions
@@ -113,7 +80,9 @@ class Clients extends Component {
     // fetch clients
     API.fetchClients()
       .then(res => {
-        this.setState({ clients: res.data });
+        this.setState({ clients: res.data }, () =>
+          this.setState({ isLoadingClients: false })
+        );
       })
       .catch(err => console.log(err));
   }
@@ -123,160 +92,52 @@ class Clients extends Component {
       <Layout>
         {/* title */}
         <div className="d-flex flex-row">
-          <h2>
+          <h2 className="mb-0">
             <strong>/Clientes</strong>
           </h2>
-          <Button
-            className="purplebttn ml-auto shadow-sm"
-            onClick={this.handleShowCreateModal}
-            disabled={this.props.user.role === "Admin" ? false : true}
-          >
-            Nuevo Cliente
-          </Button>
+          <ModalNewClient />
         </div>
         <hr />
         {/* content */}
-        <Modal
-          show={this.state.showCreateModal}
-          onHide={this.handleCloseCreateModal}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Nuevo Cliente</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <Form.Group>
-                <Form.Label>1. Nombre completo*</Form.Label>
-                <Form.Control type="text" id="name" />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>2. Abreviatura*</Form.Label>
-                <Form.Control type="text" id="acronym" />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>3. RFC</Form.Label>
-                <Form.Control type="text" id="rfc" />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>4. Dirección</Form.Label>
-                <Form.Control as="textarea" rows="3" id="address" />
-              </Form.Group>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleCloseCreateModal}>
-              Cancelar
-            </Button>
-            <Button variant="primary" onClick={this.handleCreateFormSubmit}>
-              Crear
-            </Button>
-          </Modal.Footer>
-        </Modal>
-        {/* edit client modal */}
-        <Modal
-          show={this.state.showEditModal}
-          onHide={this.handleCloseEditModal}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Editar Cliente</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <Form.Group>
-                <Form.Label>1. Nombre completo</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="editName"
-                  value={this.state.editName}
-                  onChange={this.handleEditInputChange}
-                />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>2. Abreviatura</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="editAcronym"
-                  value={this.state.editAcronym}
-                  onChange={this.handleEditInputChange}
-                />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>3. RFC</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="editRfc"
-                  value={this.state.editRfc}
-                  onChange={this.handleEditInputChange}
-                />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>4. Dirección</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows="3"
-                  name="editAddress"
-                  value={this.state.editAddress}
-                  onChange={this.handleEditInputChange}
-                />
-              </Form.Group>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleCloseEditModal}>
-              Cancelar
-            </Button>
-            <Button variant="info" onClick={this.handleEditFormSubmit}>
-              Guardar
-            </Button>
-          </Modal.Footer>
-        </Modal>
-        {/* alert */}
-        <Alert
-          show={this.state.showAlert}
-          variant={this.state.alertVariant}
-          onClose={this.handleCloseAlert}
-          dismissible
-        >
-          <Alert.Heading>{this.state.alertHeading}</Alert.Heading>
-          <p>{this.state.alertBody}</p>
-        </Alert>
-        {/* if there are clients */}
-        {this.state.clients.length ? (
-          <Table className="mt-2" striped bordered responsive>
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Abreviatura</th>
-                <th>RFC</th>
-                <th>Dirección</th>
-                <th>Editar</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.clients.map(client => {
-                return (
-                  <tr key={client.id}>
-                    <td>{client.name}</td>
-                    <td>{client.abbreviation}</td>
-                    <td>{client.rfc}</td>
-                    <td>{client.address}</td>
-                    <td className="text-center">
-                      <Button
-                        variant="info"
-                        onClick={() => this.handleShowEditModal(client.id)}
-                        size="sm"
-                      >
-                        <i className="fas fa-pen mx-2" />
-                      </Button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </Table>
+        {!this.state.isLoadingClients ? (
+          this.state.clients.length ? (
+            <Table className="mt-2" striped bordered responsive>
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Abreviatura</th>
+                  <th>RFC</th>
+                  <th>Dirección</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.clients.map(client => {
+                  return (
+                    <tr key={client.clientId}>
+                      <td>{client.name}</td>
+                      <td>{client.abbreviation}</td>
+                      <td>{client.rfc}</td>
+                      <td>{client.address}</td>
+                      <td className="text-center">
+                        <div className="d-flex flex-row">
+                          <ModalEditClient client={client} />
+                          <ModalDeleteClient client={client} />
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </Table>
+          ) : (
+            <div className="text-center text-muted mt-4">
+              No hay Clientes para mostrar
+            </div>
+          )
         ) : (
-          <div className="text-center mt-4">
-            <p className="lead">No hay Clientes para mostrar.</p>
+          <div className="text-center mt-4 pt-4">
+            <Spinner animation="border" />
           </div>
         )}
       </Layout>

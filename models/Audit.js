@@ -2,18 +2,20 @@ module.exports = function(sequelize, DataTypes) {
   const Audit = sequelize.define(
     "Audit",
     {
+      auditId: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false
+      },
+      clientId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true
-      },
-      clientName: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      clientAbbreviation: {
-        type: DataTypes.STRING,
-        allowNull: false
       },
       year: {
         type: DataTypes.INTEGER,
@@ -44,6 +46,10 @@ module.exports = function(sequelize, DataTypes) {
       ]
     }
   );
+
+  Audit.associate = function(models) {
+    Audit.belongsTo(models.Client, { foreignKey: "clientId" });
+  };
 
   return Audit;
 };

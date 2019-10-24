@@ -16,19 +16,40 @@ h2,
 h3,
 h4,
 h5 {
-  // font-family: "Roboto Mono", monospace;
-  // font-family: "Lora", serif;
   font-family: "Bitter", serif;
 }
 
 .purplebttn {
   border: 0;
-  background-color: #7289da;
+  background-color: #516fd6;
   color: ghostwhite;
   &:hover {
-    background-color: #8197e4;
+    background-color: #7289da !important;
+  }
+  &:active {
+    background-color: #7289da !important;
   }
   &:disabled {
     background-color: #99aab5 !important;
   }
+}
+
+// removes blue glow on some elements
+input {
+  outline: none;
+  box-shadow: none !important;
+  border: 1px solid #ccc !important;
+}
+
+button {
+  outline: none;
+  box-shadow: none !important;
+  border: 0px !important;
+}
+
+textarea,
+select {
+  outline: none;
+  box-shadow: none !important;
+  border: 1px solid #ccc !important;
 }

@@ -17,9 +17,9 @@ router.get("/all/", function(req, res) {
 
 // get audit info from a given id
 // matches with /api/audit/:id
-router.get("/:id", function(req, res) {
+router.get("/:auditId", function(req, res) {
   model.Audit.findOne({
-    where: { id: req.params.id }
+    where: { auditId: req.params.auditId }
   })
     .then(function(data) {
       res.json(data);
@@ -34,43 +34,51 @@ router.get("/:id", function(req, res) {
 // matches with /api/audits/new
 router.post("/new", function(req, res) {
   model.Audit.create({
-    clientName: req.body.clientName,
-    clientAcronym: req.body.clientAcronym,
+    clientId: req.body.clientId,
+    name: req.body.clientAbr + " " + req.body.year,
     year: req.body.year,
     description: req.body.description
   })
-    .then(function(row) {
-      // this is the id from the recently created audit
-      const newAudit = row.dataValues.id;
+    .then(data => res.json(data))
+    .catch(err => res.json(err));
 
-      // creating blank cci
-      model.Cci.create({
-        auditId: newAudit
-      })
-        .then(function(res) {
-          // res.json(res);
-        })
-        .catch(function(err) {
-          res.send(err);
-        });
+  // model.Audit.create({
+  //   name: req.body.clientName,
+  //   year: req.body.clientAcronym,
+  //   description: req.body.year
+  // })
+  //   .then(function(row) {
+  //     // this is the id from the recently created audit
+  //     const newAudit = row.dataValues.id;
 
-      // creating blank cefs
-      model.Cefs.create({
-        auditId: newAudit
-      })
-        .then(function(res) {
-          // res.json(res);
-        })
-        .catch(function(err) {
-          res.send(err);
-        });
+  //     // creating blank cci
+  //     model.Cci.create({
+  //       auditId: newAudit
+  //     })
+  //       .then(function(res) {
+  //         // res.json(res);
+  //       })
+  //       .catch(function(err) {
+  //         res.send(err);
+  //       });
 
-      // response to the frontend
-      res.json(res);
-    })
-    .catch(function(err) {
-      res.send(err);
-    });
+  //     // creating blank cefs
+  //     model.Cefs.create({
+  //       auditId: newAudit
+  //     })
+  //       .then(function(res) {
+  //         // res.json(res);
+  //       })
+  //       .catch(function(err) {
+  //         res.send(err);
+  //       });
+
+  //     // response to the frontend
+  //     res.json(res);
+  //   })
+  //   .catch(function(err) {
+  //     res.send(err);
+  //   });
 });
 
 module.exports = router;

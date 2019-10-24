@@ -1,13 +1,15 @@
 import axios from "axios";
 
 export default {
-  // users
+  // =================================================================
+  // USERS
 
   fetchUserInfo: function(uid) {
     return axios.get("/api/user/" + uid);
   },
 
-  // audits
+  // =================================================================
+  // AUDITS
 
   fetchAudits: function() {
     return axios.get("/api/audit/all/");
@@ -21,7 +23,8 @@ export default {
     return axios.post("/api/audit/new", auditData);
   },
 
-  // clients
+  // =================================================================
+  // CLIENTS
 
   fetchClients: function() {
     return axios.get("/api/client/all");
@@ -39,7 +42,8 @@ export default {
     return axios.put("/api/client/edit/", clientInfo);
   },
 
-  // surveys
+  // =================================================================
+  // SURVEYS
 
   getAnswersFromCCI: function(auditId) {
     return axios.get("/api/survey/cci/" + auditId);
@@ -57,7 +61,8 @@ export default {
     return axios.put("/api/survey/cefs", answers);
   },
 
-  // balanzas
+  // =================================================================
+  // BALANZAS
 
   uploadBalanza: function(csvFile) {
     return axios.post("/api/upload/balanza/", csvFile);

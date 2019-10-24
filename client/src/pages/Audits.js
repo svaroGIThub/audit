@@ -46,22 +46,12 @@ class Audits extends Component {
       <Layout>
         {/* title */}
         <div className="d-flex flex-row">
-          <h2>
+          <h2 className="mb-0">
             <strong>/Auditorías</strong>
           </h2>
           <ModalNewAudit />
         </div>
         <hr />
-        {/* utilities */}
-        {/* <Alert
-          show={this.state.showAlert}
-          variant={this.state.alertVariant}
-          onClose={this.handleCloseAlert}
-          dismissible
-        >
-          <Alert.Heading>{this.state.alertHeading}</Alert.Heading>
-          <p>{this.state.alertBody}</p>
-        </Alert> */}
         {/* content */}
         <Row>
           {/* filters */}
@@ -107,15 +97,17 @@ class Audits extends Component {
                     return (
                       <ListGroup.Item
                         action
-                        key={audit.id}
+                        key={audit.auditId}
                         className="auditItem"
-                        href={"/audit/home/" + audit.id}
+                        href={"/audit/home/" + audit.auditId}
                       >
                         <div className="d-flex flex-row">
-                          <h3 className="mr-2 mb-0">
-                            {audit.clientAbbreviation}
+                          <h3
+                            className="mr-2 mb-0"
+                            style={{ color: "#516fd6" }}
+                          >
+                            <strong>{audit.name}</strong>
                           </h3>
-                          <h3 className="mb-0 text-muted">{audit.year}</h3>
                         </div>
                         <p className="mb-0 description">{audit.description}</p>
                         <small className="text-secondary">
@@ -127,7 +119,7 @@ class Audits extends Component {
                 </ListGroup>
               ) : (
                 <div className="text-center text-muted mt-4">
-                  Tu lista de Auditorías está vacía
+                  No hay Auditorías para mostrar
                 </div>
               )
             ) : (

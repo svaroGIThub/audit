@@ -3,32 +3,25 @@
     "model": "Audit",
     "data": {
       "name": "SEV 2016",
-      "clientName": "Secretaría de Educación de Veracruz",
-      "clientAbbreviation": "SEV",
+      "clientId": 1,
       "year": 2016,
-      "description": "Esta es una descripción",
-      "hasBalanza": false,
-      "hasNómina": false
+      "description": "Esta es una descripción"
     }
   },
   {
     "model": "Audit",
     "data": {
       "name": "ALDF 2017",
-      "clientName": "Asamblea Legislativa del Distrito Federal",
-      "clientAbbreviation": "ALDF",
+      "clientId": 3,
       "year": 2017,
-      "description": "Esta es una descripción",
-      "hasBalanza": false,
-      "hasNómina": false
+      "description": "Esta es una descripción"
     }
   },
   {
     "model": "Audit",
     "data": {
-      "name": "SEV 2018",
-      "clientName": "Secretaría de Educación de Veracruz",
-      "clientAbbreviation": "SEV",
+      "name": "CONTRALORÍA 2018",
+      "clientId": 2,
       "year": 2018,
       "description": "Esta es una descripción"
     }
@@ -37,8 +30,7 @@
     "model": "Audit",
     "data": {
       "name": "ORFIS 2017",
-      "clientName": "Órgano de Fiscalización Superior del Estado de Veracruz",
-      "clientAbbreviation": "ORFIS",
+      "clientId": 4,
       "year": 2017,
       "description": "Esta es una descripción"
     }
@@ -46,9 +38,8 @@
   {
     "model": "Audit",
     "data": {
-      "name": "ORFIS 2018",
-      "clientName": "Órgano de Fiscalización Superior del Estado de Veracruz",
-      "clientAbbreviation": "ORFIS",
+      "name": "CECYTEV 2017",
+      "clientId": 6,
       "year": 2018,
       "description": "Esta es una descripción"
     }
@@ -56,40 +47,9 @@
   {
     "model": "Audit",
     "data": {
-      "name": "CECYTEV 2018",
-      "clientName": "Colegio de Estudios Científicos y Tecnológicos del Estado de Veracruz",
-      "clientAbbreviation": "CECYTEV",
+      "name": "COBAEV 2017",
+      "clientId": 5,
       "year": 2018,
-      "description": "Esta es una descripción"
-    }
-  },
-  {
-    "model": "Audit",
-    "data": {
-      "name": "SEV 2017",
-      "clientName": "Secretaría de Educación de Veracruz",
-      "clientAbbreviation": "SEV",
-      "year": 2017,
-      "description": "Esta es una descripción"
-    }
-  },
-  {
-    "model": "Audit",
-    "data": {
-      "name": "SEV 2019",
-      "clientName": "Secretaría de Educación de Veracruz",
-      "clientAbbreviation": "SEV",
-      "year": 2019,
-      "description": "Esta es una descripción"
-    }
-  },
-  {
-    "model": "Audit",
-    "data": {
-      "name": "CONTRALORÍA 2019",
-      "clientName": "Contraloría General",
-      "clientAbbreviation": "CONTRALORÍA",
-      "year": 2019,
       "description": "Esta es una descripción"
     }
   }
