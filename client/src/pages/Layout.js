@@ -5,7 +5,7 @@ import { Container, Row, Col } from "react-bootstrap";
 const Layout = props => (
   <div className="d-flex flex-row h-100">
     <MyNavbar />
-    <Container style={{ marginLeft: "247px", backgroundColor: "#f5f5f5" }} className="p-4" fluid>
+    <Container style={{ marginLeft: "247px" }} className="p-4" fluid>
       <Row>
         <Col className="pb-4">{props.children}</Col>
       </Row>

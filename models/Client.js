@@ -7,12 +7,14 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     name: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.STRING(100),
+      allowNull: false,
+      unique: "compositeIndex"
     },
     abbreviation: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.STRING(15),
+      allowNull: false,
+      unique: "compositeIndex"
     },
     rfc: {
       type: DataTypes.STRING,

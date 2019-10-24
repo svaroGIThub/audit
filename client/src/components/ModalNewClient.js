@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Form, Modal, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { Formik } from "formik";
+import { Formik, ErrorMessage } from "formik";
+import API from "../utils/API";
+import * as yup from "yup";
 
 function ModalNewClient() {
   // modal state
@@ -11,6 +13,13 @@ function ModalNewClient() {
 
   // user
   const user = useSelector(state => state.user);
+
+  const newClientSchema = yup.object({
+    name: yup.string().required("Requerido"),
+    abbreviation: yup.string().required("Requerido"),
+    rfc: yup.string().length(12, "Longitud incorrecta"),
+    address: yup.string()
+  });
 
   return user.role === "Admin" ? (
     <>
@@ -31,10 +40,22 @@ function ModalNewClient() {
               rfc: "",
               address: ""
             }}
+            validationSchema={newClientSchema}
             onSubmit={(values, { setSubmitting }) => {
               setSubmitting(true);
-              console.log(values);
-              //   window.location.reload();
+              API.saveNewClient(values)
+                .then(res => {
+                  console.log(res)
+                  // if (res.data.errors) {
+                  //   alert(res.data.errors[0].message);
+                  //   setSubmitting(false);
+                  // } else {
+                  //   alert("Cliente creado con éxito");
+                  //   handleClose();
+                  //   window.location.reload();
+                  // }
+                })
+                .catch(err => alert(err));
             }}
           >
             {({
@@ -49,17 +70,21 @@ function ModalNewClient() {
                   <Form.Group>
                     <Form.Label>
                       Nombre
-                      <small className="text-muted ml-1">(80)</small>
+                      <small className="text-muted ml-1">(100)</small>
                       <strong className="ml-1 text-danger">*</strong>
                     </Form.Label>
                     <Form.Control
-                      maxLength="80"
-                      placeholder="Nombre..."
+                      maxLength="100"
                       type="text"
                       name="name"
                       value={values.name}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                    />
+                    <ErrorMessage
+                      className="text-danger"
+                      name="name"
+                      component="div"
                     />
                   </Form.Group>
                   <Form.Group>
@@ -70,12 +95,17 @@ function ModalNewClient() {
                     </Form.Label>
                     <Form.Control
                       maxLength="15"
-                      placeholder="Abreviatura..."
                       type="text"
                       name="abbreviation"
                       value={values.abbreviation}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      style={{ textTransform: "uppercase" }}
+                    />
+                    <ErrorMessage
+                      className="text-danger"
+                      name="abbreviation"
+                      component="div"
                     />
                   </Form.Group>
                   <Form.Group>
@@ -85,12 +115,17 @@ function ModalNewClient() {
                     </Form.Label>
                     <Form.Control
                       maxLength="12"
-                      placeholder="RFC..."
                       type="text"
                       name="rfc"
                       value={values.rfc}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      style={{ textTransform: "uppercase" }}
+                    />
+                    <ErrorMessage
+                      className="text-danger"
+                      name="rfc"
+                      component="div"
                     />
                   </Form.Group>
                   <Form.Group>
@@ -102,12 +137,16 @@ function ModalNewClient() {
                       as="textarea"
                       rows="3"
                       maxLength="150"
-                      placeholder="Dirección..."
                       type="text"
                       name="address"
                       value={values.address}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                    />
+                    <ErrorMessage
+                      className="text-danger"
+                      name="address"
+                      component="div"
                     />
                   </Form.Group>
                   <Form.Group className="text-right">

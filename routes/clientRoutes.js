@@ -20,26 +20,12 @@ router.get("/all", function(req, res) {
 router.post("/new", function(req, res) {
   model.Client.create({
     name: req.body.name,
-    acronym: req.body.acronym,
+    abbreviation: req.body.abbreviation,
     rfc: req.body.rfc,
     address: req.body.address
   })
     .then(function(res) {
       res.json(res);
-    })
-    .catch(function(err) {
-      res.send(err);
-    });
-});
-
-// get client info from a given id
-// matches with /api/client/:id
-router.get("/:id", function(req, res) {
-  model.Client.findOne({
-    where: { id: req.params.id }
-  })
-    .then(function(data) {
-      res.json(data);
     })
     .catch(function(err) {
       res.send(err);
@@ -52,7 +38,7 @@ router.put("/edit/", function(req, res) {
   model.Client.update(
     {
       name: req.body.name,
-      acronym: req.body.acronym,
+      abbreviation: req.body.abbreviation,
       rfc: req.body.rfc,
       address: req.body.address
     },
@@ -60,6 +46,20 @@ router.put("/edit/", function(req, res) {
       where: { id: req.body.id }
     }
   )
+    .then(function(data) {
+      res.json(data);
+    })
+    .catch(function(err) {
+      res.send(err);
+    });
+});
+
+// get client info from a given id
+// matches with /api/client/:id
+router.get("/:clientId", function(req, res) {
+  model.Client.findOne({
+    where: { clientId: req.params.clientId }
+  })
     .then(function(data) {
       res.json(data);
     })

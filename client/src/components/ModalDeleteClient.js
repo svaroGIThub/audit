@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Modal, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import "./modaldeleteclient.scss";
 
 function ModalDeleteClient(props) {
   // modal state
@@ -14,7 +15,7 @@ function ModalDeleteClient(props) {
   return user.role === "Admin" ? (
     <>
       <Button variant="transparent" onClick={handleShow}>
-        <i className="fas fa-trash text-danger" />
+        <i className="fas fa-trash lead deleteIcon" />
       </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header className="bg-light">
@@ -56,7 +57,7 @@ function ModalDeleteClient(props) {
           style={{ pointerEvents: "none" }}
           disabled
         >
-          <i className="fas fa-trash" />
+          <i className="fas fa-trash lead" />
         </Button>
       </span>
     </OverlayTrigger>

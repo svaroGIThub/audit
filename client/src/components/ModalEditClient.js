@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Form, Modal, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Formik } from "formik";
+import "./modaleditclient.scss";
 
 function ModalEditClient(props) {
   // modal state
@@ -19,7 +20,7 @@ function ModalEditClient(props) {
         className="noglowButton"
         onClick={handleShow}
       >
-        <i className="fas fa-edit" style={{ color: "#7289da" }} />
+        <i className="fas fa-edit lead editIcon" />
       </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header className="bg-light">
@@ -149,7 +150,7 @@ function ModalEditClient(props) {
           style={{ pointerEvents: "none" }}
           disabled
         >
-          <i className="fas fa-edit" />
+          <i className="fas fa-edit lead" />
         </Button>
       </span>
     </OverlayTrigger>
