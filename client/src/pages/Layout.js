@@ -7,7 +7,7 @@ const Layout = props => (
     <MyNavbar />
     <Container style={{ marginLeft: "247px" }} className="p-4" fluid>
       <Row>
-        <Col className="pb-4">{props.children}</Col>
+        <Col className="pt-2 pb-4">{props.children}</Col>
       </Row>
     </Container>
   </div>

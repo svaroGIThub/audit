@@ -3,9 +3,14 @@ const model = require("../models");
 
 // get all audits
 // matches with /api/audit/all
-router.get("/all/", function(req, res) {
+router.get("/all", function(req, res) {
   model.Audit.findAll({
-    order: [["name", "asc"]]
+    order: [["name", "asc"]],
+    include: [
+      {
+        model: model.Client
+      }
+    ]
   })
     .then(function(data) {
       res.send(data);

@@ -5,24 +5,23 @@ import {
   hideAuditMenu,
   setHomeActive
 } from "../redux-actions/navbarActions";
-import {
-  Col,
-  Row,
-  Spinner,
-  ListGroup,
-  Dropdown,
-  Pagination
-} from "react-bootstrap";
+import { Col, Row, Spinner, ListGroup } from "react-bootstrap";
 import Layout from "./Layout";
 import API from "../utils/API";
 import "./audits.scss";
 import ModalNewAudit from "../components/ModalNewAudit";
+import FilterByClient from "../components/FilterByClient";
+import MyPagination from "../components/MyPagination";
 
 class Audits extends Component {
   state = {
     isLoadingAudits: true,
-    audits: [],
-    clients: []
+    allAudits: [],
+    filteredAudits: [],
+    activeClient: "Todos los Clientes",
+    pageCount: 0,
+    activePage: 1,
+    productsPerPage: 5
   };
 
   componentDidMount() {
@@ -34,12 +33,36 @@ class Audits extends Component {
     // fetch audits
     API.fetchAudits()
       .then(res => {
-        this.setState({ audits: res.data }, () =>
-          this.setState({ isLoadingAudits: false })
+        // allAudits is gonna be used to store all the audits
+        // filteredAudits shown is gonna be used for filter purposes
+        let productsPerPage = this.state.productsPerPage;
+        this.setState(
+          {
+            allAudits: res.data,
+            filteredAudits: res.data,
+            pageCount: Math.ceil(res.data.length / productsPerPage)
+          },
+          () => this.setState({ isLoadingAudits: false })
         );
       })
       .catch(err => console.log(err));
   }
+
+  handleFilterByClient = client => {
+    if (client === "Todos los Clientes") {
+      let backup = this.state.allAudits;
+      this.setState({ activeClient: client, filteredAudits: backup });
+    } else {
+      let temp = this.state.allAudits.filter(a => {
+        return a.Client.abbreviation === client;
+      });
+      this.setState({ activeClient: client, filteredAudits: temp });
+    }
+  };
+
+  handleChangePage = page => {
+    this.setState({ activePage: page });
+  };
 
   render() {
     return (
@@ -56,44 +79,28 @@ class Audits extends Component {
         <Row>
           {/* filters */}
           <Col className="d-flex align-items-center mb-3">
-            <Dropdown>
-              <Dropdown.Toggle variant="transparent" className="m-0 p-0">
-                Filtros
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-            <Dropdown className="ml-3">
-              <Dropdown.Toggle variant="transparent" className="m-0 p-0">
-                Ordenado
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Por cliente</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Por año</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            <FilterByClient
+              data={this.state.allAudits}
+              activeClient={this.state.activeClient}
+              handleFilterByClient={this.handleFilterByClient}
+            />
           </Col>
           {/* pagination */}
           <Col className="d-flex align-items-center justify-content-end mb-3">
-            <Pagination className="mb-0" size="sm">
-              <Pagination.Prev disabled />
-              <Pagination.Item active>{1}</Pagination.Item>
-              <Pagination.Item>{2}</Pagination.Item>
-              <Pagination.Item>{3}</Pagination.Item>
-              <Pagination.Next />
-            </Pagination>
+            <MyPagination
+              pageCount={this.state.pageCount}
+              activePage={this.state.activePage}
+              handleChangePage={this.handleChangePage}
+            />
           </Col>
         </Row>
         {/* audits row */}
         <Row>
           <Col>
             {!this.state.isLoadingAudits ? (
-              this.state.audits.length ? (
+              this.state.filteredAudits.length ? (
                 <ListGroup className="border-0 shadow-sm">
-                  {this.state.audits.map(audit => {
+                  {this.state.filteredAudits.map(audit => {
                     return (
                       <ListGroup.Item
                         action

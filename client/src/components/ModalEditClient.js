@@ -5,6 +5,11 @@ import { Formik, ErrorMessage } from "formik";
 import "./modaleditclient.scss";
 import API from "../utils/API";
 import * as yup from "yup";
+import PropTypes from "prop-types";
+
+ModalEditClient.propTypes = {
+  client: PropTypes.object.isRequired
+};
 
 function ModalEditClient(props) {
   // modal state
@@ -53,10 +58,9 @@ function ModalEditClient(props) {
             onSubmit={(values, { setSubmitting }) => {
               setSubmitting(true);
               values.abbreviation = values.abbreviation.toUpperCase();
-              values.rfc = values.abbreviation.toUpperCase();
+              values.rfc = values.rfc.toUpperCase();
               API.editClient(values)
                 .then(res => {
-                  alert(res.data);
                   if (res.data.errors) {
                     alert(res.data.errors[0].message);
                     setSubmitting(false);
@@ -67,7 +71,6 @@ function ModalEditClient(props) {
                   }
                 })
                 .catch(err => alert(err));
-              window.location.reload();
             }}
           >
             {({

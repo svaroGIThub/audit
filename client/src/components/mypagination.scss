@@ -1,0 +1,15 @@
+.itemsStyle {
+  &.page-item {
+    a {
+      color: gray;
+      outline: none;
+      box-shadow: none !important;
+    }
+    &.active {
+      .page-link {
+        background-color: #7289da;
+        border-color: #7289da;
+      }
+    }
+  }
+}

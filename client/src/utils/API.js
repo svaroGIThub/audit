@@ -12,7 +12,7 @@ export default {
   // AUDITS
 
   fetchAudits: function() {
-    return axios.get("/api/audit/all/");
+    return axios.get("/api/audit/all");
   },
 
   fetchOneAudit: function(auditId) {
@@ -65,6 +65,6 @@ export default {
   // BALANZAS
 
   uploadBalanza: function(csvFile) {
-    return axios.post("/api/upload/balanza/", csvFile);
+    return axios.post("/api/upload/balanza", csvFile);
   }
 };

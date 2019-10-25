@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Modal, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import "./modaldeleteclient.scss";
+import PropTypes from "prop-types";
+
+ModalDeleteClient.propTypes = {
+  client: PropTypes.object.isRequired
+};
 
 function ModalDeleteClient(props) {
   // modal state
