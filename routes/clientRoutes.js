@@ -34,7 +34,10 @@ router.post("/new", function(req, res) {
 
 // update a client
 // matches with /api/client/edit
-router.put("/edit/", function(req, res) {
+router.put("/edit", function(req, res) {
+  console.log("editando cliente:");
+  console.log(req.body);
+  console.log("=========");
   model.Client.update(
     {
       name: req.body.name,
@@ -43,7 +46,7 @@ router.put("/edit/", function(req, res) {
       address: req.body.address
     },
     {
-      where: { id: req.body.id }
+      where: { clientId: req.body.clientId }
     }
   )
     .then(function(data) {
@@ -54,7 +57,7 @@ router.put("/edit/", function(req, res) {
     });
 });
 
-// get client info from a given id
+// get client info from a given clientId
 // matches with /api/client/:id
 router.get("/:clientId", function(req, res) {
   model.Client.findOne({

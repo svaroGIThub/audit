@@ -17,7 +17,10 @@ function ModalNewClient() {
   const newClientSchema = yup.object({
     name: yup.string().required("Requerido"),
     abbreviation: yup.string().required("Requerido"),
-    rfc: yup.string().length(12, "Longitud incorrecta"),
+    rfc: yup
+      .string()
+      .length(12, "Longitud incorrecta")
+      .required("Requerido"),
     address: yup.string()
   });
 
@@ -43,17 +46,18 @@ function ModalNewClient() {
             validationSchema={newClientSchema}
             onSubmit={(values, { setSubmitting }) => {
               setSubmitting(true);
+              values.abbreviation = values.abbreviation.toUpperCase();
+              values.rfc = values.rfc.toUpperCase();
               API.saveNewClient(values)
                 .then(res => {
-                  console.log(res)
-                  // if (res.data.errors) {
-                  //   alert(res.data.errors[0].message);
-                  //   setSubmitting(false);
-                  // } else {
-                  //   alert("Cliente creado con éxito");
-                  //   handleClose();
-                  //   window.location.reload();
-                  // }
+                  if (res.data.errors) {
+                    alert(res.data.errors[0].message);
+                    setSubmitting(false);
+                  } else {
+                    alert("Cliente creado con éxito");
+                    handleClose();
+                    window.location.reload();
+                  }
                 })
                 .catch(err => alert(err));
             }}
@@ -112,6 +116,7 @@ function ModalNewClient() {
                     <Form.Label>
                       RFC
                       <small className="text-muted ml-1">(12)</small>
+                      <strong className="ml-1 text-danger">*</strong>
                     </Form.Label>
                     <Form.Control
                       maxLength="12"

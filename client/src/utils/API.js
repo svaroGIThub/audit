@@ -34,12 +34,12 @@ export default {
     return axios.post("/api/client/new", clientData);
   },
 
-  getClientInfo: function(id) {
-    return axios.get("/api/client/" + id);
+  editClient: function(clientInfo) {
+    return axios.put("/api/client/edit", clientInfo);
   },
 
-  saveEditedClient: function(clientInfo) {
-    return axios.put("/api/client/edit/", clientInfo);
+  fetchOneClient: function(id) {
+    return axios.get("/api/client/" + id);
   },
 
   // =================================================================

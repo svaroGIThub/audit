@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Form, Modal, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { Formik } from "formik";
+import { Formik, ErrorMessage } from "formik";
 import "./modaleditclient.scss";
+import API from "../utils/API";
+import * as yup from "yup";
 
 function ModalEditClient(props) {
   // modal state
@@ -12,6 +14,16 @@ function ModalEditClient(props) {
 
   // user
   const user = useSelector(state => state.user);
+
+  const editClientSchema = yup.object({
+    name: yup.string().required("Requerido"),
+    abbreviation: yup.string().required("Requerido"),
+    rfc: yup
+      .string()
+      .length(12, "Longitud incorrecta")
+      .required("Requerido"),
+    address: yup.string()
+  });
 
   return user.role === "Admin" ? (
     <>
@@ -31,15 +43,31 @@ function ModalEditClient(props) {
         <Modal.Body className="bg-light">
           <Formik
             initialValues={{
+              clientId: props.client.clientId,
               name: props.client.name,
               abbreviation: props.client.abbreviation,
               rfc: props.client.rfc,
               address: props.client.address
             }}
+            validationSchema={editClientSchema}
             onSubmit={(values, { setSubmitting }) => {
               setSubmitting(true);
-              console.log(values);
-              //   window.location.reload();
+              values.abbreviation = values.abbreviation.toUpperCase();
+              values.rfc = values.abbreviation.toUpperCase();
+              API.editClient(values)
+                .then(res => {
+                  alert(res.data);
+                  if (res.data.errors) {
+                    alert(res.data.errors[0].message);
+                    setSubmitting(false);
+                  } else {
+                    alert("Cliente editado con éxito");
+                    handleClose();
+                    window.location.reload();
+                  }
+                })
+                .catch(err => alert(err));
+              window.location.reload();
             }}
           >
             {({
@@ -54,17 +82,21 @@ function ModalEditClient(props) {
                   <Form.Group>
                     <Form.Label>
                       Nombre
-                      <small className="text-muted ml-1">(80)</small>
+                      <small className="text-muted ml-1">(100)</small>
                       <strong className="ml-1 text-danger">*</strong>
                     </Form.Label>
                     <Form.Control
-                      maxLength="80"
-                      placeholder="Nombre..."
+                      maxLength="100"
                       type="text"
                       name="name"
                       value={values.name}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                    />
+                    <ErrorMessage
+                      className="text-danger"
+                      name="name"
+                      component="div"
                     />
                   </Form.Group>
                   <Form.Group>
@@ -75,27 +107,38 @@ function ModalEditClient(props) {
                     </Form.Label>
                     <Form.Control
                       maxLength="15"
-                      placeholder="Abreviatura..."
                       type="text"
                       name="abbreviation"
                       value={values.abbreviation}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      style={{ textTransform: "uppercase" }}
+                    />
+                    <ErrorMessage
+                      className="text-danger"
+                      name="abbreviation"
+                      component="div"
                     />
                   </Form.Group>
                   <Form.Group>
                     <Form.Label>
                       RFC
                       <small className="text-muted ml-1">(12)</small>
+                      <strong className="ml-1 text-danger">*</strong>
                     </Form.Label>
                     <Form.Control
                       maxLength="12"
-                      placeholder="RFC..."
                       type="text"
                       name="rfc"
                       value={values.rfc}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      style={{ textTransform: "uppercase" }}
+                    />
+                    <ErrorMessage
+                      className="text-danger"
+                      name="rfc"
+                      component="div"
                     />
                   </Form.Group>
                   <Form.Group>
@@ -107,12 +150,16 @@ function ModalEditClient(props) {
                       as="textarea"
                       rows="3"
                       maxLength="150"
-                      placeholder="Dirección..."
                       type="text"
                       name="address"
                       value={values.address}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                    />
+                    <ErrorMessage
+                      className="text-danger"
+                      name="address"
+                      component="div"
                     />
                   </Form.Group>
                   <Form.Group className="text-right">
