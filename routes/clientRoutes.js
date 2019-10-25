@@ -36,6 +36,7 @@ router.post("/new", function(req, res) {
 // matches with /api/client/edit
 router.put("/edit", function(req, res) {
   console.log("editando cliente:");
+  console.log("=========");
   console.log(req.body);
   console.log("=========");
   model.Client.update(
