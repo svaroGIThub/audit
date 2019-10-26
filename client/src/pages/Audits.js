@@ -148,9 +148,7 @@ class Audits extends Component {
       <Layout>
         {/* title */}
         <div className="d-flex flex-row">
-          <h2 className="mb-0">
-            <strong>/Auditorías</strong>
-          </h2>
+          <h2 className="mb-0">/Auditorías</h2>
           <ModalNewAudit />
         </div>
         <hr />
@@ -198,7 +196,7 @@ class Audits extends Component {
                               className="mr-2 mb-0"
                               style={{ color: "#2c2f33" }}
                             >
-                              <strong>{audit.name}</strong>
+                              {audit.name}
                             </h3>
                           </div>
                           <p

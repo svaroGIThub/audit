@@ -10,7 +10,9 @@ const auditReducers = (state = { isOpen: false }, action) => {
         year: action.data.year,
         description: action.data.description,
         hasBalanza: action.data.hasBalanza,
-        hasNómina: action.data.hasNómina
+        hasNómina: action.data.hasNómina,
+        createdAt: action.data.createdAt,
+        updatedAt: action.data.updatedAt
       };
     case "audit/close":
       return {

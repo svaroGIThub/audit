@@ -57,7 +57,7 @@ function MyNavbar() {
         {navbar.auditMenu.show && audit.isOpen ? (
           <>
             <Nav.Item className="mt-2 mb-1" style={{ color: "gray" }}>
-              <small>{audit.name}</small>
+              <small>MENÚ</small>
             </Nav.Item>
             <Nav.Link
               className="navLink pb-1 pl-0"
@@ -66,6 +66,14 @@ function MyNavbar() {
             >
               <i className="fas fa-home" style={{ width: "32px" }} />
               Inicio
+            </Nav.Link>
+            <Nav.Link
+              className="navLink pb-1 pl-0"
+              href={"/audit/workplan/" + audit.auditId}
+              active={navbar.auditMenu.active === "Guía" ? true : false}
+            >
+              <i className="fas fa-pencil-ruler" style={{ width: "32px" }} />
+              Guía
             </Nav.Link>
             <Nav.Link
               className="navLink pb-1 pl-0"

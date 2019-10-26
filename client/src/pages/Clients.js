@@ -32,9 +32,7 @@ class Clients extends Component {
       <Layout>
         {/* title */}
         <div className="d-flex flex-row">
-          <h2 className="mb-0">
-            <strong>/Clientes</strong>
-          </h2>
+          <h2 className="mb-0">/Clientes</h2>
           <ModalNewClient />
         </div>
         <hr />

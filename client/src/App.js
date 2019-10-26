@@ -9,17 +9,16 @@ import {
   Redirect
 } from "react-router-dom";
 import Login from "./pages/Login";
-// import Dashboard from "./pages/Dashboard";
 import AuditHome from "./pages/AuditHome";
 import Audits from "./pages/Audits";
-// import Workplan from "./pages/Workplan";
 import Clients from "./pages/Clients";
+import Workplan from "./pages/Workplan";
+import Details from "./pages/Details";
 // import Balanza from "./pages/consult/Balanza";
 // import Nomina from "./pages/consult/Nómina";
 // import Planning from "./pages/planning/Planning";
 // import CCI from "./pages/planning/CCI";
 // import CEFS from "./pages/planning/CEFS";
-// import NoMatch from "./pages/NoMatch";
 
 function App() {
   const dispatch = useDispatch();
@@ -51,6 +50,16 @@ function App() {
             exact
             path="/audit/home/:auditId"
             render={props => <AuditHome routeProps={props} />}
+          />
+          <Route
+            exact
+            path="/audit/workplan/:auditId"
+            render={props => <Workplan routeProps={props} />}
+          />
+          <Route
+            exact
+            path="/audit/details/:auditId"
+            render={props => <Details routeProps={props} />}
           />
           <Redirect from="/" to="/audits" />
         </Switch>
