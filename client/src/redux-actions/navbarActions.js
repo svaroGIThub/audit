@@ -23,15 +23,21 @@ export const setHomeActive = data => {
 // ==================================================================
 // AUDIT menu actions
 
-export const showAuditMenu = data => {
+export const showAuditMenu = () => {
   return {
-    type: "navbar/showAuditMenu",
-    data
+    type: "navbar/showAuditMenu"
   };
 };
 
 export const hideAuditMenu = () => {
   return {
     type: "navbar/hideAuditMenu"
+  };
+};
+
+export const setAuditActive = data => {
+  return {
+    type: "navbar/setAuditActive",
+    data
   };
 };

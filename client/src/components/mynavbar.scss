@@ -15,6 +15,10 @@
   color: #7289da;
   font-size: 50px;
   padding: 0;
+  text-decoration: none;
+  &:hover {
+    color: #8d9edb !important;
+  }
 }
 
 .navLink {

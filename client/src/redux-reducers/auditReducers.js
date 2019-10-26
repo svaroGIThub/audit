@@ -3,6 +3,7 @@ const auditReducers = (state = { isOpen: false }, action) => {
     case "audit/open":
       return {
         isOpen: true,
+        auditId: action.data.auditId,
         name: action.data.name,
         clientName: action.data.clientName,
         clientAbbreviation: action.data.clientAbbreviation,

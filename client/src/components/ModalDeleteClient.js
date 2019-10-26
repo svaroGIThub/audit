@@ -62,7 +62,7 @@ function ModalDeleteClient(props) {
           style={{ pointerEvents: "none" }}
           disabled
         >
-          <i className="fas fa-trash lead" />
+          <i className="fas fa-trash lead" style={{ color: "#99aab5" }} />
         </Button>
       </span>
     </OverlayTrigger>

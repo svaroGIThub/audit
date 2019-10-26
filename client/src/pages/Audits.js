@@ -5,6 +5,7 @@ import {
   hideAuditMenu,
   setHomeActive
 } from "../redux-actions/navbarActions";
+import { closeAudit } from "../redux-actions/auditActions";
 import { Col, Row, Spinner, ListGroup } from "react-bootstrap";
 import Layout from "./Layout";
 import API from "../utils/API";
@@ -29,11 +30,11 @@ class Audits extends Component {
   };
 
   componentDidMount() {
-    // show home menu and hide audit menu
+    // show and hide menus
     this.props.showHomeMenu();
-    this.props.hideAuditMenu();
-    // set active item in the home menu
     this.props.setHomeActive("Auditorías");
+    this.props.hideAuditMenu();
+    this.props.closeAudit();
     // fetch audits
     API.fetchAudits()
       .then(res => {
@@ -136,6 +137,8 @@ class Audits extends Component {
           );
           this.setState({ filteredAudits: sortedAudits });
           break;
+        default:
+        // do nothing
       }
     });
   };
@@ -228,19 +231,14 @@ class Audits extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.user
-  };
-};
-
 const mapDispatchToProps = {
   showHomeMenu,
   hideAuditMenu,
-  setHomeActive
+  setHomeActive,
+  closeAudit
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(Audits);

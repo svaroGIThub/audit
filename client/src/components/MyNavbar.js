@@ -1,24 +1,32 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Button, Nav } from "react-bootstrap";
 import fire from "../firebase/Fire";
 import "./mynavbar.scss";
+import * as auditActions from "../redux-actions/auditActions";
 
 function MyNavbar() {
   const user = useSelector(state => state.user);
   const navbar = useSelector(state => state.navbar);
   const audit = useSelector(state => state.audit);
 
+  const dispatch = useDispatch();
+
   const logout = () => {
+    // sign out of session
     fire.auth().signOut();
+    // close audit
+    dispatch(auditActions.closeAudit());
   };
 
   return (
     <>
       {/* VERTICAL navbar */}
       <Nav id="navStyle" className="flex-column p-3 h-100">
-        <Nav.Item className="text-center" id="navLogo">
-          APAG
+        <Nav.Item className="text-center">
+          <a id="navLogo" href="/audits">
+            APAG
+          </a>
         </Nav.Item>
         {/* home menu */}
         {navbar.homeMenu.show ? (
@@ -53,14 +61,16 @@ function MyNavbar() {
             </Nav.Item>
             <Nav.Link
               className="navLink pb-1 pl-0"
-              href={navbar.auditMenu.items[0].to}
+              href={"/audit/home/" + audit.auditId}
+              active={navbar.auditMenu.active === "Inicio" ? true : false}
             >
               <i className="fas fa-home" style={{ width: "32px" }} />
               Inicio
             </Nav.Link>
             <Nav.Link
               className="navLink pb-1 pl-0"
-              href={navbar.auditMenu.items[1].to}
+              href={"/audit/details/" + audit.auditId}
+              active={navbar.auditMenu.active === "Detalles" ? true : false}
             >
               <i className="fas fa-info-circle" style={{ width: "32px" }} />
               Detalles
@@ -70,28 +80,32 @@ function MyNavbar() {
             </Nav.Item>
             <Nav.Link
               className="navLink pb-1 pl-0"
-              href={navbar.auditMenu.items[2].to}
+              href={"/audit/planning/" + audit.auditId}
+              active={navbar.auditMenu.active === "Planeación" ? true : false}
             >
               <i className="fas fa-tasks" style={{ width: "32px" }} />
               Planeación
             </Nav.Link>
             <Nav.Link
               className="navLink pb-1 pl-0"
-              href={navbar.auditMenu.items[3].to}
+              href={"/audit/execution/" + audit.auditId}
+              active={navbar.auditMenu.active === "Ejecución" ? true : false}
             >
               <i className="fas fa-chess" style={{ width: "32px" }} />
               Ejecución
             </Nav.Link>
             <Nav.Link
               className="navLink pb-1 pl-0"
-              href={navbar.auditMenu.items[4].to}
+              href={"/audit/reporting/" + audit.auditId}
+              active={navbar.auditMenu.active === "Informes" ? true : false}
             >
               <i className="fas fa-folder-open" style={{ width: "32px" }} />
               Informes
             </Nav.Link>
             <Nav.Link
               className="navLink pb-1 pl-0"
-              href={navbar.auditMenu.items[5].to}
+              href={"/audit/followup/" + audit.auditId}
+              active={navbar.auditMenu.active === "Seguimiento" ? true : false}
             >
               <i className="fas fa-flag" style={{ width: "32px" }} />
               Seguimiento
@@ -101,14 +115,16 @@ function MyNavbar() {
             </Nav.Item>
             <Nav.Link
               className="navLink pb-1 pl-0"
-              href={navbar.auditMenu.items[6].to}
+              href={"/audit/balanza/" + audit.auditId}
+              active={navbar.auditMenu.active === "Nómina" ? true : false}
             >
               <i className="far fa-file-alt" style={{ width: "32px" }} />
               Nómina
             </Nav.Link>
             <Nav.Link
               className="navLink pb-1 pl-0"
-              href={navbar.auditMenu.items[7].to}
+              href={"/audit/nómina/" + audit.auditId}
+              active={navbar.auditMenu.active === "Balanza" ? true : false}
             >
               <i className="far fa-file-alt" style={{ width: "32px" }} />
               Balanza

@@ -11,71 +11,11 @@ import ModalDeleteClient from "../components/ModalDeleteClient";
 class Clients extends Component {
   state = {
     isLoadingClients: true,
-    clients: [],
-    // all alerts
-    showAlert: false,
-    alertVariant: null,
-    alertHeading: null,
-    alertBody: null
+    clients: []
   };
-
-  // edit client modal arrow functions
-  handleShowEditModal = id => {
-    API.getClientInfo(id)
-      .then(res => {
-        this.setState(
-          {
-            idToUpdate: res.data.id,
-            editName: res.data.name,
-            editAcronym: res.data.acronym,
-            editRfc: res.data.rfc,
-            editAddress: res.data.address
-          },
-          () => this.setState({ showEditModal: true })
-        );
-      })
-      .catch(err => console.log(err));
-  };
-  handleCloseEditModal = () => this.setState({ showEditModal: false });
-  handleEditInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
-  handleEditFormSubmit = event => {
-    event.preventDefault();
-    API.saveEditedClient({
-      id: this.state.idToUpdate,
-      name: this.state.editName,
-      acronym: this.state.editAcronym,
-      rfc: this.state.editRfc,
-      address: this.state.editAddress
-    })
-      .then(res => {
-        this.handleShowAlert(
-          "success",
-          "Éxito.",
-          "El Cliente ha sido editado satisfactoriamente."
-        );
-        this.handleCloseEditModal();
-        this.loadClients();
-      })
-      .catch(err => console.log(err));
-  };
-
-  // alert arrow functions
-  handleShowAlert = (variant, heading, body) => {
-    this.setState(
-      { alertVariant: variant, alertHeading: heading, alertBody: body },
-      () => this.setState({ showAlert: true })
-    );
-    // this.setState.myalert({ variant: variant, heading: heading, body: body, show: true });
-  };
-  handleCloseAlert = () => this.setState({ showAlert: false });
 
   componentDidMount() {
-    // set active link
+    // show and hide menus
     this.props.setHomeActive("Clientes");
     // fetch clients
     API.fetchClients()
@@ -103,7 +43,7 @@ class Clients extends Component {
           this.state.clients.length ? (
             <Table className="mt-2" striped bordered responsive>
               <thead>
-                <tr>
+                <tr className="bg-white">
                   <th>Nombre</th>
                   <th>Abreviatura</th>
                   <th>RFC</th>
@@ -145,17 +85,11 @@ class Clients extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.user
-  };
-};
-
 const mapDispatchToProps = {
   setHomeActive
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(Clients);

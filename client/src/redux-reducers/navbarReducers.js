@@ -36,8 +36,7 @@ const navbarReducers = (
       return {
         ...state,
         auditMenu: {
-          show: true,
-          items: action.data
+          show: true
         }
       };
     case "navbar/hideAuditMenu":
@@ -45,6 +44,14 @@ const navbarReducers = (
         ...state,
         auditMenu: {
           show: false
+        }
+      };
+    case "navbar/setAuditActive":
+      return {
+        ...state,
+        auditMenu: {
+          ...state.auditMenu,
+          active: action.data
         }
       };
     default:

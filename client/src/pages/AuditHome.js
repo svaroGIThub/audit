@@ -11,22 +11,12 @@ function AuditHome(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // show home menu and hide audit menu
+    // show audit menu and hide home menu and set active link
     dispatch(navbarActions.hideHomeMenu());
-    let auditId = props.routeProps.match.params.auditId;
-    let auditMenuItems = [
-      { to: "/audit/home/" + auditId, name: "Inicio" },
-      { to: "/audit/details/" + auditId, name: "Detalles" },
-      { to: "/audit/planning/" + auditId, name: "Planeación" },
-      { to: "/audit/execution/" + auditId, name: "Ejecución" },
-      { to: "/audit/reporting/" + auditId, name: "Informes" },
-      { to: "/audit/followup/" + auditId, name: "Seguimiento" },
-      { to: "/audit/balanza/" + auditId, name: "Nómina" },
-      { to: "/audit/nómina/" + auditId, name: "Balanza" }
-    ];
-    dispatch(navbarActions.showAuditMenu(auditMenuItems));
-    // open audit
+    dispatch(navbarActions.showAuditMenu());
+    dispatch(navbarActions.setAuditActive("Inicio"));
     // fetch audit
+    let auditId = props.routeProps.match.params.auditId;
     API.fetchOneAudit(auditId)
       .then(res => {
         // open audit

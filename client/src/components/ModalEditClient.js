@@ -200,7 +200,7 @@ function ModalEditClient(props) {
           style={{ pointerEvents: "none" }}
           disabled
         >
-          <i className="fas fa-edit lead" />
+          <i className="fas fa-edit lead" style={{ color: "#99aab5"}} />
         </Button>
       </span>
     </OverlayTrigger>
