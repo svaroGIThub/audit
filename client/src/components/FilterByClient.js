@@ -32,7 +32,7 @@ function FilterByClient(props) {
       <Dropdown.Toggle
         variant="transparent"
         className="m-0 p-0"
-        style={{ color: "#2c2f33" }}
+        style={{ color: "#264bc4" }}
       >
         {props.activeClient}
       </Dropdown.Toggle>
@@ -51,9 +51,9 @@ function FilterByClient(props) {
               className="dropdownitem"
               onClick={() => props.handleFilterByClient(c)}
               key={c}
-              active={c === props.activeClient ? true : false}
+              active={"Sólo " + c === props.activeClient ? true : false}
             >
-              {c}
+              {"Sólo " + c}
             </Dropdown.Item>
           );
         })}

@@ -116,11 +116,11 @@ function MyNavbar() {
           </>
         ) : null}
         {/* bottom section */}
-        <Nav.Item className="pb-0 mt-auto" style={{ color: "#f4dc64" }}>
+        <Nav.Item className="pb-0 mt-auto" style={{ color: "gainsboro" }}>
           <i className="fas fa-user" style={{ width: "28px" }} />
           {user.name + " " + user.firstSurname}
         </Nav.Item>
-        <Nav.Item className="mb-2" style={{ color: "#f4dc64" }}>
+        <Nav.Item className="mb-2" style={{ color: "gainsboro" }}>
           <i className="fas fa-shield-alt" style={{ width: "28px" }} />
           {user.role}
         </Nav.Item>
