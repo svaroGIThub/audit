@@ -23,7 +23,7 @@ class Audits extends Component {
     activeClient: "Todos los Clientes",
     pageCount: 0,
     activePage: 1,
-    productsPerPage: 5,
+    productsPerPage: 8,
     offset: null,
     limit: null,
     sortingTitle: "Orden alfabético A-Z"
