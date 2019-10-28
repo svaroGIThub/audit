@@ -16,6 +16,7 @@ const generatePages = props => {
       <Pagination.Item
         key={i}
         className="itemsStyle"
+        
         onClick={() => props.handleChangePage(i)}
         active={i === props.activePage ? true : false}
       >

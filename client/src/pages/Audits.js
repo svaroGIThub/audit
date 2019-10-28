@@ -192,12 +192,12 @@ class Audits extends Component {
                           href={"/audit/home/" + audit.auditId}
                         >
                           <div className="d-flex flex-row">
-                            <h3
+                            <h4
                               className="mr-2 mb-0"
-                              style={{ color: "#2c2f33" }}
+                              style={{ color: "#516b8a" }}
                             >
                               {audit.name}
-                            </h3>
+                            </h4>
                           </div>
                           <p
                             className="mb-0 description"
@@ -206,7 +206,7 @@ class Audits extends Component {
                             {audit.description}
                           </p>
                           <small className="text-secondary">
-                            Última actualización {audit.updatedAt}
+                            Última modificación: {audit.updatedAt}
                           </small>
                         </ListGroup.Item>
                       );

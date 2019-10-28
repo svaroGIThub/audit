@@ -14,9 +14,9 @@ import Audits from "./pages/Audits";
 import Clients from "./pages/Clients";
 import Workplan from "./pages/Workplan";
 import Details from "./pages/Details";
+import Planning from "./pages/Planning";
 // import Balanza from "./pages/consult/Balanza";
 // import Nomina from "./pages/consult/Nómina";
-// import Planning from "./pages/planning/Planning";
 // import CCI from "./pages/planning/CCI";
 // import CEFS from "./pages/planning/CEFS";
 
@@ -60,6 +60,11 @@ function App() {
             exact
             path="/audit/details/:auditId"
             render={props => <Details routeProps={props} />}
+          />
+          <Route
+            exact
+            path="/audit/planning/:auditId"
+            render={props => <Planning routeProps={props} />}
           />
           <Redirect from="/" to="/audits" />
         </Switch>

@@ -1,0 +1,33 @@
+// .checkboxStyle {
+//   &.custom-control-input {
+//     &:focus {
+//       outline: none;
+//       box-shadow: none !important;
+//       border: 0px !important;
+//     }
+//     &:active {
+//       outline: none;
+//       box-shadow: none !important;
+//       border: 0px !important;
+//     }
+//     &:checked {
+//       outline: none;
+//       box-shadow: none !important;
+//       border: 0px !important;
+//     }
+//     outline: none;
+//     box-shadow: none !important;
+//     border: 0px !important;
+//   }
+// }
+
+.checkbox input[type="checkbox"]:focus + label::before {
+  outline: none;
+  box-shadow: none !important;
+  border: 0px !important;
+  -webkit-appearance: none !important;
+
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+}

@@ -32,7 +32,7 @@ function FilterByClient(props) {
       <Dropdown.Toggle
         variant="transparent"
         className="m-0 p-0"
-        style={{ color: "#264bc4" }}
+        style={{ color: "#516b8a" }}
       >
         {props.activeClient}
       </Dropdown.Toggle>
