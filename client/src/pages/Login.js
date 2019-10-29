@@ -17,66 +17,36 @@ function Login() {
 
   return (
     <Formik
-      initialValues={{ email: "", password: "", rememberme: false }}
+      initialValues={{ email: "", password: "" }}
       onSubmit={(values, { setSubmitting }) => {
         setSubmitting(true);
-        if (values.rememberme) {
-          fire
-            .auth()
-            .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-            .then(function() {
-              return fire
-                .auth()
-                .signInWithEmailAndPassword(values.email, values.password)
-                .then(res => {
-                  let uid = res.user.uid;
-                  // fetch user info from the db
-                  API.fetchUserInfo(uid)
-                    .then(res => {
-                      alert("¡Bienvenido!");
-                      dispatch(userActions.loginUser(res.data));
-                    })
-                    .catch(error => {
-                      alert("Error de la BD -> " + error);
-                      console.log(error);
-                      setSubmitting(false);
-                    });
-                });
-            })
-            .catch(function(error) {
-              alert("Error de Firebase -> " + error.message);
-              console.log(error.code);
-              setSubmitting(false);
-            });
-        } else {
-          fire
-            .auth()
-            .setPersistence(firebase.auth.Auth.Persistence.SESSION)
-            .then(function() {
-              return fire
-                .auth()
-                .signInWithEmailAndPassword(values.email, values.password)
-                .then(res => {
-                  let uid = res.user.uid;
-                  // fetch user info from the db
-                  API.fetchUserInfo(uid)
-                    .then(res => {
-                      alert("¡Bienvenido!");
-                      dispatch(userActions.loginUser(res.data));
-                    })
-                    .catch(error => {
-                      alert("Error de la BD -> " + error);
-                      console.log(error);
-                      setSubmitting(false);
-                    });
-                });
-            })
-            .catch(function(error) {
-              alert("Error de Firebase -> " + error.message);
-              console.log(error.code);
-              setSubmitting(false);
-            });
-        }
+        fire
+          .auth()
+          .setPersistence(firebase.auth.Auth.Persistence.SESSION)
+          .then(function() {
+            return fire
+              .auth()
+              .signInWithEmailAndPassword(values.email, values.password)
+              .then(res => {
+                let uid = res.user.uid;
+                // fetch user info from the db
+                API.fetchUserInfo(uid)
+                  .then(res => {
+                    alert("¡Bienvenido!");
+                    dispatch(userActions.loginUser(res.data));
+                  })
+                  .catch(error => {
+                    alert("Error de la BD -> " + error);
+                    console.log(error);
+                    setSubmitting(false);
+                  });
+              });
+          })
+          .catch(function(error) {
+            alert("Error de Firebase -> " + error.message);
+            console.log(error.code);
+            setSubmitting(false);
+          });
       }}
     >
       {({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
@@ -112,27 +82,6 @@ function Login() {
                 placeholder="Contraseña"
                 className="noglowInput"
               />
-            </Form.Group>
-            <Form.Group controlId="rememberme">
-              {/* <Form.Check
-                type="checkbox"
-                onChange={handleChange}
-                label={<span style={{ color: "#99aab5" }}>Recuérdame</span>}
-                className="text-muted"
-              /> */}
-              <div className="custom-control custom-switch">
-                <input
-                  type="checkbox"
-                  value={values.password}
-                  className="custom-control-input checkboxStyle"
-                  id="switch1"
-                  defaultChecked={false}
-                  disabled={true}
-                />
-                <label className="custom-control-label" htmlFor="switch1">
-                  Recuérdame
-                </label>
-              </div>
             </Form.Group>
             <Button
               className="btn-lg mt-3 purplebttn"

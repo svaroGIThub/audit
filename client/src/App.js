@@ -12,7 +12,6 @@ import Login from "./pages/Login";
 import AuditHome from "./pages/AuditHome";
 import Audits from "./pages/Audits";
 import Clients from "./pages/Clients";
-import Workplan from "./pages/Workplan";
 import Details from "./pages/Details";
 import Planning from "./pages/Planning";
 // import Balanza from "./pages/consult/Balanza";
@@ -50,11 +49,6 @@ function App() {
             exact
             path="/audit/home/:auditId"
             render={props => <AuditHome routeProps={props} />}
-          />
-          <Route
-            exact
-            path="/audit/workplan/:auditId"
-            render={props => <Workplan routeProps={props} />}
           />
           <Route
             exact

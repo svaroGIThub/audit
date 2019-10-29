@@ -19,17 +19,12 @@ function Details() {
         <span className="text-muted">Detalles</span>
       </h2>
       <hr />
-      <Card>
-        <Card.Header>Detalles</Card.Header>
-        <Card.Body>
-          <Card.Title>Descripción</Card.Title>
-          <Card.Text>{audit.description}</Card.Text>
-          <Card.Title>Última modificación en</Card.Title>
-          <Card.Text>{audit.createdAt}</Card.Text>
-          <Card.Title>Creada en</Card.Title>
-          <Card.Text>{audit.createdAt}</Card.Text>
-        </Card.Body>
-      </Card>
+      <h5>Descripción</h5>
+      <p>{audit.description}</p>
+      <h5>Última modificación en</h5>
+      <p>{audit.createdAt}</p>
+      <h5>Creada en</h5>
+      <p>{audit.createdAt}</p>
     </Layout>
   ) : null;
 }
