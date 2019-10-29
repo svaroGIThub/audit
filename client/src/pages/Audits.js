@@ -194,7 +194,7 @@ class Audits extends Component {
                           <div className="d-flex flex-row">
                             <h4
                               className="mr-2 mb-0"
-                              style={{ color: "#516b8a" }}
+                              style={{ color: "#2c2f33" }}
                             >
                               {audit.name}
                             </h4>

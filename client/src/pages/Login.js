@@ -114,12 +114,25 @@ function Login() {
               />
             </Form.Group>
             <Form.Group controlId="rememberme">
-              <Form.Check
+              {/* <Form.Check
                 type="checkbox"
                 onChange={handleChange}
                 label={<span style={{ color: "#99aab5" }}>Recuérdame</span>}
                 className="text-muted"
-              />
+              /> */}
+              <div className="custom-control custom-switch">
+                <input
+                  type="checkbox"
+                  value={values.password}
+                  className="custom-control-input checkboxStyle"
+                  id="switch1"
+                  defaultChecked={false}
+                  disabled={true}
+                />
+                <label className="custom-control-label" htmlFor="switch1">
+                  Recuérdame
+                </label>
+              </div>
             </Form.Group>
             <Button
               className="btn-lg mt-3 purplebttn"
