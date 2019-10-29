@@ -14,6 +14,9 @@ import Audits from "./pages/Audits";
 import Clients from "./pages/Clients";
 import Details from "./pages/Details";
 import Planning from "./pages/Planning";
+import Execution from "./pages/Execution";
+import Reporting from "./pages/Reporting";
+import Followup from "./pages/Followup";
 // import Balanza from "./pages/consult/Balanza";
 // import Nomina from "./pages/consult/Nómina";
 // import CCI from "./pages/planning/CCI";
@@ -59,6 +62,21 @@ function App() {
             exact
             path="/audit/planning/:auditId"
             render={props => <Planning routeProps={props} />}
+          />
+          <Route
+            exact
+            path="/audit/execution/:auditId"
+            render={props => <Execution routeProps={props} />}
+          />
+          <Route
+            exact
+            path="/audit/reporting/:auditId"
+            render={props => <Reporting routeProps={props} />}
+          />
+          <Route
+            exact
+            path="/audit/followup/:auditId"
+            render={props => <Followup routeProps={props} />}
           />
           <Redirect from="/" to="/audits" />
         </Switch>

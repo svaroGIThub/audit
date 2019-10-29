@@ -72,7 +72,7 @@ function Login() {
                 autoFocus
               />
             </Form.Group>
-            <Form.Group controlId="password">
+            <Form.Group className="mb-4" controlId="password">
               <Form.Control
                 type="password"
                 value={values.password}
@@ -84,7 +84,7 @@ function Login() {
               />
             </Form.Group>
             <Button
-              className="btn-lg mt-3 purplebttn"
+              className="btn-lg purplebttn"
               type="submit"
               disabled={isSubmitting}
               block
